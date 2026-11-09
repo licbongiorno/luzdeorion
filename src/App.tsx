@@ -133,8 +133,12 @@ const practiceGuides: Record<string, PracticeGuide> = {
 const pageForSlug = (slug: string) => practicePages.find((page) => page.slug === slug);
 const pageUrl = (slug: string) => `/practicas/${slug}`;
 let bowlAudioContext: AudioContext | null = null;
+let lastBowlPlayAt = 0;
 function playBowlSound() {
   try {
+    const timestamp = Date.now();
+    if (timestamp - lastBowlPlayAt < 650) return;
+    lastBowlPlayAt = timestamp;
     const AudioContextConstructor = window.AudioContext;
     if (!AudioContextConstructor) return;
     bowlAudioContext ??= new AudioContextConstructor();
