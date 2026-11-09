@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import "./styles.css";
 
 const phone = "5493546525509";
 const wa = (message: string) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
 const services = [
-  { n: "01", title: "Cuencos sonoros", text: "Baños de sonido y resonancias de cuencos para hacer una pausa, explorar la escucha y acompañar momentos de meditación y descanso.", tag: "Sonido & vibración", icon: "◖" },
-  { n: "02", title: "Masajes integrales", text: "Distintas técnicas de contacto corporal —oriental, relajante, descontracturante, californiano y más— elegidas según tus preferencias.", tag: "Cuerpo & presencia", icon: "✺" },
-  { n: "03", title: "Yoga & respiración", text: "Movimiento consciente, posturas adaptables y ejercicios de respiración para explorar la presencia y respetar los tiempos de cada cuerpo.", tag: "Movimiento consciente", icon: "〰" },
-  { n: "04", title: "Arte & expresión", text: "Colores, formas y materiales como lenguajes para crear, explorar emociones y expresar aquello que a veces no encuentra palabras.", tag: "Creación & emoción", icon: "✳" },
-  { n: "05", title: "Reiki & aromaterapia", text: "Una experiencia de bienestar que puede integrar prácticas de tradición energética y aromas, siempre con información y cuidados previos.", tag: "Energía & calma", icon: "❋" },
-  { n: "06", title: "Exploración interior", text: "Prácticas simbólicas y de reflexión para explorar preguntas personales, imágenes y relatos desde una mirada abierta y sin respuestas impuestas.", tag: "Autoconocimiento", icon: "☾" },
+  { n: "01", slug: "cuencos-sonoros", title: "Cuencos sonoros", text: "Una invitación a escuchar las resonancias de los cuencos, respirar y regalarte un momento de pausa, sin expectativas.", tag: "Sonido & escucha", icon: "◖" },
+  { n: "02", slug: "masajes-integrales", title: "Masajes integrales", text: "Distintas formas de trabajo corporal, conversadas con vos para cuidar tus preferencias, tu comodidad y tus límites.", tag: "Cuerpo & presencia", icon: "✺" },
+  { n: "03", slug: "yoga", title: "Yoga & respiración", text: "Movimiento consciente, posturas adaptables y ejercicios de respiración para explorar la presencia y respetar los tiempos de cada cuerpo.", tag: "Movimiento consciente", icon: "〰" },
+  { n: "04", slug: "arteterapia", title: "Arte & expresión", text: "Colores, formas y materiales como lenguajes para crear, explorar emociones y expresar aquello que a veces no encuentra palabras.", tag: "Creación & emoción", icon: "✳" },
+  { n: "05", slug: "reiki", title: "Reiki y aromaterapia", text: "Un encuentro de quietud y exploración sensorial. Los aromas son opcionales y se conversan siempre con cuidado.", tag: "Energía & sentidos", icon: "❋" },
+  { n: "06", slug: "exploracion-interior", title: "Exploración interior", text: "Prácticas simbólicas y de reflexión para explorar preguntas personales, imágenes y relatos desde una mirada abierta y sin respuestas impuestas.", tag: "Autoconocimiento", icon: "☾" },
 ];
 
 const experiences = [
@@ -21,13 +21,14 @@ const experiences = [
 
 
 function SoundArtwork() {
+  const gradientId = useId().replace(/:/g, "");
   return <svg className="experience-svg sound-artwork" viewBox="0 0 520 520" role="img" aria-label="Ondas concéntricas que representan la resonancia de un cuenco sonoro">
-    <defs><radialGradient id="soundGlow"><stop offset="0" stopColor="#e8cda9" stopOpacity=".9"/><stop offset="1" stopColor="#e8cda9" stopOpacity="0"/></radialGradient><linearGradient id="bowlMetal" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#a87b59"/><stop offset=".48" stopColor="#e4c6a2"/><stop offset="1" stopColor="#8b684f"/></linearGradient></defs>
-    <circle cx="260" cy="245" r="205" fill="url(#soundGlow)"/>
+    <defs><radialGradient id={`soundGlow-${gradientId}`}><stop offset="0" stopColor="#e8cda9" stopOpacity=".9"/><stop offset="1" stopColor="#e8cda9" stopOpacity="0"/></radialGradient><linearGradient id={`bowlMetal-${gradientId}`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#a87b59"/><stop offset=".48" stopColor="#e4c6a2"/><stop offset="1" stopColor="#8b684f"/></linearGradient></defs>
+    <circle cx="260" cy="245" r="205" fill={`url(#soundGlow-${gradientId})`}/>
     <g className="sound-waves" fill="none" stroke="#8c9b83" strokeWidth="1.5"><circle cx="260" cy="240" r="95"/><circle cx="260" cy="240" r="132"/><circle cx="260" cy="240" r="170"/><circle cx="260" cy="240" r="202"/></g>
     <g className="sound-wave-dashes" fill="none" stroke="#b17d5d" strokeWidth="2" strokeLinecap="round"><path d="M80 240a180 180 0 0 1 360 0"/><path d="M112 240a148 148 0 0 1 296 0"/></g>
     <ellipse cx="260" cy="330" rx="105" ry="18" fill="#293b32" opacity=".10"/>
-    <path d="M170 265 Q182 350 260 352 Q338 350 350 265 Z" fill="url(#bowlMetal)" stroke="#8e6d53" strokeWidth="2"/>
+    <path d="M170 265 Q182 350 260 352 Q338 350 350 265 Z" fill={`url(#bowlMetal-${gradientId})`} stroke="#8e6d53" strokeWidth="2"/>
     <ellipse cx="260" cy="265" rx="90" ry="19" fill="#e7d2b6" stroke="#987252" strokeWidth="3"/>
     <ellipse cx="260" cy="265" rx="78" ry="11" fill="#6d7868"/>
     <path d="M182 291 Q260 318 338 291" fill="none" stroke="#f4e4cb" strokeWidth="3" opacity=".65"/>
@@ -36,11 +37,12 @@ function SoundArtwork() {
   </svg>;
 }
 function ArtArtwork() {
+  const gradientId = useId().replace(/:/g, "");
   return <svg className="experience-svg art-artwork" viewBox="0 0 520 520" role="img" aria-label="Trazos y formas de colores que componen una obra abstracta">
-    <defs><linearGradient id="paintA" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#c77f61"/><stop offset="1" stopColor="#e5b98e"/></linearGradient><linearGradient id="paintB" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#758b77"/><stop offset="1" stopColor="#bdc2a1"/></linearGradient></defs>
+    <defs><linearGradient id={`paintA-${gradientId}`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#c77f61"/><stop offset="1" stopColor="#e5b98e"/></linearGradient><linearGradient id={`paintB-${gradientId}`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#758b77"/><stop offset="1" stopColor="#bdc2a1"/></linearGradient></defs>
     <circle cx="260" cy="260" r="202" fill="#e9dfcf" opacity=".55"/>
-    <path className="paint-stroke stroke-one" d="M110 305 C105 180 215 90 315 120 C390 142 422 220 382 285" fill="none" stroke="url(#paintA)" strokeWidth="43" strokeLinecap="round"/>
-    <path className="paint-stroke stroke-two" d="M135 365 C205 430 330 405 385 320" fill="none" stroke="url(#paintB)" strokeWidth="27" strokeLinecap="round"/>
+    <path className="paint-stroke stroke-one" d="M110 305 C105 180 215 90 315 120 C390 142 422 220 382 285" fill="none" stroke={`url(#paintA-${gradientId})`} strokeWidth="43" strokeLinecap="round"/>
+    <path className="paint-stroke stroke-two" d="M135 365 C205 430 330 405 385 320" fill="none" stroke={`url(#paintB-${gradientId})`} strokeWidth="27" strokeLinecap="round"/>
     <path className="paint-stroke stroke-three" d="M170 140 Q245 215 350 180" fill="none" stroke="#b18b65" strokeWidth="8" strokeLinecap="round"/>
     <path d="M205 210 C240 170 310 180 327 230 C345 285 290 335 238 309 C200 290 185 245 205 210Z" fill="#d9a47f" opacity=".75" className="paint-blob"/>
     <path d="M130 150 Q170 125 190 160 M350 360 Q390 345 405 370" fill="none" stroke="#667966" strokeWidth="3" strokeLinecap="round"/>
@@ -62,6 +64,67 @@ function YogaArtwork() {
     <path d="M150 405 Q260 435 370 405" fill="none" stroke="#a97858" strokeWidth="3" strokeLinecap="round"/>
     <path d="M105 250 Q75 220 105 190 M415 250 Q445 220 415 190" fill="none" stroke="#c38e6c" strokeWidth="3" strokeLinecap="round" className="breath-arrows"/>
   </svg>;
+}
+
+function MassageArtwork() {
+  return <svg className="experience-svg massage-artwork" viewBox="0 0 520 520" aria-hidden="true">
+    <circle cx="260" cy="260" r="205" fill="#e9dfcf" opacity=".55"/>
+    <g className="massage-rings" fill="none" stroke="#7b8d79" strokeWidth="2"><ellipse cx="260" cy="260" rx="78" ry="152"/><ellipse cx="260" cy="260" rx="125" ry="183"/><ellipse cx="260" cy="260" rx="173" ry="207"/></g>
+    <path d="M170 300c38-82 142-82 180 0M190 330c28-50 112-50 140 0" fill="none" stroke="#b9785c" strokeWidth="9" strokeLinecap="round"/>
+    <circle cx="260" cy="222" r="20" fill="#d2a581"/>
+  </svg>;
+}
+
+function EnergyArtwork() {
+  return <svg className="experience-svg energy-artwork" viewBox="0 0 520 520" aria-hidden="true">
+    <defs><radialGradient id="energyGlow"><stop stopColor="#f4ddb0"/><stop offset="1" stopColor="#f4ddb0" stopOpacity="0"/></radialGradient></defs>
+    <circle cx="260" cy="260" r="210" fill="url(#energyGlow)"/>
+    <g className="energy-rings" fill="none" stroke="#82917a" strokeWidth="1.5"><circle cx="260" cy="260" r="70"/><circle cx="260" cy="260" r="112"/><circle cx="260" cy="260" r="158"/><circle cx="260" cy="260" r="198"/></g>
+    <path d="M260 205c-42 0-68 27-68 61 0 39 33 72 68 112 35-40 68-73 68-112 0-34-26-61-68-61Z" fill="#bd8b91" opacity=".52"/>
+    <circle cx="260" cy="260" r="8" fill="#b9785c"/>
+  </svg>;
+}
+
+function BotanicalArtwork() {
+  return <svg className="experience-svg botanical-artwork" viewBox="0 0 520 520" aria-hidden="true">
+    <circle cx="260" cy="260" r="205" fill="#dfe4d5" opacity=".7"/>
+    <path d="M260 410V180m0 150c-92-14-126-74-105-141 72 15 111 59 105 141Zm0-56c86-18 117-77 91-140-72 19-107 65-91 140Zm0-80c-55-31-65-77-41-119 47 26 63 65 41 119Z" fill="#71846f" opacity=".76" stroke="#637963" strokeWidth="2"/>
+    <circle cx="260" cy="260" r="8" fill="#bf9161"/>
+  </svg>;
+}
+
+function ExplorationArtwork() {
+  return <svg className="experience-svg exploration-artwork" viewBox="0 0 520 520" aria-hidden="true">
+    <circle cx="260" cy="260" r="202" fill="#e9dfcf" opacity=".6"/>
+    <g className="exploration-orbits" fill="none" stroke="#87927d" strokeWidth="1.5"><ellipse cx="260" cy="260" rx="165" ry="75" transform="rotate(-35 260 260)"/><ellipse cx="260" cy="260" rx="165" ry="75" transform="rotate(35 260 260)"/><circle cx="260" cy="260" r="98"/></g>
+    <path d="m260 175 18 55 58 2-46 35 16 56-46-33-46 33 16-56-46-35 58-2Z" fill="#b9785c" opacity=".72"/>
+    <g fill="#bd925c"><circle cx="111" cy="180" r="5"/><circle cx="398" cy="323" r="4"/><circle cx="354" cy="122" r="3"/></g>
+  </svg>;
+}
+
+function ArtExperience() {
+  const [version, setVersion] = useState(0);
+  return <div className="art-experience" key={version}>
+    <ArtArtwork />
+    <button type="button" className="art-replay" onClick={() => setVersion((value) => value + 1)}>Volver a trazar <span aria-hidden="true">↻</span></button>
+  </div>;
+}
+
+function PracticeArtwork({ page }: { page: PracticePageData }) {
+  let artwork = <ExplorationArtwork />;
+  if (page.group === "sonido") artwork = <SoundArtwork />;
+  else if (page.group === "cuerpo") artwork = <MassageArtwork />;
+  else if (page.group === "movimiento") artwork = <YogaArtwork />;
+  else if (page.group === "creatividad") artwork = <ArtArtwork />;
+  else if (page.slug === "aromaterapia") artwork = <BotanicalArtwork />;
+  else if (page.group === "energia") artwork = <EnergyArtwork />;
+  return <div className={`practice-artwork practice-artwork-${page.group}`}>{artwork}</div>;
+}
+
+function ServiceArtwork({ slug }: { slug: string }) {
+  const page = practicePages.find((item) => item.slug === slug);
+  if (!page) return <SoundArtwork />;
+  return <PracticeArtwork page={page} />;
 }
 
 
@@ -132,75 +195,50 @@ const practiceGuides: Record<string, PracticeGuide> = {
 
 const pageForSlug = (slug: string) => practicePages.find((page) => page.slug === slug);
 const pageUrl = (slug: string) => `/practicas/${slug}`;
-let bowlAudioContext: AudioContext | null = null;
-let lastBowlPlayAt = 0;
-function playBowlSound() {
-  try {
-    const timestamp = Date.now();
-    if (timestamp - lastBowlPlayAt < 650) return;
-    lastBowlPlayAt = timestamp;
-    const AudioContextConstructor = window.AudioContext;
-    if (!AudioContextConstructor) return;
-    bowlAudioContext ??= new AudioContextConstructor();
-    const context = bowlAudioContext;
-    if (context.state === "suspended") void context.resume();
-    const now = context.currentTime;
-    const master = context.createGain();
-    master.gain.setValueAtTime(0.0001, now);
-    master.gain.exponentialRampToValueAtTime(0.32, now + 0.025);
-    master.gain.exponentialRampToValueAtTime(0.0001, now + 4.2);
-    const dryGain = context.createGain();
-    dryGain.gain.value = 0.78;
-    const convolver = context.createConvolver();
-    const impulseLength = Math.floor(context.sampleRate * 2.6);
-    const impulse = context.createBuffer(2, impulseLength, context.sampleRate);
-    for (let channelIndex = 0; channelIndex < 2; channelIndex++) {
-      const impulseChannel = impulse.getChannelData(channelIndex);
-      for (let i = 0; i < impulseLength; i++) {
-        impulseChannel[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impulseLength, 3.2);
-      }
+function useBowlPlayer() {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.55);
+
+  useEffect(() => {
+    const audio = new Audio("/audio/singing-bowl.ogg");
+    audio.preload = "none";
+    audio.volume = volume;
+    audioRef.current = audio;
+    const updatePlaying = () => setIsPlaying(!audio.paused && !audio.ended);
+    audio.addEventListener("play", updatePlaying);
+    audio.addEventListener("pause", updatePlaying);
+    audio.addEventListener("ended", updatePlaying);
+    return () => {
+      audio.pause();
+      audio.removeEventListener("play", updatePlaying);
+      audio.removeEventListener("pause", updatePlaying);
+      audio.removeEventListener("ended", updatePlaying);
+      audioRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+  }, [volume]);
+
+  const play = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = volume;
+    audio.currentTime = 0;
+    void audio.play().catch(() => setIsPlaying(false));
+  };
+
+  const stop = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     }
-    convolver.buffer = impulse;
-    const wetGain = context.createGain();
-    wetGain.gain.value = 0.24;
-    master.connect(dryGain);
-    dryGain.connect(context.destination);
-    master.connect(convolver);
-    convolver.connect(wetGain);
-    wetGain.connect(context.destination);
-    [174.61, 349.8, 523.9, 698.7, 1048].forEach((frequency, index) => {
-      const oscillator = context.createOscillator();
-      const partial = context.createGain();
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(frequency, now);
-      oscillator.detune.setValueAtTime(index % 2 === 0 ? -3 : 3, now);
-      partial.gain.value = [0.72, 0.22, 0.105, 0.055, 0.022][index];
-      oscillator.connect(partial);
-      partial.connect(master);
-      oscillator.start(now);
-      oscillator.stop(now + 4.25);
-    });
-    const noiseBuffer = context.createBuffer(1, Math.floor(context.sampleRate * 0.09), context.sampleRate);
-    const channel = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < channel.length; i++) channel[i] = (Math.random() * 2 - 1) * (1 - i / channel.length);
-    const noise = context.createBufferSource();
-    const filter = context.createBiquadFilter();
-    const tap = context.createGain();
-    filter.type = "bandpass";
-    filter.frequency.value = 1350;
-    filter.Q.value = 0.8;
-    tap.gain.setValueAtTime(0.0001, now);
-    tap.gain.exponentialRampToValueAtTime(0.12, now + 0.004);
-    tap.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
-    noise.buffer = noiseBuffer;
-    noise.connect(filter);
-    filter.connect(tap);
-    tap.connect(context.destination);
-    noise.start(now);
-    noise.stop(now + 0.09);
-  } catch {
-    // Si el navegador bloquea el audio, el resto de la experiencia sigue funcionando.
-  }
+    setIsPlaying(false);
+  };
+
+  return { isPlaying, volume, setVolume, play, stop };
 }
 function PracticePage({ page }: { page: PracticePageData }) {
   useEffect(() => {
@@ -214,6 +252,16 @@ function PracticePage({ page }: { page: PracticePageData }) {
       document.head.appendChild(canonical);
     }
     canonical.href = `https://luzdeorion.vercel.app${pageUrl(page.slug)}`;
+    const socialTitle = document.querySelector('meta[property="og:title"]');
+    socialTitle?.setAttribute("content", `${page.title} | Luz de Orión`);
+    const socialDescription = document.querySelector('meta[property="og:description"]');
+    socialDescription?.setAttribute("content", `${page.title}: ${page.intro}`);
+    const socialUrl = document.querySelector('meta[property="og:url"]');
+    socialUrl?.setAttribute("content", canonical.href);
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute("content", `${page.title} | Luz de Orión`);
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescription) twitterDescription.setAttribute("content", `${page.title}: ${page.intro}`);
   }, [page]);
   const related = practicePages.filter((item) => item.group === page.group && item.slug !== page.slug);
   const guide = practiceGuides[page.slug];
@@ -227,8 +275,8 @@ function PracticePage({ page }: { page: PracticePageData }) {
     <main id="contenido" className="practice-page">
       <div className="practice-breadcrumb"><a href="/">Inicio</a><span> / </span><a href="/#terapias">Prácticas</a><span> / </span><span>{page.title}</span></div>
       <section className="practice-hero">
-        <div className="practice-hero-copy"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title.split(" ").slice(0,-1).join(" ")} <i>{page.title.split(" ").slice(-1).join("")}</i></h1><p className="practice-lead">{page.lead}</p><p className="body-copy">{page.intro}</p><a className="button button-dark" href={wa(`Hola Marina, quisiera consultar por ${page.title}.`)} target="_blank" rel="noreferrer">Consultar por esta práctica <span>↗</span></a></div>
-        <div className="practice-hero-art" aria-hidden="true"><div className="practice-art-orbit"/><div className="practice-art-orbit second"/><span>✳</span><small>CUERPO · ENERGÍA · EMOCIÓN</small></div>
+        <div className="practice-hero-copy"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title.split(" ").slice(0,-1).join(" ")} <i>{page.title.split(" ").slice(-1).join("")}</i></h1><p className="practice-lead">{page.lead}</p><p className="body-copy">{page.intro}</p><p className="practice-modality-note">Los encuentros pueden ser presenciales u online. Consultá con Marina qué formato está disponible para esta práctica.</p><a className="button button-dark" href={wa(`Hola Marina, quisiera consultar por ${page.title}.`)} target="_blank" rel="noreferrer">Consultar por esta práctica <span>↗</span></a></div>
+        <div className={`practice-hero-art practice-hero-art-${page.group}`} aria-hidden="true"><div className="practice-art-orbit"/><div className="practice-art-orbit second"/><PracticeArtwork page={page}/><small>{page.eyebrow}</small></div>
       </section>
       <section className="practice-content">
         <p className="eyebrow">CONOCÉ LA PROPUESTA</p><h2>¿Qué es <i>esta práctica?</i></h2>
@@ -253,9 +301,70 @@ function PracticePage({ page }: { page: PracticePageData }) {
   </>;
 }
 
+const aromaNotes = [
+  { name: "Lavanda", note: "Floral y serena", tone: "lavender" },
+  { name: "Azahar", note: "Cítrica y luminosa", tone: "orange-blossom" },
+  { name: "Bosque", note: "Verde y amaderada", tone: "forest" },
+];
+
+function SensoryPause({ bowl }: { bowl: ReturnType<typeof useBowlPlayer> }) {
+  const [aroma, setAroma] = useState(0);
+  const [isBreathing, setIsBreathing] = useState(false);
+  const [breathPhase, setBreathPhase] = useState<"inhale" | "exhale">("inhale");
+
+  useEffect(() => {
+    if (!isBreathing) return;
+    const interval = window.setInterval(() => {
+      setBreathPhase((phase) => phase === "inhale" ? "exhale" : "inhale");
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [isBreathing]);
+
+  return <section className="sensory-pause" id="pausa" aria-labelledby="sensory-title">
+    <div className="sensory-copy">
+      <p className="eyebrow">UN RESPIRO EN EL CAMINO</p>
+      <h2 id="sensory-title">Este momento<br/><i>también es tuyo.</i></h2>
+      <p className="body-copy">Si te hace bien, quedate un instante. Podés seguir el ritmo de la animación, escuchar una nota suave o elegir un paisaje aromático para imaginar.</p>
+      <p className="sensory-note">Sin hacerlo perfecto. Si no te resulta cómodo, volvé a tu respiración natural o simplemente observá.</p>
+    </div>
+    <div className={`sensory-card ${isBreathing ? "is-breathing" : ""} ${bowl.isPlaying ? "is-sounding" : ""}`} data-aroma={aromaNotes[aroma].tone}>
+      <div className="sensory-orb" aria-hidden="true"><span/></div>
+      <p className="breath-cue">{isBreathing ? (breathPhase === "inhale" ? "Inhalá con suavidad" : "Exhalá sin apuro") : "A tu propio ritmo"}</p>
+      <button className="sensory-breath-button" type="button" aria-pressed={isBreathing} onClick={() => { if (isBreathing) setBreathPhase("inhale"); setIsBreathing(!isBreathing); }}>{isBreathing ? "Terminar la pausa" : "Acompañar mi respiración"}</button>
+      <div className="aroma-picker">
+        <span className="aroma-label">UN PAISAJE AROMÁTICO</span>
+        <div className="aroma-options" role="group" aria-label="Elegí una nota aromática para imaginar">
+          {aromaNotes.map((item, index) => <button key={item.name} type="button" aria-pressed={aroma === index} onClick={() => setAroma(index)}>{item.name}</button>)}
+        </div>
+        <p className="aroma-description" aria-live="polite"><strong>{aromaNotes[aroma].name}</strong> · {aromaNotes[aroma].note}</p>
+        <p className="aroma-disclaimer">Es una invitación a imaginar, no se aplica ni difunde ninguna fragancia. Podés disfrutar la pausa sin aromas.</p>
+      </div>
+      <div className="bowl-controls">
+        <button className="sensory-sound-button" type="button" onClick={bowl.isPlaying ? bowl.stop : bowl.play}><span aria-hidden="true">◖</span> {bowl.isPlaying ? "Detener el cuenco" : "Escuchar el cuenco"}</button>
+        <label className="bowl-volume" htmlFor="bowl-volume">Volumen <input id="bowl-volume" type="range" min="0" max="1" step="0.01" value={bowl.volume} onChange={(event) => bowl.setVolume(Number(event.target.value))} /></label>
+        <a className="audio-credit" href="https://commons.wikimedia.org/wiki/File:SingingBowl1.ogg" target="_blank" rel="noreferrer">Grabación: BambooBeast · dominio público</a>
+      </div>
+    </div>
+  </section>;
+}
+
+function GeneralFaq() {
+  const questions = [
+    { question: "¿Hay encuentros presenciales y online?", answer: "Sí, hay opciones presenciales y online. Consultá con Marina qué formato está disponible para la práctica que te interesa." },
+    { question: "¿Cómo sé qué práctica elegir?", answer: "Podés contarle a Marina qué te interesa, qué buscás y si hay algo que preferís evitar. La consulta sirve para conocer la propuesta antes de decidir." },
+    { question: "¿Puedo pedir ajustes o detener una experiencia?", answer: "Sí. Tus preferencias y límites se conversan antes, y podés pedir un cambio o detener la experiencia en cualquier momento." },
+    { question: "¿Las prácticas reemplazan la atención médica o psicológica?", answer: "No. Son propuestas de bienestar y exploración; no reemplazan diagnósticos, tratamientos ni el acompañamiento de profesionales de salud." },
+  ];
+  return <section className="general-faq section-pad" id="preguntas" aria-labelledby="general-faq-title">
+    <div className="general-faq-intro"><p className="eyebrow">ANTES DE ESCRIBIR</p><h2 id="general-faq-title">Unas respuestas<br/><i>para empezar.</i></h2><p className="body-copy">Si todavía tenés dudas, podés conversar con Marina antes de elegir.</p><a className="button button-dark" href={wa("Hola Marina, tengo algunas preguntas antes de elegir una práctica.")} target="_blank" rel="noreferrer">Consultar por WhatsApp <span>↗</span></a></div>
+    <div className="general-faq-list">{questions.map((item, index) => <details className="general-faq-item" key={item.question}><summary><span>0{index + 1}</span>{item.question}<b aria-hidden="true">+</b></summary><p>{item.answer}</p></details>)}</div>
+  </section>;
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(0);
+  const bowl = useBowlPlayer();
   const currentSlug = window.location.pathname.match(/^\/practicas\/([^/]+)\/?$/)?.[1];
   const currentPage = currentSlug ? pageForSlug(currentSlug) : undefined;
 
@@ -298,7 +407,9 @@ function App() {
         <nav id="primary-navigation" className={menuOpen ? "nav nav-open" : "nav"} aria-label="Navegación principal">
           <a href="#filosofia" onClick={closeMenu}>El espacio</a>
           <a href="#experiencias" onClick={closeMenu}>Experiencias</a>
+          <a href="#pausa" onClick={closeMenu}>Pausa</a>
           <a href="#terapias" onClick={closeMenu}>Prácticas</a>
+          <a href="#preguntas" onClick={closeMenu}>Preguntas</a>
           <a href="#marina" onClick={closeMenu}>Sobre Marina</a>
           <a className="nav-cta" href={wa("Hola Marina, quisiera conocer más sobre tus propuestas.")} target="_blank" rel="noreferrer">Hablemos <span>↗</span></a>
         </nav>
@@ -308,9 +419,9 @@ function App() {
         <section className="hero" id="inicio">
           <div className="hero-grain" />
           <div className="hero-copy">
-            <p className="eyebrow"><span className="eyebrow-line"/> UN VIAJE HACIA TU INTERIOR</p>
+            <p className="eyebrow"><span className="eyebrow-line"/> UN MOMENTO PARA VOS</p>
             <h1>Volver a vos.<br/><i>Habitar</i> tu luz.</h1>
-            <p className="hero-lead">Un espacio de sanación integral donde el cuerpo, la energía y la emoción encuentran nuevas formas de escucharse.</p>
+            <p className="hero-lead">Un espacio amable para hacer una pausa, escuchar el cuerpo y explorar prácticas de bienestar a tu ritmo.</p>
             <div className="hero-actions">
               <a className="button button-dark" href={wa("Hola Marina, quiero consultar por tus sesiones.")} target="_blank" rel="noreferrer">Encontrá tu espacio <span>↗</span></a>
               <a className="text-link" href="#experiencias">Explorar experiencias <span>↓</span></a>
@@ -332,9 +443,10 @@ function App() {
         <section className="intro section-pad" id="filosofia">
           <div className="intro-aside reveal"><span className="section-index">01 — LA INVITACIÓN</span><div className="hand-drawn">✳</div><p>Un regreso<br/>a lo esencial.</p></div>
           <div className="intro-main reveal">
-            <p className="eyebrow">SANACIÓN INTEGRAL</p>
+            <p className="eyebrow">UN ESPACIO DE BIENESTAR</p>
             <h2>Hay momentos en los que necesitamos <i>hacer silencio</i> para volver a escucharnos.</h2>
-            <p className="body-copy">Luz de Orión es una invitación a hacer una pausa, conectar con tu mundo interior y explorar distintas prácticas de bienestar. Un espacio para encontrarte con el cuerpo, darle lugar a las emociones y descubrir tu propia manera de estar en equilibrio.</p>
+            <p className="body-copy">Luz de Orión es un espacio para bajar un poco el ritmo, escuchar cómo estás y acercarte a distintas prácticas de bienestar. Podés explorar el sonido, el movimiento, la creatividad y los aromas con curiosidad, sin apuro y a tu manera.</p>
+            <p className="body-copy">No hace falta llegar con respuestas ni experiencia previa. Cada propuesta empieza conversando sobre lo que te resulta cómodo y lo que necesitás hoy.</p>
             <a className="under-link" href="#terapias">Conocé las prácticas <span>↗</span></a>
           </div>
         </section>
@@ -347,7 +459,7 @@ function App() {
           <div className="experience-layout reveal">
             <div className={"experience-visual experience-visual-" + active}>
               <div className="experience-art-stage" key={active}>
-                {active === 0 ? <button className="sound-bowl-button" type="button" onClick={(event) => { playBowlSound(); const button = event.currentTarget; button.classList.remove("is-playing"); void button.offsetWidth; button.classList.add("is-playing"); window.setTimeout(() => button.classList.remove("is-playing"), 1200); }} aria-label="Reproducir sonido del cuenco tibetano"><SoundArtwork /><span>Tocá el cuenco para escuchar</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
+              {active === 0 ? <button className={`sound-bowl-button ${bowl.isPlaying ? "is-playing" : ""}`} type="button" onClick={bowl.isPlaying ? bowl.stop : bowl.play} aria-label={bowl.isPlaying ? "Detener el sonido del cuenco" : "Escuchar una grabación de cuenco"><SoundArtwork /><span>{bowl.isPlaying ? "Detener el sonido" : "Escuchar el cuenco"}</span></button> : active === 1 ? <ArtExperience /> : <YogaArtwork />}
               </div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
@@ -365,6 +477,8 @@ function App() {
           </div>
         </section>
 
+        <SensoryPause bowl={bowl} />
+
         <section className="quote-band">
           <span className="quote-mark">“</span>
           <p>El bienestar no es llegar a un lugar.<br/><i>Es aprender a habitar el camino.</i></p>
@@ -377,21 +491,28 @@ function App() {
             <p className="heading-note">Distintas herramientas, una misma intención: abrir un espacio de conexión y cuidado.</p>
           </div>
           <div className="service-grid">
-            {services.map((s) => <article className="service-card reveal" key={s.n}><div className="service-top"><span>{s.n} / 06</span><span className="service-icon" aria-hidden="true"><ServiceIcon kind={s.n} /></span></div><p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p><a href={pageUrl(["cuencos-sonoros","masajes-integrales","yoga","arteterapia","reiki","exploracion-interior"][Number(s.n)-1])} aria-label={"Conocer " + s.title}>↗</a></article>)}
+            {services.map((s) => <article className="service-card reveal" key={s.n}>
+              <div className="service-top"><span>{s.n} / 06</span><span className="service-icon" aria-hidden="true"><ServiceIcon kind={s.n} /></span></div>
+              <div className={`service-visual service-visual-${s.n}`} aria-hidden="true"><ServiceArtwork slug={s.slug}/></div>
+              <p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p>
+              <div className="service-links"><a href={pageUrl(s.slug)} aria-label={"Conocer " + s.title}>Ver propuesta <span aria-hidden="true">↗</span></a>{s.n === "05" && <a href={pageUrl("aromaterapia")} aria-label="Conocer aromaterapia">Aromaterapia <span aria-hidden="true">↗</span></a>}</div>
+            </article>)}
           </div>
-          <p className="service-footnote">Las propuestas se conversan de manera personal para encontrar la opción adecuada para cada momento.</p>
+          <p className="service-footnote">Modalidad presencial y online. Consultá con Marina para conocer cómo se adapta cada propuesta y elegir la que te resulte cómoda.</p>
         </section>
 
         <section className="marina-section" id="marina">
-          <div className="marina-art reveal"><div className="portrait-sun"/><div className="portrait-shape"><span> M </span></div><span className="portrait-caption">PRESENCIA · ESCUCHA · CREACIÓN</span><span className="portrait-flower">✳</span></div>
-          <div className="marina-copy reveal"><p className="eyebrow">UN POCO SOBRE ESTE ESPACIO</p><h2>Un camino que se construye <i>con presencia.</i></h2><p className="body-copy">Soy Marina, profesora de yoga y facilitadora de distintas prácticas de bienestar integral. En Luz de Orión reúno herramientas corporales, sonoras, creativas y energéticas para ofrecerte un espacio de encuentro y exploración personal.</p><p className="body-copy">Me interesa especialmente el trabajo con el arte y los cuencos sonoros: dos lenguajes que invitan a experimentar, sentir y conectar más allá de las palabras.</p><a className="button button-dark" href={wa("Hola Marina, me gustaría conocerte y conversar sobre tus propuestas.")} target="_blank" rel="noreferrer">Conectar con Marina <span>↗</span></a></div>
+          <div className="marina-art reveal"><img className="marina-portrait" src="/images/marina.webp" alt="Marina en un jardín, sosteniendo una pequeña flor junto a su rostro" loading="lazy" decoding="async"/><span className="portrait-caption">PRESENCIA · ESCUCHA · CREACIÓN</span></div>
+          <div className="marina-copy reveal"><p className="eyebrow">UN POCO SOBRE MARINA</p><h2>Un camino que se construye <i>con presencia.</i></h2><p className="body-copy">Soy Marina, profesora de yoga y facilitadora de distintas prácticas de bienestar integral. En Luz de Orión reúno herramientas corporales, sonoras, creativas y energéticas para ofrecerte un espacio de encuentro y exploración personal.</p><p className="body-copy">Me interesa especialmente el trabajo con el arte y los cuencos sonoros: dos lenguajes que invitan a experimentar, sentir y conectar más allá de las palabras.</p><p className="modality-note">Hay opciones presenciales y online. Consultá con Marina cuál modalidad está disponible para la práctica que te interesa.</p><a className="button button-dark" href={wa("Hola Marina, me gustaría conocerte y conversar sobre tus propuestas.")} target="_blank" rel="noreferrer">Conectar con Marina <span>↗</span></a></div>
         </section>
+
+        <GeneralFaq />
 
         <section className="closing">
           <div className="closing-stars">✳　·　✧　·　✳</div>
           <p className="eyebrow">TU MOMENTO PUEDE EMPEZAR HOY</p>
-          <h2>¿Y si hoy te<br/><i>elegís a vos?</i></h2>
-          <p className="closing-copy">No hace falta tener todas las respuestas.<br/>A veces, alcanza con dar el primer paso.</p>
+          <h2>Podés empezar<br/><i>por una pausa.</i></h2>
+          <p className="closing-copy">No hace falta tener todas las respuestas.<br/>Un momento de escucha también cuenta.</p>
           <a className="button button-light" href={wa("Hola Marina, quiero dar el primer paso y conocer tus propuestas.")} target="_blank" rel="noreferrer">Escribir por WhatsApp <span>↗</span></a>
           <span className="closing-orbit orbit-left"/><span className="closing-orbit orbit-right"/>
         </section>
