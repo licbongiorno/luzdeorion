@@ -78,9 +78,121 @@ function ServiceIcon({ kind }: { kind: string }) {
   return <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" {...common}>{paths[kind] || paths["01"]}</svg>;
 }
 
+
+type PracticePageData = {
+  slug: string; title: string; eyebrow: string; lead: string;
+  intro: string; details: string[]; note: string; group: string;
+};
+const practicePages: PracticePageData[] = [
+  {slug:"cuencos-sonoros",title:"Cuencos sonoros",eyebrow:"SONIDO · VIBRACIÓN · ESCUCHA",lead:"Dejá que el sonido te encuentre.",intro:"Una experiencia de escucha y pausa en la que los sonidos y las resonancias de los cuencos invitan a aflojar el ritmo cotidiano y estar presente.",details:["El sonido como espacio de atención: escuchar, respirar y registrar lo que sucede en el cuerpo.","Una propuesta para regalarte un momento de quietud, sin exigencias ni expectativas.","Cada encuentro se adapta a la experiencia y a las necesidades conversadas previamente."],note:"La experiencia no reemplaza tratamientos médicos ni psicológicos. Si tenés sensibilidad auditiva o alguna condición que requiera cuidados, conversalo antes de coordinar.",group:"sonido"},
+  {slug:"masajes-integrales",title:"Masajes integrales",eyebrow:"CUERPO · CONTACTO · DESCANSO",lead:"Un momento para volver al cuerpo.",intro:"Distintas técnicas de masaje y trabajo corporal para ofrecer un espacio de descanso, presencia y registro corporal. La modalidad se conversa antes de cada encuentro.",details:["La elección de la técnica considera tus preferencias, comodidad y el objetivo de bienestar que quieras explorar.","Podés conocer las distintas propuestas de masajes y conversar con Marina para elegir la más adecuada para vos.","El contacto se realiza siempre desde el consentimiento y el respeto por tus límites."],note:"Los masajes son prácticas de bienestar y no sustituyen la evaluación ni el tratamiento de profesionales de salud.",group:"cuerpo"},
+  {slug:"masaje-oriental",title:"Masaje oriental",eyebrow:"CUERPO · PRESENCIA",lead:"Escuchar el cuerpo desde otra atención.",intro:"Una propuesta de trabajo corporal inspirada en técnicas orientales, orientada a crear un espacio de pausa y conexión con las sensaciones.",details:["La sesión se conversa previamente para conocer tus preferencias y límites.","La intensidad y el ritmo se ajustan a tu comodidad durante el encuentro."],note:"Consultá previamente si tenés lesiones, dolor persistente o alguna condición de salud.",group:"cuerpo"},
+  {slug:"masaje-descontracturante",title:"Masaje descontracturante",eyebrow:"CUERPO · DESCANSO",lead:"Hacer una pausa en las tensiones cotidianas.",intro:"Una propuesta de masaje corporal que puede enfocarse en zonas de tensión percibida, siempre conversando antes sobre la intensidad y la comodidad.",details:["Se acuerdan las zonas a trabajar y la presión tolerable.","Podés pedir ajustes o detener la sesión en cualquier momento."],note:"No es un tratamiento médico ni reemplaza la consulta ante dolor agudo, persistente o lesión.",group:"cuerpo"},
+  {slug:"masaje-relajante",title:"Masaje relajante",eyebrow:"CALMA · CUERPO · PAUSA",lead:"Bajar el ritmo. Habitar el presente.",intro:"Un encuentro pensado como un momento de descanso, con maniobras suaves y un ritmo tranquilo, adaptado a tus preferencias.",details:["La propuesta prioriza la comodidad y el clima de calma.","Antes de comenzar se conversa sobre preferencias, sensibilidad y límites."],note:"La experiencia es de bienestar y no constituye un tratamiento médico.",group:"cuerpo"},
+  {slug:"masaje-con-pindas",title:"Masaje con pindas",eyebrow:"TRADICIÓN · AROMAS · CONTACTO",lead:"Una experiencia sensorial para regalarte una pausa.",intro:"Una modalidad de masaje que incorpora pindas, saquitos de tela utilizados en determinadas prácticas corporales. Los detalles de su aplicación se conversan antes de la sesión.",details:["Se revisan previamente aromas, temperatura y sensibilidad de la piel.","La experiencia se adapta a tus preferencias y comodidad."],note:"Informá alergias, sensibilidad cutánea o cualquier condición relevante antes de coordinar.",group:"cuerpo"},
+  {slug:"masaje-con-bambu",title:"Masaje con bambú",eyebrow:"CUERPO · MOVIMIENTO",lead:"Otra manera de explorar el contacto corporal.",intro:"Una técnica que incorpora elementos de bambú en el masaje. La modalidad, las zonas y la intensidad se acuerdan antes de comenzar.",details:["Se conversa sobre expectativas, zonas de trabajo y límites personales.","La sesión se adapta a tu comodidad."],note:"Consultá previamente si tenés lesiones, fragilidad ósea o alguna condición que requiera cuidados.",group:"cuerpo"},
+  {slug:"masaje-piedras-calientes",title:"Masaje con piedras calientes",eyebrow:"CALOR · CUERPO · DESCANSO",lead:"Una pausa alrededor de la sensación de calor.",intro:"Una propuesta corporal que incorpora piedras templadas como parte de la experiencia. La temperatura se verifica y adapta a la sensibilidad de cada persona.",details:["La temperatura y el contacto se acuerdan y revisan durante la sesión.","Se prioriza siempre la comodidad y la seguridad."],note:"No se recomienda sin consulta previa ante alteraciones de sensibilidad, problemas circulatorios, lesiones o embarazo.",group:"cuerpo"},
+  {slug:"masaje-californiano",title:"Masaje californiano",eyebrow:"CONTACTO · FLUIDEZ · PRESENCIA",lead:"Un recorrido corporal continuo y consciente.",intro:"Una modalidad de masaje reconocida por sus movimientos amplios y fluidos. La sesión se adapta a tus preferencias, buscando una experiencia de contacto respetuosa y cómoda.",details:["Se conversa previamente sobre el tipo de contacto y las zonas que preferís incluir o evitar.","Podés comunicar cualquier incomodidad en todo momento."],note:"Es una práctica de bienestar corporal, no un tratamiento médico.",group:"cuerpo"},
+  {slug:"yoga",title:"Yoga consciente",eyebrow:"MOVIMIENTO · RESPIRACIÓN · PRESENCIA",lead:"Moverte también puede ser una forma de volver.",intro:"Prácticas de yoga para conectar movimiento, respiración y atención, respetando los tiempos y posibilidades de cada cuerpo.",details:["La práctica propone una escucha atenta, sin competir ni forzar posturas.","Cada persona puede adaptar los movimientos a su experiencia y posibilidades.","El objetivo es construir un espacio de presencia y conexión corporal."],note:"Contale a Marina si tenés lesiones, dolor o alguna condición que requiera adaptar la práctica.",group:"movimiento"},
+  {slug:"respiracion-consciente",title:"Respiración consciente y relajación",eyebrow:"RESPIRAR · PAUSAR · REGISTRAR",lead:"A veces, volver empieza con una respiración.",intro:"Prácticas de atención a la respiración y relajación para crear un momento de pausa y registrar el presente.",details:["Se exploran ejercicios sencillos de respiración y atención.","El ritmo se adapta a cada persona: no hace falta forzar ni sostener ninguna técnica que resulte incómoda."],note:"Si una práctica respiratoria genera mareo, angustia o incomodidad, se interrumpe. No reemplaza atención profesional.",group:"movimiento"},
+  {slug:"arteterapia",title:"Arte y expresión",eyebrow:"ARTE · CREATIVIDAD · EMOCIÓN",lead:"Hay cosas que encuentran su forma creando.",intro:"Un espacio de exploración creativa a través de colores, formas, imágenes y materiales. Crear puede abrir otros modos de expresar y registrar lo que sentimos.",details:["No necesitás experiencia artística ni saber dibujar.","El proceso importa más que el resultado: explorar, jugar y encontrar un lenguaje propio.","La propuesta se adapta a los materiales y a la búsqueda de cada encuentro."],note:"La expresión artística se presenta como una práctica de exploración y bienestar; no se atribuyen resultados terapéuticos garantizados.",group:"creatividad"},
+  {slug:"reiki",title:"Reiki",eyebrow:"ENERGÍA · PRESENCIA · PAUSA",lead:"Un encuentro para hacer espacio al descanso.",intro:"Una práctica de bienestar de tradición energética que se ofrece como un momento de quietud, atención y descanso.",details:["La modalidad del encuentro se explica antes de comenzar.","Se respetan tus preferencias respecto del contacto físico; también podés elegir una modalidad sin contacto."],note:"El Reiki no cuenta con evidencia suficiente para tratar enfermedades y no sustituye atención médica o psicológica.",group:"energia"},
+  {slug:"aromaterapia",title:"Aromaterapia",eyebrow:"AROMAS · SENSACIONES · AMBIENTE",lead:"El aroma también puede invitarnos a una pausa.",intro:"Una propuesta que incorpora aromas como parte de una experiencia sensorial y de bienestar, atendiendo a las preferencias de cada persona.",details:["Se consultan previamente alergias, sensibilidad a fragancias, asma y preferencias personales.","El uso de aromas es opcional y se puede prescindir de ellos."],note:"Los aceites esenciales pueden producir irritación o reacciones. No se ingieren ni se aplican sobre la piel sin la orientación y dilución adecuadas.",group:"energia"},
+  {slug:"regresiones",title:"Regresiones",eyebrow:"EXPLORACIÓN INTERIOR · RELATO",lead:"Un espacio para explorar imágenes y experiencias internas.",intro:"Una práctica de exploración subjetiva que puede trabajar con visualizaciones, recuerdos e imágenes personales. Se conversa previamente sobre el encuadre y las expectativas.",details:["La participación es voluntaria y podés detener el ejercicio en cualquier momento.","Las imágenes que aparecen no deben tomarse como prueba de hechos históricos ni como recuerdos necesariamente verificables."],note:"No es un procedimiento diagnóstico ni un método para recuperar recuerdos fiables. Si hay antecedentes de trauma o malestar intenso, es importante conversarlo antes.",group:"exploracion"},
+  {slug:"registros",title:"Registros",eyebrow:"PREGUNTAS · SENTIDO · REFLEXIÓN",lead:"Abrir preguntas para escucharte de otra manera.",intro:"Una propuesta de exploración espiritual y simbólica que algunas personas utilizan para reflexionar sobre preguntas personales y momentos de transición.",details:["El encuentro parte de aquello que quieras explorar o poner en palabras.","La experiencia se aborda desde la reflexión personal, sin presentar interpretaciones como verdades objetivas."],note:"No sustituye decisiones informadas, asesoramiento profesional ni tratamientos de salud.",group:"exploracion"},
+  {slug:"biodescodificacion",title:"Biodescodificación",eyebrow:"RELATO · SIGNIFICADOS · REFLEXIÓN",lead:"Explorar las historias y significados que construimos.",intro:"Una propuesta de conversación y reflexión sobre experiencias personales y los significados que cada persona les atribuye.",details:["Se trabaja desde el relato subjetivo, sin asumir que los síntomas o enfermedades tengan una causa emocional específica.","La escucha y el respeto por la historia de cada persona son centrales."],note:"La biodescodificación no es un método científico validado para diagnosticar o tratar enfermedades. Nunca reemplaza la atención médica ni debe generar culpa por enfermar.",group:"exploracion"},
+  {slug:"chamanismo",title:"Prácticas de chamanismo",eyebrow:"RITUAL · SÍMBOLO · EXPERIENCIA",lead:"Explorar lo simbólico desde el respeto.",intro:"Prácticas de inspiración chamánica presentadas como experiencias simbólicas y de exploración personal, con atención al sentido que cada participante les da.",details:["El contenido y el encuadre se explican antes de cada encuentro.","La participación es voluntaria y se respetan las creencias y límites personales."],note:"No se realizan promesas de curación ni se reemplaza atención sanitaria por prácticas espirituales.",group:"exploracion"},
+  {slug:"lectura-de-cartas-y-tarot",title:"Lectura de cartas y tarot",eyebrow:"SÍMBOLOS · PREGUNTAS · ORIENTACIÓN",lead:"Una lectura como espejo para abrir nuevas preguntas.",intro:"Un espacio de lectura simbólica y orientación personal a través de cartas o tarot. La propuesta invita a reflexionar, no a delegar las propias decisiones.",details:["Podés acercarte con una pregunta, una inquietud o simplemente curiosidad.","Las imágenes y símbolos se utilizan como disparadores de conversación y reflexión."],note:"La lectura no predice hechos con certeza ni reemplaza asesoramiento médico, psicológico, legal o financiero.",group:"exploracion"}
+];
+const pageForSlug = (slug: string) => practicePages.find((page) => page.slug === slug);
+const pageUrl = (slug: string) => `/practicas/${slug}`;
+let bowlAudioContext: AudioContext | null = null;
+function playBowlSound() {
+  try {
+    const AudioContextConstructor = window.AudioContext;
+    if (!AudioContextConstructor) return;
+    bowlAudioContext ??= new AudioContextConstructor();
+    const context = bowlAudioContext;
+    if (context.state === "suspended") void context.resume();
+    const now = context.currentTime;
+    const master = context.createGain();
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.exponentialRampToValueAtTime(0.32, now + 0.025);
+    master.gain.exponentialRampToValueAtTime(0.0001, now + 4.2);
+    master.connect(context.destination);
+    [174.61, 349.8, 523.9, 698.7, 1048].forEach((frequency, index) => {
+      const oscillator = context.createOscillator();
+      const partial = context.createGain();
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, now);
+      oscillator.detune.setValueAtTime(index % 2 === 0 ? -3 : 3, now);
+      partial.gain.value = [0.72, 0.22, 0.105, 0.055, 0.022][index];
+      oscillator.connect(partial);
+      partial.connect(master);
+      oscillator.start(now);
+      oscillator.stop(now + 4.25);
+    });
+    const noiseBuffer = context.createBuffer(1, Math.floor(context.sampleRate * 0.09), context.sampleRate);
+    const channel = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < channel.length; i++) channel[i] = (Math.random() * 2 - 1) * (1 - i / channel.length);
+    const noise = context.createBufferSource();
+    const filter = context.createBiquadFilter();
+    const tap = context.createGain();
+    filter.type = "bandpass";
+    filter.frequency.value = 1350;
+    filter.Q.value = 0.8;
+    tap.gain.setValueAtTime(0.0001, now);
+    tap.gain.exponentialRampToValueAtTime(0.12, now + 0.004);
+    tap.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
+    noise.buffer = noiseBuffer;
+    noise.connect(filter);
+    filter.connect(tap);
+    tap.connect(context.destination);
+    noise.start(now);
+    noise.stop(now + 0.09);
+  } catch {
+    // Si el navegador bloquea el audio, el resto de la experiencia sigue funcionando.
+  }
+}
+function PracticePage({ page }: { page: PracticePageData }) {
+  useEffect(() => {
+    document.title = `${page.title} | Luz de Orión`;
+    const description = document.querySelector('meta[name="description"]');
+    description?.setAttribute("content", `${page.title}: ${page.intro} Luz de Orión · Cuerpo, energía y emoción.`);
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `https://luzdeorion.vercel.app${pageUrl(page.slug)}`;
+  }, [page]);
+  const related = practicePages.filter((item) => item.group === page.group && item.slug !== page.slug);
+  return <>
+    <a className="skip-link" href="#contenido">Saltar al contenido</a>
+    <div className="announcement"><span className="tiny-star">✳</span> Un espacio para volver a vos <span className="announcement-dot">·</span> Cuerpo · Energía · Emoción</div>
+    <header className="header">
+      <a className="brand" href="/" aria-label="Luz de Orión, inicio"><span className="brand-mark"><span>✳</span><i /></span><span className="brand-name">luz de <b>ori<em>ó</em>n</b></span></a>
+      <nav className="nav practice-nav" aria-label="Navegación principal"><a href="/#filosofia">El espacio</a><a href="/#terapias">Prácticas</a><a href="/#marina">Sobre Marina</a><a className="nav-cta" href={wa(`Hola Marina, quisiera conocer más sobre ${page.title}.`)} target="_blank" rel="noreferrer">Hablemos <span>↗</span></a></nav>
+    </header>
+    <main id="contenido" className="practice-page">
+      <div className="practice-breadcrumb"><a href="/">Inicio</a><span> / </span><a href="/#terapias">Prácticas</a><span> / </span><span>{page.title}</span></div>
+      <section className="practice-hero">
+        <div className="practice-hero-copy"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title.split(" ").slice(0,-1).join(" ")} <i>{page.title.split(" ").slice(-1).join("")}</i></h1><p className="practice-lead">{page.lead}</p><p className="body-copy">{page.intro}</p><a className="button button-dark" href={wa(`Hola Marina, quisiera consultar por ${page.title}.`)} target="_blank" rel="noreferrer">Consultar por esta práctica <span>↗</span></a></div>
+        <div className="practice-hero-art" aria-hidden="true"><div className="practice-art-orbit"/><div className="practice-art-orbit second"/><span>✳</span><small>CUERPO · ENERGÍA · EMOCIÓN</small></div>
+      </section>
+      <section className="practice-content"><p className="eyebrow">UN ESPACIO PARA VOS</p><h2>Una experiencia que se construye <i>a tu manera.</i></h2><div className="practice-detail-grid">{page.details.map((detail,index)=><article className="practice-detail-card" key={detail}><span>0{index+1}</span><p>{detail}</p></article>)}</div><p className="practice-note">{page.note}</p></section>
+      {related.length>0 && <section className="related-practices"><p className="eyebrow">TAMBIÉN PODÉS EXPLORAR</p><div>{related.map((item)=><a key={item.slug} href={pageUrl(item.slug)}>{item.title}<span>↗</span></a>)}</div></section>}
+      <section className="practice-cta"><p className="eyebrow">LUZ DE ORIÓN · MARINA</p><h2>¿Querés conocer más<br/><i>sobre esta propuesta?</i></h2><p>Podés escribirle a Marina y conversar sobre la experiencia.</p><a className="button button-light" href={wa(`Hola Marina, me interesa conocer más sobre ${page.title}.`)} target="_blank" rel="noreferrer">Conversar por WhatsApp <span>↗</span></a></section>
+    </main>
+    <footer className="footer"><a className="brand footer-brand" href="/"><span className="brand-mark"><span>✳</span><i/></span><span className="brand-name">luz de <b>ori<em>ó</em>n</b></span></a><p>Cuerpo · Energía · Emoción</p><a href={wa("Hola Marina, llegué desde la web de Luz de Orión.")} target="_blank" rel="noreferrer">Hablemos por WhatsApp ↗</a><span className="copyright">© {new Date().getFullYear()} Luz de Orión · Un espacio para volver a vos.</span></footer>
+    <a className="floating-whatsapp" href={wa(`Hola Marina, quisiera recibir información sobre ${page.title}.`)} target="_blank" rel="noreferrer" aria-label="Contactar a Marina por WhatsApp"><span>✳</span> Hablemos</a>
+  </>;
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(0);\n  const currentSlug = window.location.pathname.match(/^\\/practicas\\/([^/]+)\\/?$/)?.[1];\n  const currentPage = currentSlug ? pageForSlug(currentSlug) : undefined;
 
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>(".reveal");
@@ -171,7 +283,7 @@ function App() {
               <p className="eyebrow">{experiences[active].title.toUpperCase()}</p>
               <h3>{experiences[active].subtitle}</h3>
               <p className="body-copy">{experiences[active].text}</p>
-              <a className="under-link" href={wa("Hola Marina, quisiera consultar por " + experiences[active].title + ".")} target="_blank" rel="noreferrer">Consultar por esta experiencia <span>↗</span></a>
+              <a className="under-link" href={pageUrl(active === 0 ? "cuencos-sonoros" : active === 1 ? "arteterapia" : "yoga")}>Conocer esta experiencia <span>↗</span></a>
               <div className="experience-tabs" role="tablist" aria-label="Elegí una experiencia">
                 {experiences.map((item, i) => <button key={item.title} id={"experience-tab-" + i} type="button" role="tab" aria-selected={active === i} aria-controls="experience-panel" tabIndex={active === i ? 0 : -1} className={active === i ? "experience-tab selected" : "experience-tab"} onClick={() => setActive(i)} onKeyDown={(event) => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { const next = (i + (event.key === "ArrowRight" ? 1 : -1) + experiences.length) % experiences.length; setActive(next); document.getElementById("experience-tab-" + next)?.focus(); } }}><span>0{i+1}</span>{item.title}<b>↗</b></button>)}
               </div>
@@ -191,7 +303,7 @@ function App() {
             <p className="heading-note">Distintas herramientas, una misma intención: abrir un espacio de conexión y cuidado.</p>
           </div>
           <div className="service-grid">
-            {services.map((s) => <article className="service-card reveal" key={s.n}><div className="service-top"><span>{s.n} / 06</span><span className="service-icon" aria-hidden="true"><ServiceIcon kind={s.n} /></span></div><p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p><a href={wa("Hola Marina, quiero saber más sobre " + s.title + ".")} target="_blank" rel="noreferrer" aria-label={"Consultar por " + s.title}>↗</a></article>)}
+            {services.map((s) => <article className="service-card reveal" key={s.n}><div className="service-top"><span>{s.n} / 06</span><span className="service-icon" aria-hidden="true"><ServiceIcon kind={s.n} /></span></div><p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p><a href={pageUrl(["cuencos-sonoros","masajes-integrales","yoga","arteterapia","reiki","registros"][Number(s.n)-1])} aria-label={"Conocer " + s.title}>↗</a></article>)}
           </div>
           <p className="service-footnote">Las propuestas se conversan de manera personal para encontrar la opción adecuada para cada momento.</p>
         </section>
