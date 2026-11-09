@@ -19,6 +19,51 @@ const experiences = [
   { title: "Yoga consciente", subtitle: "Moverte también puede ser una forma de volver", text: "Prácticas para conectar respiración y movimiento, respetando los tiempos y posibilidades de cada cuerpo.", symbol: "〰" },
 ];
 
+
+function SoundArtwork() {
+  return <svg className="experience-svg sound-artwork" viewBox="0 0 520 520" role="img" aria-label="Ondas concéntricas que representan la resonancia de un cuenco sonoro">
+    <defs><radialGradient id="soundGlow"><stop offset="0" stopColor="#e8cda9" stopOpacity=".9"/><stop offset="1" stopColor="#e8cda9" stopOpacity="0"/></radialGradient><linearGradient id="bowlMetal" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#a87b59"/><stop offset=".48" stopColor="#e4c6a2"/><stop offset="1" stopColor="#8b684f"/></linearGradient></defs>
+    <circle cx="260" cy="245" r="205" fill="url(#soundGlow)"/>
+    <g className="sound-waves" fill="none" stroke="#8c9b83" strokeWidth="1.5"><circle cx="260" cy="240" r="95"/><circle cx="260" cy="240" r="132"/><circle cx="260" cy="240" r="170"/><circle cx="260" cy="240" r="202"/></g>
+    <g className="sound-wave-dashes" fill="none" stroke="#b17d5d" strokeWidth="2" strokeLinecap="round"><path d="M80 240a180 180 0 0 1 360 0"/><path d="M112 240a148 148 0 0 1 296 0"/></g>
+    <ellipse cx="260" cy="330" rx="105" ry="18" fill="#293b32" opacity=".10"/>
+    <path d="M170 265 Q182 350 260 352 Q338 350 350 265 Z" fill="url(#bowlMetal)" stroke="#8e6d53" strokeWidth="2"/>
+    <ellipse cx="260" cy="265" rx="90" ry="19" fill="#e7d2b6" stroke="#987252" strokeWidth="3"/>
+    <ellipse cx="260" cy="265" rx="78" ry="11" fill="#6d7868"/>
+    <path d="M182 291 Q260 318 338 291" fill="none" stroke="#f4e4cb" strokeWidth="3" opacity=".65"/>
+    <circle cx="260" cy="240" r="5" fill="#b17d5d" className="sound-center"/>
+    <g fill="#b17d5d"><circle cx="260" cy="52" r="3"/><circle cx="432" cy="165" r="3"/><circle cx="91" cy="350" r="3"/></g>
+  </svg>;
+}
+function ArtArtwork() {
+  return <svg className="experience-svg art-artwork" viewBox="0 0 520 520" role="img" aria-label="Trazos y formas de colores que componen una obra abstracta">
+    <defs><linearGradient id="paintA" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#c77f61"/><stop offset="1" stopColor="#e5b98e"/></linearGradient><linearGradient id="paintB" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#758b77"/><stop offset="1" stopColor="#bdc2a1"/></linearGradient></defs>
+    <circle cx="260" cy="260" r="202" fill="#e9dfcf" opacity=".55"/>
+    <path className="paint-stroke stroke-one" d="M110 305 C105 180 215 90 315 120 C390 142 422 220 382 285" fill="none" stroke="url(#paintA)" strokeWidth="43" strokeLinecap="round"/>
+    <path className="paint-stroke stroke-two" d="M135 365 C205 430 330 405 385 320" fill="none" stroke="url(#paintB)" strokeWidth="27" strokeLinecap="round"/>
+    <path className="paint-stroke stroke-three" d="M170 140 Q245 215 350 180" fill="none" stroke="#b18b65" strokeWidth="8" strokeLinecap="round"/>
+    <path d="M205 210 C240 170 310 180 327 230 C345 285 290 335 238 309 C200 290 185 245 205 210Z" fill="#d9a47f" opacity=".75" className="paint-blob"/>
+    <path d="M130 150 Q170 125 190 160 M350 360 Q390 345 405 370" fill="none" stroke="#667966" strokeWidth="3" strokeLinecap="round"/>
+    <g fill="#a96f50"><circle cx="145" cy="220" r="5"/><circle cx="360" cy="130" r="4"/><circle cx="330" cy="390" r="5"/><circle cx="105" cy="340" r="3"/></g>
+  </svg>;
+}
+function YogaArtwork() {
+  return <svg className="experience-svg yoga-artwork" viewBox="0 0 520 520" role="img" aria-label="Figura abstracta en postura de yoga rodeada por un ciclo respiratorio">
+    <circle cx="260" cy="250" r="190" fill="#e9dfcf" opacity=".65"/>
+    <g className="breath-rings" fill="none" stroke="#82917a" strokeWidth="2"><circle cx="260" cy="250" r="135"/><circle cx="260" cy="250" r="174" strokeDasharray="5 11"/></g>
+    <g fill="none" stroke="#a97858" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M260 185 Q226 220 205 272 Q185 315 142 333"/>
+      <path d="M260 185 Q294 220 315 272 Q335 315 378 333"/>
+      <path d="M205 272 Q260 304 315 272"/>
+      <path d="M205 272 Q200 335 260 365 Q320 335 315 272"/>
+      <path d="M260 365 L260 405"/>
+    </g>
+    <circle cx="260" cy="145" r="28" fill="#c98d69" className="yoga-head"/>
+    <path d="M150 405 Q260 435 370 405" fill="none" stroke="#a97858" strokeWidth="3" strokeLinecap="round"/>
+    <path d="M105 250 Q75 220 105 190 M415 250 Q445 220 415 190" fill="none" stroke="#c38e6c" strokeWidth="3" strokeLinecap="round" className="breath-arrows"/>
+  </svg>;
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(0);
@@ -99,9 +144,12 @@ function App() {
             <p className="heading-note">Cada experiencia es diferente.<br/>Elegí la que resuene con vos.</p>
           </div>
           <div className="experience-layout reveal">
-            <div className="experience-visual">
-              <div className={"experience-orb orb-" + active}><span>{experiences[active].symbol}</span></div>
+            <div className={"experience-visual experience-visual-" + active}>
+              <div className="experience-art-stage" key={active}>
+                {active === 0 ? <SoundArtwork /> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
+              </div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
+              <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
             </div>
             <div className="experience-detail" aria-live="polite" aria-atomic="true">
               <div className="detail-count">0{active + 1} <span>— 03</span></div>
