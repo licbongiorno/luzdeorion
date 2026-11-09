@@ -1,0 +1,25 @@
+:root {
+  --cream: #f7efe5;
+  --paper: #fbf7f0;
+  --sand: #ead9c8;
+  --blush: #e6c5bc;
+  --rose: #bd8b91;
+  --plum: #623d50;
+  --plum-deep: #432b3b;
+  --terracotta: #b8785e;
+  --olive: #7e8870;
+  --gold: #bd925c;
+  --ink: #392a31;
+  --muted: #796b6b;
+  --line: rgba(112, 78, 77, .2);
+  --phi: 1.6180339887;
+  --space-1: 8px;
+  --space-2: 13px;
+  --space-3: 21px;
+  --space-4: 34px;
+  --space-5: 55px;
+  --space-6: 89px;
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "DM Sans", Arial, sans-serif;
+  --content: 1240px;
+}

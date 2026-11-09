@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#f7efe5"/><circle cx="850" cy="310" r="270" fill="#e8c9b7"/><circle cx="850" cy="310" r="210" fill="#b67f83" opacity=".55"/>
+<g transform="translate(850 310)" fill="none" stroke="#b98750" stroke-width="2"><circle r="235"/><circle r="175"/><circle r="115"/><path d="M0 -230Q100 -100 0 0Q-100 -100 0 -230Z"/><path d="M0 -230Q100 -100 0 0Q-100 -100 0 -230Z" transform="rotate(45)"/><path d="M0 -230Q100 -100 0 0Q-100 -100 0 -230Z" transform="rotate(90)"/><path d="M0 -230Q100 -100 0 0Q-100 -100 0 -230Z" transform="rotate(135)"/></g>
+<text x="100" y="260" font-family="Georgia" font-size="76" fill="#542d40">Luz de Orión</text><text x="105" y="330" font-family="Arial" font-size="27" letter-spacing="5" fill="#986b69">EXPLORAR · CONECTAR · TRANSFORMAR</text></svg>
