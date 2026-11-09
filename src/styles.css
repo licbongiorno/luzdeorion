@@ -92,3 +92,36 @@
  .hero-art:before,.hero-art:after,.hero-plant,.art-star,.experience-orb,.experience-orb span,.visual-rings,.portrait-sun{animation:none!important}
  .service-card,.service-icon,.portrait-shape,.button,.floating-whatsapp{transition:none!important}
 }
+
+
+/* Experiencias: ilustración SVG original y movimiento narrativo */
+.experience-visual{position:relative;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+.experience-art-stage{position:relative;z-index:2;width:min(100%,520px);aspect-ratio:1;display:grid;place-items:center;animation:artworkArrive .9s cubic-bezier(.2,.7,.2,1) both}
+.experience-svg{display:block;width:100%;height:100%;overflow:visible}
+.visual-rings{z-index:1}
+.visual-art-caption{position:absolute;z-index:3;bottom:8%;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.24em;color:#647365;white-space:nowrap}
+.sound-waves circle{transform-box:fill-box;transform-origin:center;animation:resonance 5.5s ease-out infinite}
+.sound-waves circle:nth-child(2){animation-delay:-1.35s}
+.sound-waves circle:nth-child(3){animation-delay:-2.7s}
+.sound-waves circle:nth-child(4){animation-delay:-4.05s}
+.sound-wave-dashes{animation:slowSpin 34s linear infinite;transform-origin:260px 240px}
+.sound-center{animation:soundPulse 3.8s ease-in-out infinite;transform-origin:260px 240px}
+.paint-stroke{stroke-dasharray:620;stroke-dashoffset:620;animation:paintIn 2.2s cubic-bezier(.45,0,.2,1) forwards}
+.stroke-two{animation-delay:.3s}.stroke-three{animation-delay:.55s}
+.paint-blob{transform-box:fill-box;transform-origin:center;animation:blobFloat 7s ease-in-out infinite}
+.breath-rings circle:first-child{transform-box:fill-box;transform-origin:center;animation:breathe 6s ease-in-out infinite}
+.breath-rings circle:last-child{transform-box:fill-box;transform-origin:center;animation:breathe 6s ease-in-out infinite reverse}
+.yoga-head{transform-box:fill-box;transform-origin:center;animation:breathe 6s ease-in-out infinite}
+.breath-arrows{animation:arrowFloat 4s ease-in-out infinite}
+@keyframes artworkArrive{from{opacity:0;transform:translateY(18px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes resonance{0%{opacity:.7;transform:scale(.78)}75%,100%{opacity:0;transform:scale(1.12)}}
+@keyframes soundPulse{0%,100%{transform:scale(1);opacity:.65}50%{transform:scale(1.8);opacity:1}}
+@keyframes paintIn{to{stroke-dashoffset:0}}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(7px,-8px) rotate(5deg)}}
+@keyframes breathe{0%,100%{transform:scale(.94);opacity:.55}50%{transform:scale(1.06);opacity:1}}
+@keyframes arrowFloat{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-7px);opacity:1}}
+@media(max-width:640px){.experience-art-stage{width:100%}.visual-art-caption{bottom:5%;font-size:8px}}
+@media(prefers-reduced-motion:reduce){
+ .experience-art-stage,.sound-waves circle,.sound-wave-dashes,.sound-center,.paint-stroke,.paint-blob,.breath-rings circle,.yoga-head,.breath-arrows{animation:none!important}
+ .paint-stroke{stroke-dasharray:none;stroke-dashoffset:0}
+}
