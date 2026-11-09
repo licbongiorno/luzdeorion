@@ -69,7 +69,7 @@ function App() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const nodes = document.querySelectorAll<HTMLElement>(".reveal");
+    const nodes = document.querySelectorAll<HTMLElement>(".reveal");\n    if (!("IntersectionObserver" in window)) { nodes.forEach((node) => node.classList.add("visible")); return; }
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -151,14 +151,14 @@ function App() {
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
             </div>
-            <div className="experience-detail" id="experience-panel" role="tabpanel" aria-live="polite" aria-atomic="true">
+            <div className="experience-detail" id="experience-panel" role="tabpanel" aria-labelledby={"experience-tab-" + active} aria-live="polite" aria-atomic="true">
               <div className="detail-count">0{active + 1} <span>— 03</span></div>
               <p className="eyebrow">{experiences[active].title.toUpperCase()}</p>
               <h3>{experiences[active].subtitle}</h3>
               <p className="body-copy">{experiences[active].text}</p>
               <a className="under-link" href={wa("Hola Marina, quisiera consultar por " + experiences[active].title + ".")} target="_blank" rel="noreferrer">Consultar por esta experiencia <span>↗</span></a>
               <div className="experience-tabs" role="tablist" aria-label="Elegí una experiencia">
-                {experiences.map((item, i) => <button key={item.title} id={"experience-tab-" + i} type="button" role="tab" aria-selected={active === i} aria-controls="experience-panel" tabIndex={active === i ? 0 : -1} className={active === i ? "experience-tab selected" : "experience-tab"} onClick={() => setActive(i)}><span>0{i+1}</span>{item.title}<b>↗</b></button>)}
+                {experiences.map((item, i) => <button key={item.title} id={"experience-tab-" + i} type="button" role="tab" aria-selected={active === i} aria-controls="experience-panel" tabIndex={active === i ? 0 : -1} className={active === i ? "experience-tab selected" : "experience-tab"} onClick={() => setActive(i)} onKeyDown={(event) => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { const next = (i + (event.key === "ArrowRight" ? 1 : -1) + experiences.length) % experiences.length; setActive(next); document.getElementById("experience-tab-" + next)?.focus(); } }}><span>0{i+1}</span>{item.title}<b>↗</b></button>)}
               </div>
             </div>
           </div>
