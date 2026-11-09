@@ -125,3 +125,33 @@
  .experience-art-stage,.sound-waves circle,.sound-wave-dashes,.sound-center,.paint-stroke,.paint-blob,.breath-rings circle,.yoga-head,.breath-arrows{animation:none!important}
  .paint-stroke{stroke-dasharray:none;stroke-dashoffset:0}
 }
+
+
+/* Navegación móvil y accesibilidad refinadas */
+@media(max-width:640px){
+  .nav{
+    display:flex;
+    max-height:0;
+    opacity:0;
+    visibility:hidden;
+    overflow:hidden;
+    padding-top:0;
+    padding-bottom:0;
+    transition:max-height .38s ease,opacity .25s ease,visibility .25s ease,padding .38s ease;
+  }
+  .nav.nav-open{
+    max-height:430px;
+    opacity:1;
+    visibility:visible;
+    padding-top:25px;
+    padding-bottom:25px;
+  }
+}
+.experience-tab:focus-visible{outline:2px solid #a96f50;outline-offset:4px;position:relative;z-index:2}
+.experience-tab[aria-selected="true"]{color:var(--deep)}
+.experience-tab[aria-selected="true"] b{opacity:1}
+.service-card:focus-within{background:#f6f1e8}
+.service-card a:focus-visible,.floating-whatsapp:focus-visible{outline:2px solid #a96f50;outline-offset:5px}
+@media(prefers-reduced-motion:reduce){
+  .nav,.experience-tab:after{transition:none!important}
+}
