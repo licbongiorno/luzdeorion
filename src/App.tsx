@@ -459,7 +459,7 @@ function App() {
           <div className="experience-layout reveal">
             <div className={"experience-visual experience-visual-" + active}>
               <div className="experience-art-stage" key={active}>
-              {active === 0 ? <button className={`sound-bowl-button ${bowl.isPlaying ? "is-playing" : ""}`} type="button" onClick={bowl.isPlaying ? bowl.stop : bowl.play} aria-label={bowl.isPlaying ? "Detener el sonido del cuenco" : "Escuchar una grabación de cuenco"><SoundArtwork /><span>{bowl.isPlaying ? "Detener el sonido" : "Escuchar el cuenco"}</span></button> : active === 1 ? <ArtExperience /> : <YogaArtwork />}
+              {active === 0 ? <button className={`sound-bowl-button ${bowl.isPlaying ? "is-playing" : ""}`} type="button" onClick={bowl.isPlaying ? bowl.stop : bowl.play} aria-label={bowl.isPlaying ? "Detener el sonido del cuenco" : "Escuchar una grabación de cuenco"}><SoundArtwork /><span>{bowl.isPlaying ? "Detener el sonido" : "Escuchar el cuenco"}</span></button> : active === 1 ? <ArtExperience /> : <YogaArtwork />}
               </div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
