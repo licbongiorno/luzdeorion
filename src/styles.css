@@ -155,3 +155,20 @@
 @media(prefers-reduced-motion:reduce){
   .nav,.experience-tab:after{transition:none!important}
 }
+
+
+/* Sistema de iconografía y ritmo de lectura de las prácticas */
+.service-icon svg{display:block;width:22px;height:22px;overflow:visible}
+.service-card:nth-child(2) .service-icon svg{transform:rotate(-5deg)}
+.service-card:nth-child(3) .service-icon svg{transform:translateY(-1px)}
+.service-card:nth-child(4) .service-icon svg{transform:rotate(-8deg)}
+.service-card:nth-child(5) .service-icon svg{transform:rotate(8deg)}
+.service-card:nth-child(6) .service-icon svg{transform:rotate(-12deg)}
+.service-card.reveal:nth-child(2){transition-delay:.06s}
+.service-card.reveal:nth-child(3){transition-delay:.12s}
+.service-card.reveal:nth-child(4){transition-delay:.04s}
+.service-card.reveal:nth-child(5){transition-delay:.10s}
+.service-card.reveal:nth-child(6){transition-delay:.16s}
+@media(prefers-reduced-motion:reduce){
+ .service-card.reveal:nth-child(n){transition-delay:0s}
+}
