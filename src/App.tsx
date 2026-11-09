@@ -64,6 +64,20 @@ function YogaArtwork() {
   </svg>;
 }
 
+
+function ServiceIcon({ kind }: { kind: string }) {
+  const common = { fill: "none", stroke: "currentColor", strokeWidth: 1.45, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  const paths: Record<string, JSX.Element> = {
+    "01": <><path d="M5 15.5h14l-1.5 3h-11z"/><path d="M7 15.5c.7-2.5 2.5-4 5-4s4.3 1.5 5 4"/><path d="M12 3v3M5.6 5.6l2.1 2.1M18.4 5.6l-2.1 2.1"/><path d="M3 11c1.2-1.2 2.3-1.2 3.5 0M17.5 11c1.2-1.2 2.3-1.2 3.5 0"/></>,
+    "02": <><path d="M4 13c2.5-3 5-4.5 7-4.5 1.4 0 2.2.9 2.2 2.1 0 1.4-1.3 2.4-3 3.4"/><path d="M20 13c-2.5-3-5-4.5-7-4.5"/><path d="M5 16c2.3 2 4.5 3 7 3s4.7-1 7-3"/><path d="M8 6.5c1.2-1.2 2.5-1.8 4-1.8s2.8.6 4 1.8"/></>,
+    "03": <><circle cx="12" cy="5" r="2"/><path d="M12 7v6m0-2-5 4m5-4 5 4M7 15l-2 4m10-4 2 4"/><path d="M4 20h16"/></>,
+    "04": <><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.8 1.8 0 0 1 1.3-3.1H18A3 3 0 0 0 21 11.5 9 9 0 0 0 12 3Z"/><circle cx="7.5" cy="10" r=".8"/><circle cx="11" cy="7" r=".8"/><circle cx="16" cy="8.5" r=".8"/></>,
+    "05": <><path d="M12 20c-4.5-2.5-7-5.7-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 3.3-2.5 6.5-7 9Z"/><path d="M12 17V9m0 4c-1.5-1.7-2.7-2.2-4-2.2m4 4c1.4-1.5 2.5-2 4-2"/></>,
+    "06": <><path d="M17.5 3.8a8.5 8.5 0 1 0 2.7 14.5A9 9 0 0 1 17.5 3.8Z"/><path d="m7 5 .5 1.5L9 7l-1.5.5L7 9l-.5-1.5L5 7l1.5-.5L7 5Zm11 7 .6 1.4L20 14l-1.4.6L18 16l-.6-1.4L16 14l1.4-.6L18 12Z"/></>
+  };
+  return <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" {...common}>{paths[kind] || paths["01"]}</svg>;
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(0);
@@ -177,7 +191,7 @@ function App() {
             <p className="heading-note">Distintas herramientas, una misma intención: abrir un espacio de conexión y cuidado.</p>
           </div>
           <div className="service-grid">
-            {services.map((s) => <article className="service-card reveal" key={s.n}><div className="service-top"><span>{s.n} / 06</span><span className="service-icon" aria-hidden="true">{s.icon}</span></div><p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p><a href={wa("Hola Marina, quiero saber más sobre " + s.title + ".")} target="_blank" rel="noreferrer" aria-label={"Consultar por " + s.title}>↗</a></article>)}
+            {services.map((s) => <article className="service-card reveal" key={s.n}><div className="service-top"><span>{s.n} / 06</span><span className="service-icon" aria-hidden="true"><ServiceIcon kind={s.n} /></span></div><p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p><a href={wa("Hola Marina, quiero saber más sobre " + s.title + ".")} target="_blank" rel="noreferrer" aria-label={"Consultar por " + s.title}>↗</a></article>)}
           </div>
           <p className="service-footnote">Las propuestas se conversan de manera personal para encontrar la opción adecuada para cada momento.</p>
         </section>
