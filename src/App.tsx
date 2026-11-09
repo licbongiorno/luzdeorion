@@ -192,7 +192,9 @@ function PracticePage({ page }: { page: PracticePageData }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState(0);\n  const currentSlug = window.location.pathname.match(/^\\/practicas\\/([^/]+)\\/?$/)?.[1];\n  const currentPage = currentSlug ? pageForSlug(currentSlug) : undefined;
+  const [active, setActive] = useState(0);
+  const currentSlug = window.location.pathname.match(/^\/practicas\/([^/]+)\/?$/)?.[1];
+  const currentPage = currentSlug ? pageForSlug(currentSlug) : undefined;
 
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>(".reveal");
@@ -209,7 +211,14 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {\n    if (!menuOpen) return;\n    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };\n    window.addEventListener("keydown", onKeyDown);\n    return () => window.removeEventListener("keydown", onKeyDown);\n  }, [menuOpen]);\n\n  const closeMenu = () => setMenuOpen(false);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
 
   if (currentPage) return <PracticePage page={currentPage} />;
 
@@ -275,7 +284,7 @@ function App() {
           <div className="experience-layout reveal">
             <div className={"experience-visual experience-visual-" + active}>
               <div className="experience-art-stage" key={active}>
-                {active === 0 ? <button className="sound-bowl-button" type="button" onClick={playBowlSound} aria-label="Reproducir sonido del cuenco tibetano"><SoundArtwork /><span>Tocá el cuenco para escuchar</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
+                {active === 0 ? <button className="sound-bowl-button" type="button" onClick={(event) => { playBowlSound(); const button = event.currentTarget; button.classList.remove("is-playing"); void button.offsetWidth; button.classList.add("is-playing"); window.setTimeout(() => button.classList.remove("is-playing"), 1200); }} aria-label="Reproducir sonido del cuenco tibetano"><SoundArtwork /><span>Tocá el cuenco para escuchar</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
               </div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
