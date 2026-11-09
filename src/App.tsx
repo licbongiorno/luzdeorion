@@ -261,6 +261,13 @@ function PracticePage({ page }: { page: PracticePageData }) {
     const twitterDescription = document.querySelector('meta[name="twitter:description"]');
     if (twitterDescription) twitterDescription.setAttribute("content", `${page.title}: ${page.intro}`);
   }, [page]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
   const related = practicePages.filter((item) => item.group === page.group && item.slug !== page.slug);
   const guide = practiceGuides[page.slug];
   return <>
@@ -268,7 +275,8 @@ function PracticePage({ page }: { page: PracticePageData }) {
     <div className="announcement"><span className="tiny-star">✳</span> Un espacio para volver a vos <span className="announcement-dot">·</span> Cuerpo · Energía · Emoción</div>
     <header className="header">
       <a className="brand" href="/" aria-label="Luz de Orión, inicio"><span className="brand-mark"><span>✳</span><i /></span><span className="brand-name">luz de <b>ori<em>ó</em>n</b></span></a>
-      <nav className="nav practice-nav" aria-label="Navegación principal"><a href="/#filosofia">El espacio</a><a href="/#terapias">Prácticas</a><a href="/#marina">Sobre Marina</a><a className="nav-cta" href={wa(`Hola Marina, quisiera conocer más sobre ${page.title}.`)} target="_blank" rel="noreferrer">Hablemos <span>↗</span></a></nav>
+      <button className="menu-toggle" type="button" aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"} aria-controls="practice-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span/><span/></button>
+      <nav id="practice-navigation" className={menuOpen ? "nav practice-nav nav-open" : "nav practice-nav"} aria-label="Navegación principal"><a href="/#filosofia" onClick={() => setMenuOpen(false)}>El espacio</a><a href="/#terapias" onClick={() => setMenuOpen(false)}>Prácticas</a><a href="/#marina" onClick={() => setMenuOpen(false)}>Sobre Marina</a><a className="nav-cta" href={wa(`Hola Marina, quisiera conocer más sobre ${page.title}.`)} target="_blank" rel="noreferrer">Hablemos <span>↗</span></a></nav>
     </header>
     <main id="contenido" className="practice-page">
       <div className="practice-breadcrumb"><a href="/">Inicio</a><span> / </span><a href="/#terapias">Prácticas</a><span> / </span><span>{page.title}</span></div>
@@ -359,6 +367,23 @@ function GeneralFaq() {
   </section>;
 }
 
+function PracticeNotFoundPage() {
+  return <>
+    <a className="skip-link" href="#contenido">Saltar al contenido</a>
+    <div className="announcement"><span className="tiny-star">✳</span> Un espacio para volver a vos <span className="announcement-dot">·</span> Cuerpo · Energía · Emoción</div>
+    <header className="header">
+      <a className="brand" href="/" aria-label="Luz de Orión, inicio"><span className="brand-mark"><span>✳</span><i/></span><span className="brand-name">luz de <b>ori<em>ó</em>n</b></span></a>
+      <a className="nav-cta" href="/#terapias">Ver las prácticas <span>↗</span></a>
+    </header>
+    <main id="contenido" className="not-found">
+      <p className="eyebrow">ESTE CAMINO NO APARECE</p>
+      <h1>No encontramos<br/><i>esta página.</i></h1>
+      <p className="body-copy">Puede que el enlace haya cambiado. Podés volver al inicio y explorar las prácticas disponibles.</p>
+      <a className="button button-dark" href="/">Volver a Luz de Orión <span>↗</span></a>
+    </main>
+  </>;
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(0);
@@ -391,6 +416,7 @@ function App() {
   const closeMenu = () => setMenuOpen(false);
 
   if (currentPage) return <PracticePage page={currentPage} />;
+  if (currentSlug) return <PracticeNotFoundPage />;
 
   return (
     <>
@@ -415,7 +441,6 @@ function App() {
 
       <main id="contenido">
         <section className="hero" id="inicio">
-          <div className="hero-grain" />
           <div className="hero-copy">
             <p className="eyebrow"><span className="eyebrow-line"/> UN MOMENTO PARA VOS</p>
             <h1>Volver a vos.<br/><i>Habitar</i> tu luz.</h1>
@@ -426,7 +451,7 @@ function App() {
             </div>
             <div className="hero-note"><span className="note-symbol">✳</span><span>Un momento para vos.<br/><b>Sin apuro, sin exigencias.</b></span></div>
           </div>
-          <div className="hero-art" aria-label="Ilustración abstracta de un sol naciente y formas orgánicas">
+          <div className="hero-art" role="img" aria-label="Ilustración de un sol naciente entre colinas y plantas">
             <div className="orbit orbit-one"/><div className="orbit orbit-two"/>
             <div className="sun-disc"><div className="sun-core"/><div className="sun-glow"/></div>
             <div className="hill hill-back"/><div className="hill hill-front"/>
