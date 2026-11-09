@@ -5,11 +5,11 @@ const phone = "5493546525509";
 const wa = (message: string) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
 const services = [
-  { n: "01", title: "Cuencos sonoros", text: "Baños de sonido y resonancias de cuencos para hacer una pausa, explorar la escucha y acompañar momentos de meditación y descanso.", tag: "Sonido & vibración", icon: "◖" },
-  { n: "02", title: "Masajes integrales", text: "Distintas técnicas de contacto corporal —oriental, relajante, descontracturante, californiano y más— elegidas según tus preferencias.", tag: "Cuerpo & presencia", icon: "✺" },
+  { n: "01", title: "Cuencos sonoros", text: "Una invitación a escuchar las resonancias de los cuencos, respirar y regalarte un momento de pausa, sin expectativas.", tag: "Sonido & escucha", icon: "◖" },
+  { n: "02", title: "Masajes integrales", text: "Distintas formas de trabajo corporal, conversadas con vos para cuidar tus preferencias, tu comodidad y tus límites.", tag: "Cuerpo & presencia", icon: "✺" },
   { n: "03", title: "Yoga & respiración", text: "Movimiento consciente, posturas adaptables y ejercicios de respiración para explorar la presencia y respetar los tiempos de cada cuerpo.", tag: "Movimiento consciente", icon: "〰" },
   { n: "04", title: "Arte & expresión", text: "Colores, formas y materiales como lenguajes para crear, explorar emociones y expresar aquello que a veces no encuentra palabras.", tag: "Creación & emoción", icon: "✳" },
-  { n: "05", title: "Reiki & aromaterapia", text: "Una experiencia de bienestar que puede integrar prácticas de tradición energética y aromas, siempre con información y cuidados previos.", tag: "Energía & calma", icon: "❋" },
+  { n: "05", title: "Reiki y aromaterapia", text: "Un encuentro de quietud y exploración sensorial. Los aromas son opcionales y se conversan siempre con cuidado.", tag: "Energía & sentidos", icon: "❋" },
   { n: "06", title: "Exploración interior", text: "Prácticas simbólicas y de reflexión para explorar preguntas personales, imágenes y relatos desde una mirada abierta y sin respuestas impuestas.", tag: "Autoconocimiento", icon: "☾" },
 ];
 
@@ -147,7 +147,7 @@ function playBowlSound() {
     const now = context.currentTime;
     const master = context.createGain();
     master.gain.setValueAtTime(0.0001, now);
-    master.gain.exponentialRampToValueAtTime(0.32, now + 0.025);
+    master.gain.exponentialRampToValueAtTime(0.18, now + 0.025);
     master.gain.exponentialRampToValueAtTime(0.0001, now + 4.2);
     const dryGain = context.createGain();
     dryGain.gain.value = 0.78;
@@ -253,6 +253,49 @@ function PracticePage({ page }: { page: PracticePageData }) {
   </>;
 }
 
+const aromaNotes = [
+  { name: "Lavanda", note: "Floral y serena", tone: "lavender" },
+  { name: "Azahar", note: "Cítrica y luminosa", tone: "orange-blossom" },
+  { name: "Bosque", note: "Verde y amaderada", tone: "forest" },
+];
+
+function SensoryPause() {
+  const [aroma, setAroma] = useState(0);
+  const [isBreathing, setIsBreathing] = useState(false);
+  const [breathPhase, setBreathPhase] = useState<"inhale" | "exhale">("inhale");
+
+  useEffect(() => {
+    if (!isBreathing) return;
+    const interval = window.setInterval(() => {
+      setBreathPhase((phase) => phase === "inhale" ? "exhale" : "inhale");
+    }, 4000);
+    return () => window.clearInterval(interval);
+  }, [isBreathing]);
+
+  return <section className="sensory-pause" id="pausa" aria-labelledby="sensory-title">
+    <div className="sensory-copy">
+      <p className="eyebrow">UN RESPIRO EN EL CAMINO</p>
+      <h2 id="sensory-title">Este momento<br/><i>también es tuyo.</i></h2>
+      <p className="body-copy">Si te hace bien, quedate un instante. Podés seguir el ritmo de la animación, escuchar una nota suave o elegir un paisaje aromático para imaginar.</p>
+      <p className="sensory-note">Sin hacerlo perfecto. Si no te resulta cómodo, volvé a tu respiración natural o simplemente observá.</p>
+    </div>
+    <div className={`sensory-card ${isBreathing ? "is-breathing" : ""}`} data-aroma={aromaNotes[aroma].tone}>
+      <div className="sensory-orb" aria-hidden="true"><span/></div>
+      <p className="breath-cue">{isBreathing ? (breathPhase === "inhale" ? "Inhalá con suavidad" : "Exhalá sin apuro") : "A tu propio ritmo"}</p>
+      <button className="sensory-breath-button" type="button" aria-pressed={isBreathing} onClick={() => { if (isBreathing) setBreathPhase("inhale"); setIsBreathing(!isBreathing); }}>{isBreathing ? "Terminar la pausa" : "Acompañar mi respiración"}</button>
+      <div className="aroma-picker">
+        <span className="aroma-label">UN PAISAJE AROMÁTICO</span>
+        <div className="aroma-options" role="group" aria-label="Elegí una nota aromática para imaginar">
+          {aromaNotes.map((item, index) => <button key={item.name} type="button" aria-pressed={aroma === index} onClick={() => setAroma(index)}>{item.name}</button>)}
+        </div>
+        <p className="aroma-description" aria-live="polite"><strong>{aromaNotes[aroma].name}</strong> · {aromaNotes[aroma].note}</p>
+        <p className="aroma-disclaimer">Es una invitación a imaginar, no se aplica ni difunde ninguna fragancia. Podés disfrutar la pausa sin aromas.</p>
+      </div>
+      <button className="sensory-sound-button" type="button" onClick={playBowlSound}><span aria-hidden="true">◖</span> Escuchar una nota digital</button>
+    </div>
+  </section>;
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(0);
@@ -298,6 +341,7 @@ function App() {
         <nav id="primary-navigation" className={menuOpen ? "nav nav-open" : "nav"} aria-label="Navegación principal">
           <a href="#filosofia" onClick={closeMenu}>El espacio</a>
           <a href="#experiencias" onClick={closeMenu}>Experiencias</a>
+          <a href="#pausa" onClick={closeMenu}>Pausa</a>
           <a href="#terapias" onClick={closeMenu}>Prácticas</a>
           <a href="#marina" onClick={closeMenu}>Sobre Marina</a>
           <a className="nav-cta" href={wa("Hola Marina, quisiera conocer más sobre tus propuestas.")} target="_blank" rel="noreferrer">Hablemos <span>↗</span></a>
@@ -308,9 +352,9 @@ function App() {
         <section className="hero" id="inicio">
           <div className="hero-grain" />
           <div className="hero-copy">
-            <p className="eyebrow"><span className="eyebrow-line"/> UN VIAJE HACIA TU INTERIOR</p>
+            <p className="eyebrow"><span className="eyebrow-line"/> UN MOMENTO PARA VOS</p>
             <h1>Volver a vos.<br/><i>Habitar</i> tu luz.</h1>
-            <p className="hero-lead">Un espacio de sanación integral donde el cuerpo, la energía y la emoción encuentran nuevas formas de escucharse.</p>
+            <p className="hero-lead">Un espacio amable para hacer una pausa, escuchar el cuerpo y explorar prácticas de bienestar a tu ritmo.</p>
             <div className="hero-actions">
               <a className="button button-dark" href={wa("Hola Marina, quiero consultar por tus sesiones.")} target="_blank" rel="noreferrer">Encontrá tu espacio <span>↗</span></a>
               <a className="text-link" href="#experiencias">Explorar experiencias <span>↓</span></a>
@@ -332,9 +376,10 @@ function App() {
         <section className="intro section-pad" id="filosofia">
           <div className="intro-aside reveal"><span className="section-index">01 — LA INVITACIÓN</span><div className="hand-drawn">✳</div><p>Un regreso<br/>a lo esencial.</p></div>
           <div className="intro-main reveal">
-            <p className="eyebrow">SANACIÓN INTEGRAL</p>
+            <p className="eyebrow">UN ESPACIO DE BIENESTAR</p>
             <h2>Hay momentos en los que necesitamos <i>hacer silencio</i> para volver a escucharnos.</h2>
-            <p className="body-copy">Luz de Orión es una invitación a hacer una pausa, conectar con tu mundo interior y explorar distintas prácticas de bienestar. Un espacio para encontrarte con el cuerpo, darle lugar a las emociones y descubrir tu propia manera de estar en equilibrio.</p>
+            <p className="body-copy">Luz de Orión es un espacio para bajar un poco el ritmo, escuchar cómo estás y acercarte a distintas prácticas de bienestar. Podés explorar el sonido, el movimiento, la creatividad y los aromas con curiosidad, sin apuro y a tu manera.</p>
+            <p className="body-copy">No hace falta llegar con respuestas ni experiencia previa. Cada propuesta empieza conversando sobre lo que te resulta cómodo y lo que necesitás hoy.</p>
             <a className="under-link" href="#terapias">Conocé las prácticas <span>↗</span></a>
           </div>
         </section>
@@ -347,7 +392,7 @@ function App() {
           <div className="experience-layout reveal">
             <div className={"experience-visual experience-visual-" + active}>
               <div className="experience-art-stage" key={active}>
-                {active === 0 ? <button className="sound-bowl-button" type="button" onClick={(event) => { playBowlSound(); const button = event.currentTarget; button.classList.remove("is-playing"); void button.offsetWidth; button.classList.add("is-playing"); window.setTimeout(() => button.classList.remove("is-playing"), 1200); }} aria-label="Reproducir sonido del cuenco tibetano"><SoundArtwork /><span>Tocá el cuenco para escuchar</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
+              {active === 0 ? <button className="sound-bowl-button" type="button" onClick={(event) => { playBowlSound(); const button = event.currentTarget; button.classList.remove("is-playing"); void button.offsetWidth; button.classList.add("is-playing"); window.setTimeout(() => button.classList.remove("is-playing"), 1200); }} aria-label="Escuchar una nota digital inspirada en un cuenco"><SoundArtwork /><span>Escuchar una nota suave</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
               </div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
@@ -364,6 +409,8 @@ function App() {
             </div>
           </div>
         </section>
+
+        <SensoryPause />
 
         <section className="quote-band">
           <span className="quote-mark">“</span>
@@ -390,8 +437,8 @@ function App() {
         <section className="closing">
           <div className="closing-stars">✳　·　✧　·　✳</div>
           <p className="eyebrow">TU MOMENTO PUEDE EMPEZAR HOY</p>
-          <h2>¿Y si hoy te<br/><i>elegís a vos?</i></h2>
-          <p className="closing-copy">No hace falta tener todas las respuestas.<br/>A veces, alcanza con dar el primer paso.</p>
+          <h2>Podés empezar<br/><i>por una pausa.</i></h2>
+          <p className="closing-copy">No hace falta tener todas las respuestas.<br/>Un momento de escucha también cuenta.</p>
           <a className="button button-light" href={wa("Hola Marina, quiero dar el primer paso y conocer tus propuestas.")} target="_blank" rel="noreferrer">Escribir por WhatsApp <span>↗</span></a>
           <span className="closing-orbit orbit-left"/><span className="closing-orbit orbit-right"/>
         </section>
@@ -409,3 +456,4 @@ function App() {
 }
 
 export default App;
+

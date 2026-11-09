@@ -93,6 +93,87 @@
  .service-card,.service-icon,.portrait-shape,.button,.floating-whatsapp{transition:none!important}
 }
 
+.sensory-pause{
+  padding:110px 11%;
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:9%;
+  align-items:center;
+  background:#e9e4d9;
+}
+.sensory-copy h2{
+  margin:0 0 22px;
+  color:var(--deep);
+  font:400 clamp(38px,4.5vw,59px)/1.12 var(--serif);
+  letter-spacing:-.035em;
+}
+.sensory-copy h2 i{color:#a97559;font-weight:400}
+.sensory-copy .body-copy{font-size:13px}
+.sensory-note{max-width:48ch;color:#858477;font-size:10px;line-height:1.8}
+.sensory-card{
+  --aroma-glow:#d9c6d2;
+  position:relative;
+  min-height:485px;
+  padding:48px 42px 30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  overflow:hidden;
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 22%,color-mix(in srgb,var(--aroma-glow) 55%,#f5f0e7),#f5f0e7 69%);
+  border:1px solid #9d9b8050;
+  border-radius:180px 180px 8px 8px;
+  transition:background .6s ease;
+}
+.sensory-card[data-aroma="orange-blossom"]{--aroma-glow:#ead4ad}
+.sensory-card[data-aroma="forest"]{--aroma-glow:#c8d0bb}
+.sensory-orb{
+  width:116px;
+  height:116px;
+  margin:0 auto 19px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#f8e8ce,#d3ad8a 75%);
+  box-shadow:0 0 0 16px #d9c8ad36,0 0 0 32px #d9c8ad1c;
+}
+.sensory-orb span{width:18px;height:18px;border:1px solid #fff5e2;border-radius:50%;background:#fff4df55}
+.breath-cue{min-height:24px;margin:0 0 13px;color:var(--deep);font:italic 18px var(--serif)}
+.sensory-breath-button,.sensory-sound-button{
+  border:1px solid #9ba18d;
+  background:#f7f3ebbb;
+  color:var(--deep);
+  padding:11px 17px;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:10px;
+  transition:background .25s,transform .25s,border-color .25s;
+}
+.sensory-breath-button:hover,.sensory-sound-button:hover{background:#fffaf1;transform:translateY(-2px);border-color:#7c8872}
+.sensory-card.is-breathing .sensory-orb span{animation:breathe .8s ease-in-out infinite alternate}
+.sensory-card.is-breathing .sensory-orb{animation:breathe 8s ease-in-out infinite}
+.aroma-picker{width:100%;margin:28px 0 0;padding-top:19px;border-top:1px solid #9d9b8038}
+.aroma-label{font-size:8px;letter-spacing:.16em;color:#8f7868}
+.aroma-options{display:flex;justify-content:center;gap:8px;margin:12px 0}
+.aroma-options button{border:1px solid transparent;border-radius:20px;padding:7px 12px;background:#ffffff82;color:#59645a;font-size:9px;cursor:pointer;transition:border-color .2s,background .2s}
+.aroma-options button[aria-pressed="true"]{border-color:#9c8f78;background:#fffaf1;color:var(--deep)}
+.aroma-description{margin:0;color:#6e7166;font-size:10px}
+.aroma-description strong{font-weight:600;color:#59645a}
+.aroma-disclaimer{max-width:46ch;margin:9px auto 0;color:#89877b;font-size:8px;line-height:1.6}
+.sensory-sound-button{margin-top:19px;padding:8px 13px;border-color:transparent;background:transparent;color:#8b705d;font-size:9px}
+.sensory-sound-button span{margin-right:6px;color:#ad7957;font-size:15px;vertical-align:-1px}
+@media(max-width:850px){.sensory-pause{padding:85px 7%;gap:6%}.sensory-card{padding-inline:28px}}
+@media(max-width:640px){
+  .sensory-pause{padding:76px 7%;grid-template-columns:1fr;gap:32px}
+  .sensory-copy h2{font-size:42px}
+  .sensory-copy .body-copy{font-size:12px}
+  .sensory-card{min-height:455px;padding:39px 20px 24px;border-radius:130px 130px 8px 8px}
+  .sensory-orb{width:96px;height:96px}
+  .aroma-options{gap:5px}
+  .aroma-options button{padding:7px 10px}
+}
+@media(prefers-reduced-motion:reduce){.sensory-card.is-breathing .sensory-orb,.sensory-card.is-breathing .sensory-orb span{animation:none}}
+
 
 /* Experiencias: ilustración SVG original y movimiento narrativo */
 .experience-visual{position:relative;display:grid;place-items:center;overflow:hidden;isolation:isolate}
@@ -623,3 +704,4 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
   .reveal{opacity:1!important;transform:none!important}
   .practice-faq-item>p{animation:none}
 }
+

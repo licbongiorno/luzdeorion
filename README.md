@@ -1,6 +1,6 @@
 # Luz de Orión
 
-Sitio web de Marina: sanación integral, cuerpo, energía y emoción. Construido con React, TypeScript y Vite.
+Sitio web de Marina: un espacio cálido para explorar prácticas de bienestar, sonido, movimiento, creatividad y aromas. Construido con React, TypeScript y Vite.
 
 ## Ejecutar localmente
 
@@ -28,6 +28,9 @@ El acceso a WhatsApp de Marina está configurado en el componente principal. Si 
 
 ## Contenido
 
+La página principal incluye experiencias interactivas: una nota de cuenco sintetizada que solo suena al activarla, una pausa de respiración opcional y una selección aromática imaginada. La propuesta de aromas es visual; no difunde fragancias. Las animaciones respetan la preferencia del sistema por reducir el movimiento.
+
 La web presenta las prácticas compartidas por Marina: terapia vibracional con cuencos sonoros, masajes, yoga, aromaterapia, arteterapia, Reiki, regresiones y registros, biodescodificación, prácticas de chamanismo, respiración consciente, relajación y lecturas de orientación y tarot.
 
 No se agregaron títulos profesionales, certificaciones, testimonios, direcciones ni horarios que no hayan sido proporcionados.
+
