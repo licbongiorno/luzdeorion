@@ -211,6 +211,8 @@ function App() {
 
   useEffect(() => {\n    if (!menuOpen) return;\n    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };\n    window.addEventListener("keydown", onKeyDown);\n    return () => window.removeEventListener("keydown", onKeyDown);\n  }, [menuOpen]);\n\n  const closeMenu = () => setMenuOpen(false);
 
+  if (currentPage) return <PracticePage page={currentPage} />;
+
   return (
     <>
       <a className="skip-link" href="#contenido">Saltar al contenido</a>
@@ -273,7 +275,7 @@ function App() {
           <div className="experience-layout reveal">
             <div className={"experience-visual experience-visual-" + active}>
               <div className="experience-art-stage" key={active}>
-                {active === 0 ? <SoundArtwork /> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
+                {active === 0 ? <button className="sound-bowl-button" type="button" onClick={playBowlSound} aria-label="Reproducir sonido del cuenco tibetano"><SoundArtwork /><span>Tocá el cuenco para escuchar</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
               </div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
