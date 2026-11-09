@@ -835,4 +835,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
   .service-icon{animation:serviceIconBreathe 6s ease-in-out infinite}
 }
 @keyframes serviceArtFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
+.service-top{align-items:center}
+.service-type-mark{color:#b9785c80;font-size:13px;line-height:1}
+.service-visual{justify-content:center;overflow:visible;border-radius:0;background:none}
+.service-visual::before{content:"";position:absolute;z-index:0;top:50%;left:50%;width:82px;height:82px;border:1px solid #b9785c40;border-radius:50%;transform:translate(-50%,-50%);box-shadow:inset 0 0 0 7px #b9785c08;transition:transform .55s var(--ease-orion),border-color .4s ease,box-shadow .4s ease}
+.service-art-icon{position:relative;z-index:1;display:block;width:54px!important;height:54px!important;max-width:none!important;max-height:none!important;color:#a96f50;stroke-width:1.35;transition:transform .55s var(--ease-orion),color .4s ease,filter .4s ease}
+.service-card:hover .service-visual::before,.service-card:focus-within .service-visual::before{transform:translate(-50%,-50%) scale(1.08);border-color:#8b9b7a88;box-shadow:inset 0 0 0 7px #8b9b7a10}
+.service-card:hover .service-art-icon,.service-card:focus-within .service-art-icon{transform:translateY(-2px) scale(1.08);color:#657b63;filter:drop-shadow(0 5px 5px #293b3210)}
+.service-visual-01 .service-art-icon{stroke-width:1.3}
+.service-visual-02 .service-art-icon,.service-visual-05 .service-art-icon,.service-visual-06 .service-art-icon{color:#71806d}
+.service-visual-03 .service-art-icon{color:#8d755f}
+@media(max-width:640px){.service-visual::before{width:72px;height:72px}.service-art-icon{width:48px!important;height:48px!important}}
 @keyframes serviceIconBreathe{0%,100%{box-shadow:0 0 0 0 #b9785c00}50%{box-shadow:0 0 0 5px #b9785c0a}}
