@@ -120,7 +120,25 @@ function playBowlSound() {
     master.gain.setValueAtTime(0.0001, now);
     master.gain.exponentialRampToValueAtTime(0.32, now + 0.025);
     master.gain.exponentialRampToValueAtTime(0.0001, now + 4.2);
-    master.connect(context.destination);
+    const dryGain = context.createGain();
+    dryGain.gain.value = 0.78;
+    const convolver = context.createConvolver();
+    const impulseLength = Math.floor(context.sampleRate * 2.6);
+    const impulse = context.createBuffer(2, impulseLength, context.sampleRate);
+    for (let channelIndex = 0; channelIndex < 2; channelIndex++) {
+      const impulseChannel = impulse.getChannelData(channelIndex);
+      for (let i = 0; i < impulseLength; i++) {
+        impulseChannel[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impulseLength, 3.2);
+      }
+    }
+    convolver.buffer = impulse;
+    const wetGain = context.createGain();
+    wetGain.gain.value = 0.24;
+    master.connect(dryGain);
+    dryGain.connect(context.destination);
+    master.connect(convolver);
+    convolver.connect(wetGain);
+    wetGain.connect(context.destination);
     [174.61, 349.8, 523.9, 698.7, 1048].forEach((frequency, index) => {
       const oscillator = context.createOscillator();
       const partial = context.createGain();
