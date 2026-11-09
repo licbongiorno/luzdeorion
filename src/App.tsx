@@ -41,6 +41,7 @@ function App() {
 
   return (
     <>
+      <a className="skip-link" href="#contenido">Saltar al contenido</a>
       <div className="announcement"><span className="tiny-star">✳</span> Un espacio para volver a vos <span className="announcement-dot">·</span> Cuerpo · Energía · Emoción</div>
       <header className="header">
         <a className="brand" href="#inicio" aria-label="Luz de Orión, inicio" onClick={closeMenu}>
@@ -48,7 +49,7 @@ function App() {
           <span className="brand-name">luz de <b>ori<em>ó</em>n</b></span>
         </a>
         <button className="menu-toggle" aria-label="Abrir menú" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span/><span/></button>
-        <nav className={menuOpen ? "nav nav-open" : "nav"}>
+        <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Navegación principal">
           <a href="#filosofia" onClick={closeMenu}>El espacio</a>
           <a href="#experiencias" onClick={closeMenu}>Experiencias</a>
           <a href="#terapias" onClick={closeMenu}>Prácticas</a>
@@ -57,7 +58,7 @@ function App() {
         </nav>
       </header>
 
-      <main>
+      <main id="contenido">
         <section className="hero" id="inicio">
           <div className="hero-grain" />
           <div className="hero-copy">
@@ -102,14 +103,14 @@ function App() {
               <div className={"experience-orb orb-" + active}><span>{experiences[active].symbol}</span></div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
             </div>
-            <div className="experience-detail">
+            <div className="experience-detail" aria-live="polite" aria-atomic="true">
               <div className="detail-count">0{active + 1} <span>— 03</span></div>
               <p className="eyebrow">{experiences[active].title.toUpperCase()}</p>
               <h3>{experiences[active].subtitle}</h3>
               <p className="body-copy">{experiences[active].text}</p>
               <a className="under-link" href={wa("Hola Marina, quisiera consultar por " + experiences[active].title + ".")} target="_blank" rel="noreferrer">Consultar por esta experiencia <span>↗</span></a>
               <div className="experience-tabs">
-                {experiences.map((item, i) => <button key={item.title} className={active === i ? "experience-tab selected" : "experience-tab"} onClick={() => setActive(i)}><span>0{i+1}</span>{item.title}<b>↗</b></button>)}
+                {experiences.map((item, i) => <button key={item.title} type="button" aria-pressed={active === i} className={active === i ? "experience-tab selected" : "experience-tab"} onClick={() => setActive(i)}><span>0{i+1}</span>{item.title}<b>↗</b></button>)}
               </div>
             </div>
           </div>
