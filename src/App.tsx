@@ -82,7 +82,7 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  const closeMenu = () => setMenuOpen(false);
+  useEffect(() => {\n    if (!menuOpen) return;\n    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };\n    window.addEventListener("keydown", onKeyDown);\n    return () => window.removeEventListener("keydown", onKeyDown);\n  }, [menuOpen]);\n\n  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
@@ -93,8 +93,8 @@ function App() {
           <span className="brand-mark"><span>✳</span><i /></span>
           <span className="brand-name">luz de <b>ori<em>ó</em>n</b></span>
         </a>
-        <button className="menu-toggle" aria-label="Abrir menú" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span/><span/></button>
-        <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Navegación principal">
+        <button className="menu-toggle" type="button" aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"} aria-controls="primary-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span/><span/></button>
+        <nav id="primary-navigation" className={menuOpen ? "nav nav-open" : "nav"} aria-label="Navegación principal">
           <a href="#filosofia" onClick={closeMenu}>El espacio</a>
           <a href="#experiencias" onClick={closeMenu}>Experiencias</a>
           <a href="#terapias" onClick={closeMenu}>Prácticas</a>
@@ -151,14 +151,14 @@ function App() {
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
             </div>
-            <div className="experience-detail" aria-live="polite" aria-atomic="true">
+            <div className="experience-detail" id="experience-panel" role="tabpanel" aria-live="polite" aria-atomic="true">
               <div className="detail-count">0{active + 1} <span>— 03</span></div>
               <p className="eyebrow">{experiences[active].title.toUpperCase()}</p>
               <h3>{experiences[active].subtitle}</h3>
               <p className="body-copy">{experiences[active].text}</p>
               <a className="under-link" href={wa("Hola Marina, quisiera consultar por " + experiences[active].title + ".")} target="_blank" rel="noreferrer">Consultar por esta experiencia <span>↗</span></a>
-              <div className="experience-tabs">
-                {experiences.map((item, i) => <button key={item.title} type="button" aria-pressed={active === i} className={active === i ? "experience-tab selected" : "experience-tab"} onClick={() => setActive(i)}><span>0{i+1}</span>{item.title}<b>↗</b></button>)}
+              <div className="experience-tabs" role="tablist" aria-label="Elegí una experiencia">
+                {experiences.map((item, i) => <button key={item.title} id={"experience-tab-" + i} type="button" role="tab" aria-selected={active === i} aria-controls="experience-panel" tabIndex={active === i ? 0 : -1} className={active === i ? "experience-tab selected" : "experience-tab"} onClick={() => setActive(i)}><span>0{i+1}</span>{item.title}<b>↗</b></button>)}
               </div>
             </div>
           </div>
@@ -176,7 +176,7 @@ function App() {
             <p className="heading-note">Distintas herramientas, una misma intención: abrir un espacio de conexión y cuidado.</p>
           </div>
           <div className="service-grid">
-            {services.map((s) => <article className="service-card reveal" key={s.n}><div className="service-top"><span>{s.n} / 06</span><span className="service-icon">{s.icon}</span></div><p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p><a href={wa("Hola Marina, quiero saber más sobre " + s.title + ".")} target="_blank" rel="noreferrer" aria-label={"Consultar por " + s.title}>↗</a></article>)}
+            {services.map((s) => <article className="service-card reveal" key={s.n}><div className="service-top"><span>{s.n} / 06</span><span className="service-icon" aria-hidden="true">{s.icon}</span></div><p className="service-tag">{s.tag}</p><h3>{s.title}</h3><p className="service-text">{s.text}</p><a href={wa("Hola Marina, quiero saber más sobre " + s.title + ".")} target="_blank" rel="noreferrer" aria-label={"Consultar por " + s.title}>↗</a></article>)}
           </div>
           <p className="service-footnote">Las propuestas se conversan de manera personal para encontrar la opción adecuada para cada momento.</p>
         </section>
