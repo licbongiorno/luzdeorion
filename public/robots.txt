@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://luzdeorion.vercel.app/sitemap.xml
