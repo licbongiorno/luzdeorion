@@ -69,7 +69,8 @@ function App() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const nodes = document.querySelectorAll<HTMLElement>(".reveal");\n    if (!("IntersectionObserver" in window)) { nodes.forEach((node) => node.classList.add("visible")); return; }
+    const nodes = document.querySelectorAll<HTMLElement>(".reveal");
+    if (!("IntersectionObserver" in window)) { nodes.forEach((node) => node.classList.add("visible")); return; }
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
