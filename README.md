@@ -35,4 +35,3 @@ Grabación del cuenco: [SingingBowl1.ogg](https://commons.wikimedia.org/wiki/Fil
 La web presenta las prácticas compartidas por Marina: terapia vibracional con cuencos sonoros, masajes, yoga, aromaterapia, arteterapia, Reiki, regresiones y registros, biodescodificación, prácticas de chamanismo, respiración consciente, relajación y lecturas de orientación y tarot.
 
 No se agregaron títulos profesionales, certificaciones, testimonios, direcciones ni horarios que no hayan sido proporcionados.
-
