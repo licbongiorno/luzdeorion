@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./styles.css";
 
 const phone = "5493546525509";
@@ -132,75 +132,50 @@ const practiceGuides: Record<string, PracticeGuide> = {
 
 const pageForSlug = (slug: string) => practicePages.find((page) => page.slug === slug);
 const pageUrl = (slug: string) => `/practicas/${slug}`;
-let bowlAudioContext: AudioContext | null = null;
-let lastBowlPlayAt = 0;
-function playBowlSound() {
-  try {
-    const timestamp = Date.now();
-    if (timestamp - lastBowlPlayAt < 650) return;
-    lastBowlPlayAt = timestamp;
-    const AudioContextConstructor = window.AudioContext;
-    if (!AudioContextConstructor) return;
-    bowlAudioContext ??= new AudioContextConstructor();
-    const context = bowlAudioContext;
-    if (context.state === "suspended") void context.resume();
-    const now = context.currentTime;
-    const master = context.createGain();
-    master.gain.setValueAtTime(0.0001, now);
-    master.gain.exponentialRampToValueAtTime(0.18, now + 0.025);
-    master.gain.exponentialRampToValueAtTime(0.0001, now + 4.2);
-    const dryGain = context.createGain();
-    dryGain.gain.value = 0.78;
-    const convolver = context.createConvolver();
-    const impulseLength = Math.floor(context.sampleRate * 2.6);
-    const impulse = context.createBuffer(2, impulseLength, context.sampleRate);
-    for (let channelIndex = 0; channelIndex < 2; channelIndex++) {
-      const impulseChannel = impulse.getChannelData(channelIndex);
-      for (let i = 0; i < impulseLength; i++) {
-        impulseChannel[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impulseLength, 3.2);
-      }
+function useBowlPlayer() {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.55);
+
+  useEffect(() => {
+    const audio = new Audio("/audio/singing-bowl.ogg");
+    audio.preload = "none";
+    audio.volume = volume;
+    audioRef.current = audio;
+    const updatePlaying = () => setIsPlaying(!audio.paused && !audio.ended);
+    audio.addEventListener("play", updatePlaying);
+    audio.addEventListener("pause", updatePlaying);
+    audio.addEventListener("ended", updatePlaying);
+    return () => {
+      audio.pause();
+      audio.removeEventListener("play", updatePlaying);
+      audio.removeEventListener("pause", updatePlaying);
+      audio.removeEventListener("ended", updatePlaying);
+      audioRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+  }, [volume]);
+
+  const play = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = volume;
+    audio.currentTime = 0;
+    void audio.play().catch(() => setIsPlaying(false));
+  };
+
+  const stop = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     }
-    convolver.buffer = impulse;
-    const wetGain = context.createGain();
-    wetGain.gain.value = 0.24;
-    master.connect(dryGain);
-    dryGain.connect(context.destination);
-    master.connect(convolver);
-    convolver.connect(wetGain);
-    wetGain.connect(context.destination);
-    [174.61, 349.8, 523.9, 698.7, 1048].forEach((frequency, index) => {
-      const oscillator = context.createOscillator();
-      const partial = context.createGain();
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(frequency, now);
-      oscillator.detune.setValueAtTime(index % 2 === 0 ? -3 : 3, now);
-      partial.gain.value = [0.72, 0.22, 0.105, 0.055, 0.022][index];
-      oscillator.connect(partial);
-      partial.connect(master);
-      oscillator.start(now);
-      oscillator.stop(now + 4.25);
-    });
-    const noiseBuffer = context.createBuffer(1, Math.floor(context.sampleRate * 0.09), context.sampleRate);
-    const channel = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < channel.length; i++) channel[i] = (Math.random() * 2 - 1) * (1 - i / channel.length);
-    const noise = context.createBufferSource();
-    const filter = context.createBiquadFilter();
-    const tap = context.createGain();
-    filter.type = "bandpass";
-    filter.frequency.value = 1350;
-    filter.Q.value = 0.8;
-    tap.gain.setValueAtTime(0.0001, now);
-    tap.gain.exponentialRampToValueAtTime(0.12, now + 0.004);
-    tap.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
-    noise.buffer = noiseBuffer;
-    noise.connect(filter);
-    filter.connect(tap);
-    tap.connect(context.destination);
-    noise.start(now);
-    noise.stop(now + 0.09);
-  } catch {
-    // Si el navegador bloquea el audio, el resto de la experiencia sigue funcionando.
-  }
+    setIsPlaying(false);
+  };
+
+  return { isPlaying, volume, setVolume, play, stop };
 }
 function PracticePage({ page }: { page: PracticePageData }) {
   useEffect(() => {
@@ -259,7 +234,7 @@ const aromaNotes = [
   { name: "Bosque", note: "Verde y amaderada", tone: "forest" },
 ];
 
-function SensoryPause() {
+function SensoryPause({ bowl }: { bowl: ReturnType<typeof useBowlPlayer> }) {
   const [aroma, setAroma] = useState(0);
   const [isBreathing, setIsBreathing] = useState(false);
   const [breathPhase, setBreathPhase] = useState<"inhale" | "exhale">("inhale");
@@ -279,7 +254,7 @@ function SensoryPause() {
       <p className="body-copy">Si te hace bien, quedate un instante. Podés seguir el ritmo de la animación, escuchar una nota suave o elegir un paisaje aromático para imaginar.</p>
       <p className="sensory-note">Sin hacerlo perfecto. Si no te resulta cómodo, volvé a tu respiración natural o simplemente observá.</p>
     </div>
-    <div className={`sensory-card ${isBreathing ? "is-breathing" : ""}`} data-aroma={aromaNotes[aroma].tone}>
+    <div className={`sensory-card ${isBreathing ? "is-breathing" : ""} ${bowl.isPlaying ? "is-sounding" : ""}`} data-aroma={aromaNotes[aroma].tone}>
       <div className="sensory-orb" aria-hidden="true"><span/></div>
       <p className="breath-cue">{isBreathing ? (breathPhase === "inhale" ? "Inhalá con suavidad" : "Exhalá sin apuro") : "A tu propio ritmo"}</p>
       <button className="sensory-breath-button" type="button" aria-pressed={isBreathing} onClick={() => { if (isBreathing) setBreathPhase("inhale"); setIsBreathing(!isBreathing); }}>{isBreathing ? "Terminar la pausa" : "Acompañar mi respiración"}</button>
@@ -291,7 +266,11 @@ function SensoryPause() {
         <p className="aroma-description" aria-live="polite"><strong>{aromaNotes[aroma].name}</strong> · {aromaNotes[aroma].note}</p>
         <p className="aroma-disclaimer">Es una invitación a imaginar, no se aplica ni difunde ninguna fragancia. Podés disfrutar la pausa sin aromas.</p>
       </div>
-      <button className="sensory-sound-button" type="button" onClick={playBowlSound}><span aria-hidden="true">◖</span> Escuchar una nota digital</button>
+      <div className="bowl-controls">
+        <button className="sensory-sound-button" type="button" onClick={bowl.isPlaying ? bowl.stop : bowl.play}><span aria-hidden="true">◖</span> {bowl.isPlaying ? "Detener el cuenco" : "Escuchar el cuenco"}</button>
+        <label className="bowl-volume" htmlFor="bowl-volume">Volumen <input id="bowl-volume" type="range" min="0" max="1" step="0.01" value={bowl.volume} onChange={(event) => bowl.setVolume(Number(event.target.value))} /></label>
+        <a className="audio-credit" href="https://commons.wikimedia.org/wiki/File:SingingBowl1.ogg" target="_blank" rel="noreferrer">Grabación: BambooBeast · dominio público</a>
+      </div>
     </div>
   </section>;
 }
@@ -299,6 +278,7 @@ function SensoryPause() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState(0);
+  const bowl = useBowlPlayer();
   const currentSlug = window.location.pathname.match(/^\/practicas\/([^/]+)\/?$/)?.[1];
   const currentPage = currentSlug ? pageForSlug(currentSlug) : undefined;
 
@@ -392,7 +372,7 @@ function App() {
           <div className="experience-layout reveal">
             <div className={"experience-visual experience-visual-" + active}>
               <div className="experience-art-stage" key={active}>
-              {active === 0 ? <button className="sound-bowl-button" type="button" onClick={(event) => { playBowlSound(); const button = event.currentTarget; button.classList.remove("is-playing"); void button.offsetWidth; button.classList.add("is-playing"); window.setTimeout(() => button.classList.remove("is-playing"), 1200); }} aria-label="Escuchar una nota digital inspirada en un cuenco"><SoundArtwork /><span>Escuchar una nota suave</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
+              {active === 0 ? <button className={`sound-bowl-button ${bowl.isPlaying ? "is-playing" : ""}`} type="button" onClick={bowl.isPlaying ? bowl.stop : bowl.play} aria-label={bowl.isPlaying ? "Detener el sonido del cuenco" : "Escuchar una grabación de cuenco"><SoundArtwork /><span>{bowl.isPlaying ? "Detener el sonido" : "Escuchar el cuenco"}</span></button> : active === 1 ? <ArtArtwork /> : <YogaArtwork />}
               </div>
               <div className="visual-rings"/><span className="visual-label">LUZ DE ORIÓN · EXPERIENCIAS</span>
               <span className="visual-art-caption">{active === 0 ? "RESONANCIA" : active === 1 ? "EXPRESIÓN" : "RESPIRACIÓN"}</span>
@@ -410,7 +390,7 @@ function App() {
           </div>
         </section>
 
-        <SensoryPause />
+        <SensoryPause bowl={bowl} />
 
         <section className="quote-band">
           <span className="quote-mark">“</span>

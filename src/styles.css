@@ -120,6 +120,7 @@
   align-items:center;
   overflow:hidden;
   text-align:center;
+  background:radial-gradient(ellipse at 50% 22%,#e8dacc,#f5f0e7 69%);
   background:radial-gradient(ellipse at 50% 22%,color-mix(in srgb,var(--aroma-glow) 55%,#f5f0e7),#f5f0e7 69%);
   border:1px solid #9d9b8050;
   border-radius:180px 180px 8px 8px;
@@ -152,6 +153,8 @@
 .sensory-breath-button:hover,.sensory-sound-button:hover{background:#fffaf1;transform:translateY(-2px);border-color:#7c8872}
 .sensory-card.is-breathing .sensory-orb span{animation:breathe .8s ease-in-out infinite alternate}
 .sensory-card.is-breathing .sensory-orb{animation:breathe 8s ease-in-out infinite}
+.sensory-card.is-sounding .sensory-orb{animation:soundGlow 2.8s ease-out infinite}
+@keyframes soundGlow{0%{box-shadow:0 0 0 8px #d9c8ad22,0 0 0 16px #d9c8ad10}70%,100%{box-shadow:0 0 0 30px #d9c8ad00,0 0 0 48px #d9c8ad00}}
 .aroma-picker{width:100%;margin:28px 0 0;padding-top:19px;border-top:1px solid #9d9b8038}
 .aroma-label{font-size:8px;letter-spacing:.16em;color:#8f7868}
 .aroma-options{display:flex;justify-content:center;gap:8px;margin:12px 0}
@@ -160,8 +163,12 @@
 .aroma-description{margin:0;color:#6e7166;font-size:10px}
 .aroma-description strong{font-weight:600;color:#59645a}
 .aroma-disclaimer{max-width:46ch;margin:9px auto 0;color:#89877b;font-size:8px;line-height:1.6}
-.sensory-sound-button{margin-top:19px;padding:8px 13px;border-color:transparent;background:transparent;color:#8b705d;font-size:9px}
+.bowl-controls{width:100%;margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:8px}
+.sensory-sound-button{margin-top:13px;padding:8px 13px;border-color:transparent;background:transparent;color:#8b705d;font-size:9px}
 .sensory-sound-button span{margin-right:6px;color:#ad7957;font-size:15px;vertical-align:-1px}
+.bowl-volume{width:min(100%,220px);display:flex;align-items:center;gap:12px;color:#77796e;font-size:9px}
+.bowl-volume input{flex:1;min-width:0;accent-color:#72806b}
+.audio-credit{color:#888679;font-size:8px;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:850px){.sensory-pause{padding:85px 7%;gap:6%}.sensory-card{padding-inline:28px}}
 @media(max-width:640px){
   .sensory-pause{padding:76px 7%;grid-template-columns:1fr;gap:32px}
@@ -173,6 +180,15 @@
   .aroma-options button{padding:7px 10px}
 }
 @media(prefers-reduced-motion:reduce){.sensory-card.is-breathing .sensory-orb,.sensory-card.is-breathing .sensory-orb span{animation:none}}
+
+/* La espiral y las columnas usan la proporción áurea como guía flexible. */
+@media(min-width:851px){
+  .hero{grid-template-columns:minmax(0,1.618fr) minmax(0,1fr)}
+  .intro{grid-template-columns:minmax(0,.618fr) minmax(0,1fr)}
+  .experience-layout{grid-template-columns:minmax(0,1.618fr) minmax(0,1fr)}
+  .sensory-pause{grid-template-columns:minmax(0,.618fr) minmax(0,1fr)}
+  .marina-section{grid-template-columns:minmax(0,1fr) minmax(0,.618fr)}
+}
 
 
 /* Experiencias: ilustración SVG original y movimiento narrativo */
