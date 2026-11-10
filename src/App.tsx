@@ -281,7 +281,7 @@ function PracticePage({ page }: { page: PracticePageData }) {
     <main id="contenido" className="practice-page">
       <div className="practice-breadcrumb"><a href="/">Inicio</a><span> / </span><a href="/#terapias">Prácticas</a><span> / </span><span>{page.title}</span></div>
       <section className="practice-hero">
-        <div className="practice-hero-copy"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title.split(" ").slice(0,-1).join(" ")} <i>{page.title.split(" ").slice(-1).join("")}</i></h1><p className="practice-lead">{page.lead}</p><p className="body-copy">{page.intro}</p><p className="practice-modality-note">Los encuentros pueden ser presenciales u online. Consultá con Marina qué formato está disponible para esta práctica.</p><a className="button button-dark" href={wa(`Hola Marina, quisiera consultar por ${page.title}.`)} target="_blank" rel="noreferrer">Consultar por esta práctica <span>↗</span></a></div>
+        <div className="practice-hero-copy"><p className="eyebrow">{page.eyebrow}</p><h1>{page.title.split(" ").slice(0,-1).join(" ")} <i>{page.title.split(" ").slice(-1).join("")}</i></h1><p className="practice-lead">{page.lead}</p><p className="body-copy">{page.intro}</p><p className="practice-modality-note">Los encuentros pueden ser presenciales u online. Consultá con Marina qué formato está disponible, cuánto dura y cuál es su valor.</p><a className="button button-dark" href={wa(`Hola Marina, me interesa ${page.title}. ¿Me contás si está disponible en modalidad presencial u online, cuánto dura y cuál es su valor?`)} target="_blank" rel="noreferrer">Consultar disponibilidad y valor <span>↗</span></a></div>
         <div className={`practice-hero-art practice-hero-art-${page.group}`} aria-hidden="true"><div className="practice-art-orbit"/><div className="practice-art-orbit second"/><PracticeArtwork page={page}/><small>{page.eyebrow}</small></div>
       </section>
       <section className="practice-content">
@@ -300,7 +300,7 @@ function PracticePage({ page }: { page: PracticePageData }) {
         <div className="practice-faq-list">{guide.faqs.map((faq,index)=><details className="practice-faq-item" key={faq.question}><summary><span>0{index+1}</span>{faq.question}<b aria-hidden="true">+</b></summary><p>{faq.answer}</p></details>)}</div>
       </section>
       {related.length>0 && <section className="related-practices"><p className="eyebrow">TAMBIÉN PODÉS EXPLORAR</p><div>{related.map((item)=><a key={item.slug} href={pageUrl(item.slug)}>{item.title}<span>↗</span></a>)}</div></section>}
-      <section className="practice-cta"><p className="eyebrow">LUZ DE ORIÓN · MARINA</p><h2>¿Querés conocer más<br/><i>sobre esta propuesta?</i></h2><p>Podés escribirle a Marina y conversar sobre la experiencia.</p><a className="button button-light" href={wa(`Hola Marina, me interesa conocer más sobre ${page.title}.`)} target="_blank" rel="noreferrer">Conversar por WhatsApp <span>↗</span></a></section>
+      <section className="practice-cta"><p className="eyebrow">LUZ DE ORIÓN · MARINA</p><h2>¿Querés conocer más<br/><i>sobre esta propuesta?</i></h2><p>Preguntá por modalidad, duración, valor y próximos horarios. Consultar no te compromete a reservar.</p><a className="button button-light" href={wa(`Hola Marina, me interesa ${page.title}. ¿Me contás modalidad, duración, valor y próximos horarios?`)} target="_blank" rel="noreferrer">Consultar por WhatsApp <span>↗</span></a></section>
     </main>
     <footer className="footer"><a className="brand footer-brand" href="/"><span className="brand-mark"><span>✳</span><i/></span><span className="brand-name">luz de <b>ori<em>ó</em>n</b></span></a><p>Cuerpo · Energía · Emoción</p><a href={wa("Hola Marina, llegué desde la web de Luz de Orión.")} target="_blank" rel="noreferrer">Hablemos por WhatsApp ↗</a><span className="copyright">© {new Date().getFullYear()} Luz de Orión · Un espacio para volver a vos.</span></footer>
     <a className="floating-whatsapp" href={wa(`Hola Marina, quisiera recibir información sobre ${page.title}.`)} target="_blank" rel="noreferrer" aria-label="Contactar a Marina por WhatsApp"><span>✳</span> Hablemos</a>
@@ -366,6 +366,50 @@ function GeneralFaq() {
     <div className="general-faq-list">{questions.map((item, index) => <details className="general-faq-item" key={item.question}><summary><span>0{index + 1}</span>{item.question}<b aria-hidden="true">+</b></summary><p>{item.answer}</p></details>)}</div>
   </section>;
 }
+
+const waysToBegin = [
+  { id: "pausa", label: "Necesito una pausa", description: "Quizás te interese empezar por una experiencia de escucha o descanso corporal.", links: ["cuencos-sonoros", "masaje-relajante"] },
+  { id: "movimiento", label: "Quiero moverme", description: "Podés explorar yoga y respiración con movimientos que se conversan según tus posibilidades.", links: ["yoga"] },
+  { id: "crear", label: "Quiero expresarme", description: "El arte y la exploración creativa pueden ser una forma de jugar con imágenes, colores y materiales.", links: ["arteterapia"] },
+  { id: "curiosidad", label: "Solo tengo curiosidad", description: "No hace falta elegir ahora. Podés contarle a Marina qué te gustaría explorar y preguntarle qué opciones ofrece.", links: [] },
+];
+
+function PracticeFinder() {
+  const [choice, setChoice] = useState("");
+  const selected = waysToBegin.find((item) => item.id === choice);
+  const suggestions = selected?.links.map((slug) => practicePages.find((page) => page.slug === slug)).filter((page): page is PracticePageData => Boolean(page)) ?? [];
+  return <section className="practice-finder reveal" aria-labelledby="practice-finder-title">
+    <div className="practice-finder-copy"><p className="eyebrow">SI NO SABÉS POR DÓNDE EMPEZAR</p><h2 id="practice-finder-title">Podemos empezar<br/><i>por lo que necesitás hoy.</i></h2><p>Elegí lo que más se acerca a tu momento. Es solo una orientación: no es un diagnóstico ni tenés que tenerlo resuelto para escribir.</p></div>
+    <div className="practice-finder-options" role="group" aria-label="¿Qué te gustaría explorar?">
+      {waysToBegin.map((item) => <button key={item.id} type="button" aria-pressed={choice === item.id} onClick={() => setChoice(item.id)}>{item.label}<span aria-hidden="true">↗</span></button>)}
+    </div>
+    <div className="practice-finder-result" key={selected?.id ?? "empty"} aria-live="polite" aria-atomic="true">
+      {selected ? <><p>{selected.description}</p>{suggestions.length > 0 && <div className="finder-links">{suggestions.map((page) => <a key={page.slug} href={pageUrl(page.slug)}>{page.title}<span> ↗</span></a>)}</div>}<a className="finder-contact" href={wa(`Hola Marina, hoy me gustaría explorar: ${selected.label.toLowerCase()}. ¿Me contás qué opciones, modalidad, duración y valor están disponibles?`)} target="_blank" rel="noreferrer">Conversarlo con Marina <span>↗</span></a></> : <p className="finder-prompt">Podés elegir una opción y ver algunas ideas, sin compromiso.</p>}
+    </div>
+  </section>;
+}
+
+function EvidenceNotes() {
+  return <section className="evidence-notes reveal" aria-labelledby="evidence-title">
+    <p className="eyebrow">INFORMACIÓN CON LOS PIES EN LA TIERRA</p><h2 id="evidence-title">Cuidar también es<br/><i>hablar con honestidad.</i></h2>
+    <p className="evidence-intro">Algunas prácticas se estudiaron como complemento de otros cuidados. Eso no garantiza un resultado individual ni convierte estas propuestas en tratamientos de salud.</p>
+    <div className="evidence-grid">
+      <article><span>01 · YOGA</span><p>Se estudió como complemento para distintos cuadros. Los resultados dependen del programa y la población; para trastornos de ansiedad, la evidencia aún no alcanza para conclusiones firmes.</p><a href="https://www.nccih.nih.gov/health/yoga-effectiveness-and-safety" target="_blank" rel="noreferrer">Qué dice NCCIH sobre yoga ↗</a></article>
+      <article><span>02 · MASAJE</span><p>La investigación sugiere alivio de corto plazo para ciertos dolores; en muchas situaciones la evidencia sigue siendo limitada.</p><a href="https://www.nccih.nih.gov/health/providers/digest/massage-therapy-for-health" target="_blank" rel="noreferrer">Qué dice NCCIH sobre masaje ↗</a></article>
+      <article><span>03 · CUENCOS Y REIKI</span><p>Una revisión encontró pocos estudios sobre cuencos, con riesgo de sesgo y sin evidencia suficiente para recomendar su uso terapéutico. Reiki no ha demostrado eficacia para tratar problemas de salud.</p><a href="https://pubmed.ncbi.nlm.nih.gov/32507429/" target="_blank" rel="noreferrer">Revisión sobre cuencos ↗</a><a href="https://www.nccih.nih.gov/health/reiki" target="_blank" rel="noreferrer">Qué dice NCCIH sobre Reiki ↗</a></article>
+    </div>
+    <p className="evidence-footnote">Las demás propuestas de Luz de Orión se presentan como experiencias de bienestar, expresión o reflexión. La evidencia sobre arteterapia clínica no debe confundirse con una actividad creativa no clínica.</p>
+  </section>;
+}
+
+function FirstContact() {
+  return <section className="first-contact reveal" aria-labelledby="first-contact-title">
+    <p className="eyebrow">UN PRIMER PASO, SIN PRESIÓN</p><h2 id="first-contact-title">Primero conversamos.<br/><i>Después elegís.</i></h2>
+    <div className="first-contact-steps"><article><span>01</span><h3>Contale qué te interesa</h3><p>Podés escribir aunque todavía no sepas qué práctica elegir.</p></article><article><span>02</span><h3>Preguntá lo que necesitás</h3><p>Modalidad, duración, valor, disponibilidad y cualquier cuidado importante.</p></article><article><span>03</span><h3>Decidís con calma</h3><p>Coordinás si la propuesta te cierra. Consultar no te compromete a reservar.</p></article></div>
+    <a className="button button-dark" href={wa("Hola Marina, estoy conociendo Luz de Orión. ¿Me contás qué propuestas, modalidades, duración, valores y horarios están disponibles?")} target="_blank" rel="noreferrer">Consultar por WhatsApp <span>↗</span></a>
+  </section>;
+}
+
 
 function PracticeNotFoundPage() {
   return <>
@@ -444,12 +488,12 @@ function App() {
           <div className="hero-copy">
             <p className="eyebrow"><span className="eyebrow-line"/> UN MOMENTO PARA VOS</p>
             <h1>Volver a vos.<br/><i>Habitar</i> tu luz.</h1>
-            <p className="hero-lead">Un espacio amable para hacer una pausa, escuchar el cuerpo y explorar prácticas de bienestar a tu ritmo.</p>
+            <p className="hero-lead">Hola, soy Marina. Qué lindo que estés acá. Este es un espacio cercano para hacer una pausa, escuchar cómo estás y explorar, a tu ritmo, qué puede acompañarte hoy.</p>
             <div className="hero-actions">
               <a className="button button-dark" href={wa("Hola Marina, quiero consultar por tus sesiones.")} target="_blank" rel="noreferrer">Encontrá tu espacio <span>↗</span></a>
               <a className="text-link" href="#experiencias">Explorar experiencias <span>↓</span></a>
             </div>
-            <div className="hero-note"><span className="note-symbol">✳</span><span>Un momento para vos.<br/><b>Sin apuro, sin exigencias.</b></span></div>
+            <div className="hero-note"><span className="note-symbol">✳</span><span>Podés llegar con preguntas, curiosidad o cansancio.<br/><b>No hace falta saber por dónde empezar.</b></span></div>
           </div>
           <div className="hero-art" role="img" aria-label="Ilustración de un sol naciente entre colinas y plantas">
             <div className="orbit orbit-one"/><div className="orbit orbit-two"/>
@@ -468,8 +512,8 @@ function App() {
           <div className="intro-main reveal">
             <p className="eyebrow">UN ESPACIO DE BIENESTAR</p>
             <h2>Hay momentos en los que necesitamos <i>hacer silencio</i> para volver a escucharnos.</h2>
-            <p className="body-copy">Luz de Orión es un espacio para bajar un poco el ritmo, escuchar cómo estás y acercarte a distintas prácticas de bienestar. Podés explorar el sonido, el movimiento, la creatividad y los aromas con curiosidad, sin apuro y a tu manera.</p>
-            <p className="body-copy">No hace falta llegar con respuestas ni experiencia previa. Cada propuesta empieza conversando sobre lo que te resulta cómodo y lo que necesitás hoy.</p>
+            <p className="body-copy">Hola, soy Marina. Creé Luz de Orión como un espacio cercano y luminoso donde podamos encontrarnos con tiempo. A través del sonido, el movimiento, la creatividad y otras prácticas de bienestar, te acompaño a hacer una pausa y prestar atención a lo que necesitás hoy.</p>
+            <p className="body-copy">No hace falta venir con experiencia, respuestas ni una idea clara. Primero conversamos; tus preferencias, comodidad y límites son parte de la propuesta desde el comienzo.</p>
             <a className="under-link" href="#terapias">Conocé las prácticas <span>↗</span></a>
           </div>
         </section>
@@ -524,12 +568,16 @@ function App() {
           <p className="service-footnote">Modalidad presencial y online. Consultá con Marina para conocer cómo se adapta cada propuesta y elegir la que te resulte cómoda.</p>
         </section>
 
+        <PracticeFinder />
+        <EvidenceNotes />
+
         <section className="marina-section" id="marina">
           <div className="marina-art reveal"><img className="marina-portrait" src="/images/marina.webp" alt="Marina en un jardín, sosteniendo una pequeña flor junto a su rostro" loading="lazy" decoding="async"/><span className="portrait-caption">PRESENCIA · ESCUCHA · CREACIÓN</span></div>
-          <div className="marina-copy reveal"><p className="eyebrow">UN POCO SOBRE MARINA</p><h2>Un camino que se construye <i>con presencia.</i></h2><p className="body-copy">Soy Marina, profesora de yoga y facilitadora de distintas prácticas de bienestar integral. En Luz de Orión reúno herramientas corporales, sonoras, creativas y energéticas para ofrecerte un espacio de encuentro y exploración personal.</p><p className="body-copy">Me interesa especialmente el trabajo con el arte y los cuencos sonoros: dos lenguajes que invitan a experimentar, sentir y conectar más allá de las palabras.</p><p className="modality-note">Hay opciones presenciales y online. Consultá con Marina cuál modalidad está disponible para la práctica que te interesa.</p><a className="button button-dark" href={wa("Hola Marina, me gustaría conocerte y conversar sobre tus propuestas.")} target="_blank" rel="noreferrer">Conectar con Marina <span>↗</span></a></div>
+          <div className="marina-copy reveal"><p className="eyebrow">UN POCO SOBRE MARINA</p><h2>Un camino que se construye <i>con presencia.</i></h2><p className="body-copy">Soy Marina, profesora de yoga y facilitadora de distintas prácticas de bienestar integral. Me gusta recibir a cada persona como llega, escuchar primero y construir juntas un espacio cuidado, sin apuro y con respeto por sus tiempos.</p><p className="body-copy">En Luz de Orión reúno propuestas corporales, sonoras, creativas y de exploración. Me conmueven especialmente el arte y los cuencos: maneras distintas de hacer lugar a lo que sentimos, incluso cuando todavía no encontramos las palabras.</p><p className="modality-note">Hay opciones presenciales y online. Escribime y vemos juntas qué formato está disponible para la propuesta que te interesa.</p><a className="button button-dark" href={wa("Hola Marina, me gustaría conocerte y conversar sobre tus propuestas.")} target="_blank" rel="noreferrer">Conectar con Marina <span>↗</span></a></div>
         </section>
 
         <GeneralFaq />
+        <FirstContact />
 
         <section className="closing">
           <div className="closing-stars">✳　·　✧　·　✳</div>
