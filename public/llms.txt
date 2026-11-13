@@ -1,0 +1,47 @@
+# Luz de Orión
+
+> Luz de Orión es el espacio de bienestar de Marina, profesora de yoga y facilitadora de prácticas de bienestar integral, en Argentina. Ofrece cuencos sonoros, distintas modalidades de masaje, yoga consciente, respiración, arte y expresión, Reiki, aromaterapia y prácticas simbólicas de exploración interior. Hay opciones presenciales y online. Las consultas y reservas se hacen por WhatsApp.
+
+Sitio en español rioplatense (Argentina). Sitio web: https://luzdeorion.vercel.app/
+
+## Información clave
+
+- Quién atiende: Marina, profesora de yoga y facilitadora de prácticas de bienestar integral.
+- Contacto y reservas: WhatsApp +54 9 3546 52-5509 (https://wa.me/5493546525509). Consultar no compromete a reservar.
+- Modalidad: presencial y online; la disponibilidad depende de cada práctica y se confirma por WhatsApp.
+- Cómo funciona: primero se conversa sobre preferencias, comodidad y límites. Se puede pedir un ajuste o detener una experiencia en cualquier momento.
+- Valores, duración y horarios: no están publicados en el sitio; se informan por WhatsApp.
+- Ubicación: Argentina. La ciudad y la dirección no están publicadas en el sitio; consultar por WhatsApp.
+
+## Qué no ofrece
+
+- No ofrece diagnósticos, tratamientos ni atención médica o psicológica, y sus prácticas no los reemplazan.
+- No promete resultados de salud ni curas. Las prácticas espirituales y simbólicas (Reiki, registros, regresiones, biodescodificación, chamanismo, tarot) se presentan como propuestas de bienestar y exploración personal, no como hechos verificables científicamente.
+
+## Prácticas
+
+- [Cuencos sonoros](https://luzdeorion.vercel.app/practicas/cuencos-sonoros): experiencia de escucha y pausa con las resonancias de cuencos.
+- [Masajes integrales](https://luzdeorion.vercel.app/practicas/masajes-integrales): modalidades de masaje que se eligen después de conversar.
+- [Masaje oriental](https://luzdeorion.vercel.app/practicas/masaje-oriental): contacto y atención al cuerpo inspirados en tradiciones orientales.
+- [Masaje descontracturante](https://luzdeorion.vercel.app/practicas/masaje-descontracturante): masaje enfocado en zonas donde se percibe tensión.
+- [Masaje relajante](https://luzdeorion.vercel.app/practicas/masaje-relajante): maniobras suaves y ritmo tranquilo para descansar.
+- [Masaje con pindas](https://luzdeorion.vercel.app/practicas/masaje-con-pindas): masaje con saquitos de tela con hierbas, templados.
+- [Masaje con bambú](https://luzdeorion.vercel.app/practicas/masaje-con-bambu): masaje con piezas de bambú como herramienta.
+- [Masaje con piedras calientes](https://luzdeorion.vercel.app/practicas/masaje-piedras-calientes): masaje con piedras templadas y temperatura controlada.
+- [Masaje californiano](https://luzdeorion.vercel.app/practicas/masaje-californiano): movimientos amplios, fluidos y continuos.
+- [Yoga consciente](https://luzdeorion.vercel.app/practicas/yoga): posturas adaptables, respiración y atención.
+- [Respiración consciente y relajación](https://luzdeorion.vercel.app/practicas/respiracion-consciente): ejercicios de atención a la respiración y relajación.
+- [Arte y expresión](https://luzdeorion.vercel.app/practicas/arteterapia): exploración creativa con colores, formas y materiales; no requiere experiencia artística.
+- [Reiki](https://luzdeorion.vercel.app/practicas/reiki): práctica de origen japonés de tradición energética, en un ambiente tranquilo.
+- [Aromaterapia](https://luzdeorion.vercel.app/practicas/aromaterapia): experiencia sensorial con aromas, siempre opcional y conversada.
+- [Exploración interior](https://luzdeorion.vercel.app/practicas/exploracion-interior): propuestas simbólicas y de reflexión personal.
+- [Regresiones](https://luzdeorion.vercel.app/practicas/regresiones): relajación e imaginación guiada para explorar imágenes subjetivas.
+- [Registros](https://luzdeorion.vercel.app/practicas/registros): práctica de consulta simbólica e introspectiva.
+- [Biodescodificación](https://luzdeorion.vercel.app/practicas/biodescodificacion): enfoque alternativo de reflexión sobre historias personales; no reemplaza la medicina.
+- [Prácticas de chamanismo](https://luzdeorion.vercel.app/practicas/chamanismo): prácticas de inspiración chamánica desde un encuadre respetuoso.
+- [Lectura de cartas y tarot](https://luzdeorion.vercel.app/practicas/lectura-de-cartas-y-tarot): lectura simbólica como disparador de conversación; no es predicción.
+
+## Más información
+
+- [Texto completo del sitio](https://luzdeorion.vercel.app/llms-full.txt): descripción, preguntas frecuentes y detalles de cada práctica en un solo archivo.
+- [Mapa del sitio](https://luzdeorion.vercel.app/sitemap.xml)

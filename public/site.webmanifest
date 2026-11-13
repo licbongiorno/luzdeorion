@@ -1,0 +1,14 @@
+{
+  "name": "Luz de Orión",
+  "short_name": "Luz de Orión",
+  "description": "Espacio de bienestar con Marina: cuencos sonoros, masajes, yoga, arte y prácticas de exploración interior.",
+  "lang": "es-AR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f5f0e7",
+  "theme_color": "#111731",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
