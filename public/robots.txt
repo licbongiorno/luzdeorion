@@ -1,4 +1,25 @@
+# Luz de Orión · https://luzdeorion.vercel.app
+# Todo el sitio es público: buscadores y asistentes de IA pueden leerlo y citarlo.
+
 User-agent: *
+Allow: /
+
+# Asistentes de IA (búsqueda, consultas de usuarios y entrenamiento): permitidos explícitamente.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: meta-webindexer
+User-agent: Bingbot
+User-agent: DuckAssistBot
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://luzdeorion.vercel.app/sitemap.xml
