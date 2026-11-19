@@ -2,16 +2,16 @@ export const phone = "5493546525509";
 export const wa = (message: string) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
 export const services = [
-  { n: "01", slug: "cuencos-sonoros", title: "Cuencos sonoros", text: "Una invitación a escuchar las resonancias de los cuencos, respirar y regalarte un momento de pausa, sin expectativas.", tag: "Sonido & escucha", icon: "◖" },
-  { n: "02", slug: "masajes-integrales", title: "Masajes integrales", text: "Distintas formas de trabajo corporal, conversadas con vos para cuidar tus preferencias, tu comodidad y tus límites.", tag: "Cuerpo & presencia", icon: "✺" },
+  { n: "01", slug: "cuencos-sonoros", title: "Terapia sonora con cuencos", text: "Las resonancias de los cuencos acompañan el descanso y la escucha. Suelen sonar cerca del cuerpo mientras estás en la camilla, siempre a una intensidad cómoda.", tag: "Sonido & vibración", icon: "◖" },
+  { n: "02", slug: "masajes-integrales", title: "Masaje relajante y energético", text: "Trabajo corporal en camilla, con maniobras suaves y atención a lo energético. La presión, las zonas y los límites se conversan antes.", tag: "Cuerpo & energía", icon: "✺" },
   { n: "03", slug: "yoga", title: "Yoga & respiración", text: "Movimiento consciente, posturas adaptables y ejercicios de respiración para explorar la presencia y respetar los tiempos de cada cuerpo.", tag: "Movimiento consciente", icon: "〰" },
-  { n: "04", slug: "arteterapia", title: "Arte & expresión", text: "Colores, formas y materiales como lenguajes para crear, explorar emociones y expresar aquello que a veces no encuentra palabras.", tag: "Creación & emoción", icon: "✳" },
-  { n: "05", slug: "reiki", title: "Reiki y aromaterapia", text: "Un encuentro de quietud y exploración sensorial. Los aromas son opcionales y se conversan siempre con cuidado.", tag: "Energía & sentidos", icon: "❋" },
+  { n: "04", slug: "arteterapia", title: "Arte & expresión", text: "Una de las herramientas centrales del espacio: colores, formas y materiales para explorar emociones y dar lugar a lo que a veces no encuentra palabras.", tag: "Creación & emoción", icon: "✳" },
+  { n: "05", slug: "reiki", title: "Trabajo energético y aromas", text: "Momentos de quietud con imposición de manos y, si te resulta cómodo, aromas suaves. Todo se conversa antes y es opcional.", tag: "Energía & sentidos", icon: "❋" },
   { n: "06", slug: "exploracion-interior", title: "Exploración interior", text: "Prácticas simbólicas y de reflexión para explorar preguntas personales, imágenes y relatos desde una mirada abierta y sin respuestas impuestas.", tag: "Autoconocimiento", icon: "☾" },
 ];
 
 export const experiences = [
-  { title: "Cuencos sonoros", subtitle: "Dejá que el sonido te encuentre", text: "Una experiencia de escucha profunda. Las vibraciones y resonancias de los cuencos crean un espacio para descansar, respirar y conectar con el momento presente.", symbol: "◖" },
+  { title: "Terapia sonora", subtitle: "Dejá que el sonido te encuentre", text: "Una experiencia de escucha profunda. Las vibraciones y resonancias de los cuencos crean un espacio para descansar, respirar y conectar con el momento presente.", symbol: "◖" },
   { title: "Arte y expresión", subtitle: "Hay cosas que encuentran su forma creando", text: "El arte como territorio de exploración: colores, formas, imágenes y materiales para abrir preguntas, jugar y expresar aquello que a veces no encuentra palabras.", symbol: "✳" },
   { title: "Yoga consciente", subtitle: "Moverte también puede ser una forma de volver", text: "Prácticas para conectar respiración y movimiento, respetando los tiempos y posibilidades de cada cuerpo.", symbol: "〰" },
 ];
@@ -68,3 +68,47 @@ export const practiceGuides: Record<string, PracticeGuide> = {
 
 export const pageForSlug = (slug: string) => practicePages.find((page) => page.slug === slug);
 export const pageUrl = (slug: string) => `/practicas/${slug}`;
+
+// ---------- Información práctica y textos de la home ----------
+// Fuente única: la usan src/App.tsx y scripts/prerender.mjs (SEO). Cambiar acá y se actualiza en ambos.
+
+export const place = {
+  city: "Río Ceballos",
+  zone: "Ñu Porá",
+  province: "Córdoba",
+  short: "Río Ceballos, Córdoba",
+  long: "Río Ceballos, Córdoba (zona Ñu Porá)",
+};
+
+export const sessionFacts = [
+  { label: "Dónde", value: "Presencial en Río Ceballos, zona Ñu Porá. Un espacio propio, tranquilo y con camilla." },
+  { label: "Duración", value: "Entre 1 h 30 y 2 h, con tiempo para conversar antes y cerrar sin apuro." },
+  { label: "Días", value: "De lunes a viernes, con turno a coordinar." },
+  { label: "Valor", value: "Lo conversamos por WhatsApp." },
+];
+
+export const sessionSteps = [
+  { title: "Conversamos", text: "Me contás cómo llegás, qué te está pasando y qué te gustaría. Escuchar primero es parte del encuentro." },
+  { title: "Elijo con vos las herramientas", text: "Te propongo lo que creo más conveniente para ese día: masaje relajante y energético, sonido de cuencos, arte o respiración. Siempre con tu acuerdo." },
+  { title: "Integramos", text: "Cerramos con un momento para registrar cómo te sentís y, si querés, conversar sobre lo que apareció." },
+];
+
+export const homeIntro = [
+  "Hola, soy Marina. Creé Luz de Orión como un espacio cercano y luminoso donde podamos encontrarnos con tiempo. Trabajo de forma integrativa: no ofrezco técnicas sueltas, sino sesiones que se arman a partir de lo que traés.",
+  "No hace falta venir con experiencia, respuestas ni una idea clara. Primero conversamos; tus preferencias, comodidad y límites son parte de la sesión desde el comienzo.",
+];
+
+export const homeAbout = [
+  "Soy Marina, profesora de yoga y facilitadora de bienestar holístico. Me gusta recibir a cada persona como llega, escuchar primero y construir juntas un espacio cuidado, sin apuro y con respeto por sus tiempos.",
+  "En cada sesión combino lo que tiene sentido para esa persona: masaje relajante y energético, terapia sonora con cuencos y arte, que para mí es una de las herramientas más completas, junto con otras prácticas que van surgiendo en el encuentro. Me interesa acompañar lo que se siente en el cuerpo y en lo emocional: el cansancio, las tensiones, el dolor y las historias que pesan.",
+  "Atiendo de forma presencial en Río Ceballos, en la zona de Ñu Porá, en un espacio propio y cálido preparado para las sesiones.",
+];
+
+export const homeFaqs = [
+  { question: "¿Dónde atendés?", answer: "En Río Ceballos, Córdoba, en la zona de Ñu Porá. Es un espacio propio, tranquilo y con camilla. La dirección exacta te la paso por WhatsApp cuando coordinamos el turno." },
+  { question: "¿Cuánto dura una sesión?", answer: "Entre 1 h 30 y 2 h. Incluye la conversación inicial, el trabajo de la sesión y un momento para cerrar sin apuro." },
+  { question: "¿Puedo pedir solo un masaje, Reiki u otra técnica?", answer: "Las sesiones son integrativas: primero conversamos y después elegimos juntas las herramientas que pueden acompañarte mejor ese día. Si hay algo que te interesa especialmente o que preferís evitar, lo tenemos en cuenta." },
+  { question: "¿Qué días atendés y cómo saco turno?", answer: "De lunes a viernes, con turno a coordinar por WhatsApp. El valor también lo conversamos por ahí. Consultar no te compromete a reservar." },
+  { question: "¿Puedo pedir ajustes o detener la sesión?", answer: "Sí. Tus preferencias y límites se conversan antes, y podés pedir un cambio o detener la sesión en cualquier momento." },
+  { question: "¿Las sesiones reemplazan la atención médica o psicológica?", answer: "No. Son un acompañamiento holístico de bienestar, complementario. No reemplazan diagnósticos, tratamientos ni el acompañamiento de profesionales de la salud." },
+];

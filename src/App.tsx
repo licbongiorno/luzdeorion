@@ -1,6 +1,6 @@
 import { type RefObject, useEffect, useRef, useState } from "react";
 import "./styles.css";
-import { wa, services, experiences, practicePages, practiceGuides, pageForSlug, pageUrl, type PracticePageData } from "./data";
+import { wa, services, experiences, practicePages, practiceGuides, pageForSlug, pageUrl, place, sessionFacts, sessionSteps, homeIntro, homeAbout, homeFaqs, type PracticePageData } from "./data";
 import { Starfield, OrionConstellation, GoldenSpiral, Mandala } from "./components/Sky";
 import { SoundArtwork, ArtArtwork, YogaArtwork, PracticeArtwork, ServiceIcon } from "./components/Artworks";
 import { SiteHeader, SiteFooter, FloatingWhatsApp, type NavLink } from "./components/SiteChrome";
@@ -8,15 +8,16 @@ import { usePageMotion, useDrawIn } from "./hooks/useMotion";
 
 const HOME_LINKS: NavLink[] = [
   { href: "#filosofia", label: "El espacio" },
+  { href: "#sesion", label: "La sesión" },
   { href: "#experiencias", label: "Experiencias" },
-  { href: "#pausa", label: "Pausa" },
-  { href: "#terapias", label: "Prácticas" },
+  { href: "#terapias", label: "Herramientas" },
   { href: "#preguntas", label: "Preguntas" },
   { href: "#marina", label: "Sobre Marina" },
 ];
 const PAGE_LINKS: NavLink[] = [
   { href: "/#filosofia", label: "El espacio" },
-  { href: "/#terapias", label: "Prácticas" },
+  { href: "/#sesion", label: "La sesión" },
+  { href: "/#terapias", label: "Herramientas" },
   { href: "/#preguntas", label: "Preguntas" },
   { href: "/#marina", label: "Sobre Marina" },
 ];
@@ -125,14 +126,14 @@ function PracticePage({ page }: { page: PracticePageData }) {
         <div className="wrap practice-hero-grid">
           <div className="practice-hero-copy">
             <nav className="breadcrumb" aria-label="Ruta de navegación" data-hero-fade>
-              <ol><li><a href="/">Inicio</a></li><li><a href="/#terapias">Prácticas</a></li><li aria-current="page">{page.title}</li></ol>
+              <ol><li><a href="/">Inicio</a></li><li><a href="/#terapias">Herramientas</a></li><li aria-current="page">{page.title}</li></ol>
             </nav>
             <h1 className="display" data-hero-line>{page.title}</h1>
             <p className="practice-lead" data-hero-fade>{page.lead}</p>
             <ul className="theme-list" aria-label="Temas de la práctica" data-hero-fade>{themesOf(page.eyebrow).map((theme) => <li key={theme}>{theme}</li>)}</ul>
             <p className="practice-intro" data-hero-fade>{page.intro}</p>
-            <p className="practice-modality" data-hero-fade>Los encuentros pueden ser presenciales u online. Consultá con Marina qué formato está disponible, cuánto dura y cuál es su valor.</p>
-            <div data-hero-fade><a className="btn btn-primary" href={wa(`Hola Marina, me interesa ${page.title}. ¿Me contás si está disponible en modalidad presencial u online, cuánto dura y cuál es su valor?`)} target="_blank" rel="noreferrer">Consultar disponibilidad y valor <ExternalMark /></a></div>
+            <p className="practice-modality" data-hero-fade>Puede formar parte de una sesión integrativa: presencial en {place.long}, de 1 h 30 a 2 h, con turno de lunes a viernes.</p>
+            <div data-hero-fade><a className="btn btn-primary" href={wa(`Hola Marina, me interesa ${page.title}. ¿Me contás cómo sería una sesión y qué turnos tenés?`)} target="_blank" rel="noreferrer">Consultar por una sesión <ExternalMark /></a></div>
           </div>
           <div className={`practice-hero-art art-${page.group}`} aria-hidden="true" data-parallax>
             <PracticeArtwork page={page} />
@@ -169,9 +170,9 @@ function PracticePage({ page }: { page: PracticePageData }) {
       <section className="closing is-night" aria-labelledby="practice-cta-title">
         <Starfield seed={41} count={80} />
         <div className="wrap closing-inner">
-          <h2 id="practice-cta-title" className="display closing-title" data-reveal>¿Querés conocer más sobre esta propuesta?</h2>
-          <p data-reveal>Preguntá por modalidad, duración, valor y próximos horarios. Consultar no te compromete a reservar.</p>
-          <div data-reveal><a className="btn btn-primary" href={wa(`Hola Marina, me interesa ${page.title}. ¿Me contás modalidad, duración, valor y próximos horarios?`)} target="_blank" rel="noreferrer">Consultar por WhatsApp <ExternalMark /></a></div>
+          <h2 id="practice-cta-title" className="display closing-title" data-reveal>¿Querés que lo integremos en una sesión?</h2>
+          <p data-reveal>Contame qué te interesa y lo conversamos. Turnos de lunes a viernes en {place.short}; consultar no te compromete a reservar.</p>
+          <div data-reveal><a className="btn btn-primary" href={wa(`Hola Marina, me interesa ${page.title}. ¿Me contás valor y próximos turnos?`)} target="_blank" rel="noreferrer">Consultar por WhatsApp <ExternalMark /></a></div>
         </div>
       </section>
     </main>
@@ -234,18 +235,13 @@ function SensoryPause({ bowl }: { bowl: ReturnType<typeof useBowlPlayer> }) {
 }
 
 function GeneralFaq() {
-  const questions = [
-    { question: "¿Hay encuentros presenciales y online?", answer: "Sí, hay opciones presenciales y online. Consultá con Marina qué formato está disponible para la práctica que te interesa." },
-    { question: "¿Cómo sé qué práctica elegir?", answer: "Podés contarle a Marina qué te interesa, qué buscás y si hay algo que preferís evitar. La consulta sirve para conocer la propuesta antes de decidir." },
-    { question: "¿Puedo pedir ajustes o detener una experiencia?", answer: "Sí. Tus preferencias y límites se conversan antes, y podés pedir un cambio o detener la experiencia en cualquier momento." },
-    { question: "¿Las prácticas reemplazan la atención médica o psicológica?", answer: "No. Son propuestas de bienestar y exploración; no reemplazan diagnósticos, tratamientos ni el acompañamiento de profesionales de salud." },
-  ];
+  const questions = homeFaqs;
   return <section className="faq is-paper" id="preguntas" aria-labelledby="general-faq-title">
     <div className="wrap faq-layout">
       <div className="faq-intro" data-reveal>
         <h2 id="general-faq-title" className="section-title">Unas respuestas para empezar</h2>
-        <p className="muted">Si todavía tenés dudas, podés conversar con Marina antes de elegir.</p>
-        <a className="btn btn-dark" href={wa("Hola Marina, tengo algunas preguntas antes de elegir una práctica.")} target="_blank" rel="noreferrer">Consultar por WhatsApp <ExternalMark /></a>
+        <p className="muted">Si todavía tenés dudas, podés conversar con Marina antes de reservar.</p>
+        <a className="btn btn-dark" href={wa("Hola Marina, tengo algunas preguntas antes de sacar un turno.")} target="_blank" rel="noreferrer">Consultar por WhatsApp <ExternalMark /></a>
       </div>
       <div className="accordion">{questions.map((item) => <details key={item.question}><summary>{item.question}<span className="acc-icon" aria-hidden="true" /></summary><p>{item.answer}</p></details>)}</div>
     </div>
@@ -256,7 +252,7 @@ const waysToBegin = [
   { id: "pausa", label: "Necesito una pausa", description: "Quizás te interese empezar por una experiencia de escucha o descanso corporal.", links: ["cuencos-sonoros", "masaje-relajante"] },
   { id: "movimiento", label: "Quiero moverme", description: "Podés explorar yoga y respiración con movimientos que se conversan según tus posibilidades.", links: ["yoga"] },
   { id: "crear", label: "Quiero expresarme", description: "El arte y la exploración creativa pueden ser una forma de jugar con imágenes, colores y materiales.", links: ["arteterapia"] },
-  { id: "curiosidad", label: "Solo tengo curiosidad", description: "No hace falta elegir ahora. Podés contarle a Marina qué te gustaría explorar y preguntarle qué opciones ofrece.", links: [] },
+  { id: "curiosidad", label: "No sé qué necesito", description: "No hace falta elegir. En la sesión primero conversamos y después Marina te propone qué herramientas pueden acompañarte.", links: [] },
 ];
 
 function PracticeFinder() {
@@ -267,7 +263,7 @@ function PracticeFinder() {
     <div className="wrap finder-grid">
       <div className="finder-copy" data-reveal>
         <h2 id="practice-finder-title" className="section-title">Si no sabés por dónde empezar</h2>
-        <p className="muted">Elegí lo que más se acerca a tu momento. Es solo una orientación: no es un diagnóstico ni tenés que tenerlo resuelto para escribir.</p>
+        <p className="muted">Elegí lo que más se acerca a tu momento. Es solo una orientación: la sesión se arma con vos, conversando, y no tenés que tenerlo resuelto para escribir.</p>
       </div>
       <div className="finder-panel" data-reveal>
         <p className="finder-question" id="finder-question">¿Qué te gustaría hoy?</p>
@@ -278,7 +274,7 @@ function PracticeFinder() {
           {selected ? <>
             <p>{selected.description}</p>
             {suggestions.length > 0 && <ul className="chip-links">{suggestions.map((page) => <li key={page.slug}><a href={pageUrl(page.slug)}>{page.title}</a></li>)}</ul>}
-            <a className="text-link" href={wa(`Hola Marina, hoy me gustaría explorar: ${selected.label.toLowerCase()}. ¿Me contás qué opciones, modalidad, duración y valor están disponibles?`)} target="_blank" rel="noreferrer">Conversarlo con Marina <ExternalMark /></a>
+            <a className="text-link" href={wa(`Hola Marina, estuve mirando la web: ${selected.label.toLowerCase()}. ¿Me contás cómo sería una sesión y qué turnos tenés?`)} target="_blank" rel="noreferrer">Conversarlo con Marina <ExternalMark /></a>
           </> : <p className="muted">Elegí una opción para ver algunas ideas, sin compromiso.</p>}
         </div>
       </div>
@@ -306,22 +302,21 @@ function EvidenceNotes() {
   </section>;
 }
 
-function FirstContact() {
-  const steps = [
-    { title: "Contale qué te interesa", text: "Podés escribir aunque todavía no sepas qué práctica elegir." },
-    { title: "Preguntá lo que necesitás", text: "Modalidad, duración, valor, disponibilidad y cualquier cuidado importante." },
-    { title: "Decidís con calma", text: "Coordinás si la propuesta te cierra. Consultar no te compromete a reservar." },
-  ];
-  return <section className="steps is-light" aria-labelledby="first-contact-title">
+function SessionSection() {
+  return <section className="steps session is-light" id="sesion" aria-labelledby="session-title">
     <div className="wrap">
-      <h2 id="first-contact-title" className="section-title steps-title" data-reveal>Primero conversamos. Después elegís.</h2>
+      <h2 id="session-title" className="section-title steps-title" data-reveal>Una sesión, a tu medida</h2>
+      <p className="muted session-lead" data-reveal>Cada sesión es integrativa. No elegís una técnica de una lista: primero conversamos y, a partir de lo que traés, combinamos lo que te puede hacer bien ese día.</p>
       <div className="steps-track">
       <span className="steps-line" aria-hidden="true" data-belt-line />
       <ol className="steps-list">
-        {steps.map((step, index) => <li key={step.title} data-reveal><span className="step-star" aria-hidden="true" /><span className="step-n">Paso {index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}
+        {sessionSteps.map((step, index) => <li key={step.title} data-reveal><span className="step-star" aria-hidden="true" /><span className="step-n">Paso {index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}
       </ol>
       </div>
-      <div className="steps-cta" data-reveal><a className="btn btn-dark" href={wa("Hola Marina, estoy conociendo Luz de Orión. ¿Me contás qué propuestas, modalidades, duración, valores y horarios están disponibles?")} target="_blank" rel="noreferrer">Consultar por WhatsApp <ExternalMark /></a></div>
+      <dl className="session-facts" data-reveal>
+        {sessionFacts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+      </dl>
+      <div className="steps-cta" data-reveal><a className="btn btn-dark" href={wa("Hola Marina, quisiera coordinar un turno para una sesión. ¿Qué días tenés disponibles?")} target="_blank" rel="noreferrer">Coordinar un turno <ExternalMark /></a></div>
     </div>
   </section>;
 }
@@ -336,7 +331,7 @@ function PracticeNotFoundPage() {
       <Starfield seed={404} count={110} />
       <div className="wrap">
         <h1 className="display" data-hero-line>No encontramos esta página</h1>
-        <p data-hero-fade>Puede que el enlace haya cambiado. Podés volver al inicio y explorar las prácticas disponibles.</p>
+        <p data-hero-fade>Puede que el enlace haya cambiado. Podés volver al inicio y conocer cómo son las sesiones.</p>
         <div data-hero-fade><a className="btn btn-primary" href="/">Volver a Luz de Orión</a></div>
       </div>
     </main>
@@ -382,12 +377,12 @@ function Home({ rootRef, active, setActive, bowl }: { rootRef: RefObject<HTMLDiv
           <Starfield seed={7} count={170} />
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker" data-hero-fade>Luz de Orión, con Marina</p>
+              <p className="kicker" data-hero-fade>Luz de Orión · {place.short}</p>
               <h1 id="hero-title" className="display hero-title"><span className="line" data-hero-line>Volver a vos.</span> <span className="line indent" data-hero-line>Habitar tu luz.</span></h1>
-              <p className="hero-lead" data-hero-fade>Hola, soy Marina. Qué lindo que estés acá. Este es un espacio cercano para hacer una pausa, escuchar cómo estás y explorar, a tu ritmo, qué puede acompañarte hoy.</p>
+              <p className="hero-lead" data-hero-fade>Hola, soy Marina. Qué lindo que estés acá. Este es un espacio cercano en {place.city} para hacer una pausa, escuchar cómo estás y encontrar, a tu ritmo, qué puede acompañarte hoy.</p>
               <div className="hero-actions" data-hero-fade>
                 <a className="btn btn-primary" href={wa("Hola Marina, quiero consultar por tus sesiones.")} target="_blank" rel="noreferrer">Escribile a Marina <ExternalMark /></a>
-                <a className="text-link on-dark" href="#experiencias">Explorar experiencias</a>
+                <a className="text-link on-dark" href="#sesion">Cómo es una sesión</a>
               </div>
               <p className="hero-note" data-hero-fade>Podés llegar con preguntas, curiosidad o cansancio. <strong>No hace falta saber por dónde empezar.</strong></p>
             </div>
@@ -405,19 +400,20 @@ function Home({ rootRef, active, setActive, bowl }: { rootRef: RefObject<HTMLDiv
             <div className="intro-main">
               <h2 id="intro-title" className="statement" data-reveal>Hay momentos en los que necesitamos hacer silencio para volver a escucharnos.</h2>
               <div className="intro-body" data-reveal>
-                <p>Hola, soy Marina. Creé Luz de Orión como un espacio cercano y luminoso donde podamos encontrarnos con tiempo. A través del sonido, el movimiento, la creatividad y otras prácticas de bienestar, te acompaño a hacer una pausa y prestar atención a lo que necesitás hoy.</p>
-                <p>No hace falta venir con experiencia, respuestas ni una idea clara. Primero conversamos; tus preferencias, comodidad y límites son parte de la propuesta desde el comienzo.</p>
-                <a className="text-link" href="#terapias">Conocé las prácticas</a>
+                {homeIntro.map((text) => <p key={text}>{text}</p>)}
+                <a className="text-link" href="#sesion">Cómo es una sesión</a>
               </div>
             </div>
           </div>
         </section>
 
+        <SessionSection />
+
         <section className="experiences is-paper" id="experiencias" aria-labelledby="experiences-title">
           <div className="wrap">
             <div className="section-head" data-reveal>
               <h2 id="experiences-title" className="section-title">Un espacio para dejarte llevar</h2>
-              <p className="muted">Cada experiencia es diferente. Elegí la que resuene con vos.</p>
+              <p className="muted">Algunas de las herramientas que pueden aparecer en una sesión. Tocá el cuenco para escucharlo.</p>
             </div>
             <div className="experience-layout">
               <ExperienceStage active={active} bowl={bowl} />
@@ -447,8 +443,8 @@ function Home({ rootRef, active, setActive, bowl }: { rootRef: RefObject<HTMLDiv
         <section className="practices is-paper" id="terapias" aria-labelledby="practices-title">
           <div className="wrap">
             <div className="section-head" data-reveal>
-              <h2 id="practices-title" className="section-title">Prácticas que te acompañan</h2>
-              <p className="muted">Distintas herramientas, una misma intención: abrir un espacio de conexión y cuidado.</p>
+              <h2 id="practices-title" className="section-title">Herramientas que se integran</h2>
+              <p className="muted">No se reserva una técnica suelta: en cada sesión combinamos las que tienen sentido para vos ese día. Una misma intención: abrir un espacio de conexión y cuidado.</p>
             </div>
             <ul className="practice-rows">
               {services.map((s) => <li className="practice-row" key={s.n} data-reveal>
@@ -459,18 +455,18 @@ function Home({ rootRef, active, setActive, bowl }: { rootRef: RefObject<HTMLDiv
                 </div>
                 <p className="row-text">{s.text}</p>
                 <div className="row-links">
-                  <span className="row-more" aria-hidden="true">Ver propuesta</span>
+                  <span className="row-more" aria-hidden="true">Conocer más</span>
                   {s.n === "05" && <a className="row-extra" href={pageUrl("aromaterapia")}>Aromaterapia</a>}
                 </div>
               </li>)}
             </ul>
             <div className="practice-index" data-reveal>
-              <h3 className="small-title">Todas las propuestas</h3>
+              <h3 className="small-title">Otras prácticas que pueden aparecer en una sesión</h3>
               <div className="index-groups">
                 {GROUPS.map((group) => <div key={group.id} className="index-group"><p>{group.label}</p><ul>{practicePages.filter((page) => page.group === group.id).map((page) => <li key={page.slug}><a href={pageUrl(page.slug)}>{page.title}</a></li>)}</ul></div>)}
               </div>
             </div>
-            <p className="fine-print">Modalidad presencial y online. Consultá con Marina para conocer cómo se adapta cada propuesta y elegir la que te resulte cómoda.</p>
+            <p className="fine-print">Sesiones presenciales en {place.long}, de lunes a viernes con turno.</p>
           </div>
         </section>
 
@@ -486,23 +482,20 @@ function Home({ rootRef, active, setActive, bowl }: { rootRef: RefObject<HTMLDiv
             <div className="marina-copy" data-reveal>
               <p className="kicker">Sobre Marina</p>
               <h2 id="marina-title" className="section-title">Un camino que se construye con presencia</h2>
-              <p>Soy Marina, profesora de yoga y facilitadora de distintas prácticas de bienestar integral. Me gusta recibir a cada persona como llega, escuchar primero y construir juntas un espacio cuidado, sin apuro y con respeto por sus tiempos.</p>
-              <p>En Luz de Orión reúno propuestas corporales, sonoras, creativas y de exploración. Me conmueven especialmente el arte y los cuencos: maneras distintas de hacer lugar a lo que sentimos, incluso cuando todavía no encontramos las palabras.</p>
-              <p className="muted">Hay opciones presenciales y online. Escribime y vemos juntas qué formato está disponible para la propuesta que te interesa.</p>
+              {homeAbout.map((text, index) => <p key={text} className={index === homeAbout.length - 1 ? "muted" : undefined}>{text}</p>)}
               <a className="btn btn-dark" href={wa("Hola Marina, me gustaría conocerte y conversar sobre tus propuestas.")} target="_blank" rel="noreferrer">Conectar con Marina <ExternalMark /></a>
             </div>
           </div>
         </section>
 
         <GeneralFaq />
-        <FirstContact />
 
         <section className="closing is-night" aria-labelledby="closing-title">
           <Starfield seed={31} count={120} />
           <div className="wrap closing-inner">
             <h2 id="closing-title" className="display closing-title" data-reveal>Podés empezar por una pausa.</h2>
             <p data-reveal>No hace falta tener todas las respuestas. Un momento de escucha también cuenta.</p>
-            <div data-reveal><a className="btn btn-primary" href={wa("Hola Marina, quiero dar el primer paso y conocer tus propuestas.")} target="_blank" rel="noreferrer">Escribir por WhatsApp <ExternalMark /></a></div>
+            <div data-reveal><a className="btn btn-primary" href={wa("Hola Marina, quiero dar el primer paso y coordinar una sesión.")} target="_blank" rel="noreferrer">Escribir por WhatsApp <ExternalMark /></a></div>
           </div>
         </section>
       </main>
