@@ -1,21 +1,31 @@
 # Luz de Orión
 
-> Luz de Orión es el espacio de bienestar holístico de Marina, profesora de yoga y facilitadora de bienestar holístico, en Río Ceballos, Córdoba, Argentina (zona Ñu Porá). Ofrece sesiones integrativas y presenciales: primero se conversa y después se combinan, según cada persona, masaje relajante y energético, terapia sonora con cuencos, arte y otras prácticas. Turnos de lunes a viernes por WhatsApp.
+> Luz de Orión es el espacio de bienestar holístico de Marina, profesora de yoga y facilitadora de bienestar holístico, en Río Ceballos, Córdoba, Argentina (zona Ñu Porá, Sierras Chicas). Ofrece sesiones integrativas y presenciales de 1 h 30 a 2 h que combinan, según cada persona, masaje relajante y energético, terapia sonora con cuencos, arte y expresión y otras prácticas. Turnos de lunes a viernes por WhatsApp: +54 9 3546 52-5509.
 
 Sitio en español rioplatense (Argentina). Sitio web: https://luzdeorion.vercel.app/
 
-## Información clave
+## Datos clave
 
+- Nombre: Luz de Orión.
 - Quién atiende: Marina, profesora de yoga y facilitadora de bienestar holístico.
 - Dónde: Río Ceballos, Córdoba, Argentina, zona Ñu Porá (Sierras Chicas). Espacio propio, tranquilo y con camilla. La dirección exacta no se publica: se informa al coordinar el turno.
+- Desde otras localidades: atiende solo en Río Ceballos; personas de otras localidades de Sierras Chicas (por ejemplo Unquillo o Salsipuedes) o de la ciudad de Córdoba pueden ir con turno.
 - Modalidad: presencial.
-- Cómo es una sesión: integrativa. Primero se conversa sobre cómo llega la persona, sus preferencias y límites; después Marina propone qué herramientas combinar ese día, siempre con acuerdo. No se reservan técnicas sueltas.
+- Qué es una sesión integrativa: un encuentro de bienestar que no se arma con una sola técnica. Primero se conversa sobre cómo llega la persona, sus preferencias y límites; después Marina propone qué herramientas combinar ese día, siempre con acuerdo. No se reservan técnicas sueltas.
 - Herramientas principales: masaje relajante y energético, terapia sonora con cuencos y arte y expresión (arteterapia).
 - Duración: entre 1 h 30 y 2 h.
-- Días: de lunes a viernes, con turno a coordinar.
+- Días: de lunes a viernes, con turno a coordinar. No hay una franja horaria fija publicada.
 - Valor: no está publicado; se informa por WhatsApp.
 - Contacto y turnos: WhatsApp +54 9 3546 52-5509 (https://wa.me/5493546525509). Consultar no compromete a reservar.
+- No hace falta experiencia previa en yoga, meditación ni arte.
 - Se puede pedir un ajuste o detener la sesión en cualquier momento.
+
+## Páginas principales
+
+- [Inicio: Luz de Orión, bienestar holístico en Río Ceballos](https://luzdeorion.vercel.app/): quién es Marina, cómo es una sesión integrativa, datos clave y preguntas frecuentes.
+- [Cómo es una sesión integrativa](https://luzdeorion.vercel.app/#sesion)
+- [Sobre Marina](https://luzdeorion.vercel.app/#marina)
+- [Preguntas frecuentes](https://luzdeorion.vercel.app/#preguntas)
 
 ## Qué no ofrece
 
@@ -25,8 +35,10 @@ Sitio en español rioplatense (Argentina). Sitio web: https://luzdeorion.vercel.
 
 ## Herramientas que pueden integrarse en una sesión
 
-- [Cuencos sonoros](https://luzdeorion.vercel.app/practicas/cuencos-sonoros): terapia sonora; escucha y pausa con las resonancias de cuencos.
-- [Masajes integrales](https://luzdeorion.vercel.app/practicas/masajes-integrales): masaje relajante y energético en camilla; la modalidad se elige después de conversar.
+Todas se ofrecen dentro de una sesión integrativa presencial en Río Ceballos, no por separado.
+
+- [Cuencos sonoros (terapia sonora con cuencos)](https://luzdeorion.vercel.app/practicas/cuencos-sonoros): terapia sonora; escucha y pausa con las resonancias de cuencos.
+- [Masajes integrales (masaje relajante y energético)](https://luzdeorion.vercel.app/practicas/masajes-integrales): masaje relajante y energético en camilla; la modalidad se elige después de conversar.
 - [Masaje oriental](https://luzdeorion.vercel.app/practicas/masaje-oriental): contacto y atención al cuerpo inspirados en tradiciones orientales.
 - [Masaje descontracturante](https://luzdeorion.vercel.app/practicas/masaje-descontracturante): masaje enfocado en zonas donde se percibe tensión.
 - [Masaje relajante](https://luzdeorion.vercel.app/practicas/masaje-relajante): maniobras suaves y ritmo tranquilo para descansar.
@@ -36,7 +48,7 @@ Sitio en español rioplatense (Argentina). Sitio web: https://luzdeorion.vercel.
 - [Masaje californiano](https://luzdeorion.vercel.app/practicas/masaje-californiano): movimientos amplios, fluidos y continuos.
 - [Yoga consciente](https://luzdeorion.vercel.app/practicas/yoga): posturas adaptables, respiración y atención.
 - [Respiración consciente y relajación](https://luzdeorion.vercel.app/practicas/respiracion-consciente): ejercicios de atención a la respiración y relajación.
-- [Arte y expresión](https://luzdeorion.vercel.app/practicas/arteterapia): exploración creativa con colores, formas y materiales; no requiere experiencia artística.
+- [Arte y expresión (arteterapia)](https://luzdeorion.vercel.app/practicas/arteterapia): exploración creativa con colores, formas y materiales; no requiere experiencia artística.
 - [Reiki](https://luzdeorion.vercel.app/practicas/reiki): práctica de origen japonés de tradición energética, en un ambiente tranquilo.
 - [Aromaterapia](https://luzdeorion.vercel.app/practicas/aromaterapia): experiencia sensorial con aromas, siempre opcional y conversada.
 - [Exploración interior](https://luzdeorion.vercel.app/practicas/exploracion-interior): propuestas simbólicas y de reflexión personal.
