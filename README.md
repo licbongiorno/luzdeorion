@@ -33,7 +33,7 @@ El acceso a WhatsApp de Marina está configurado en el componente principal. Si 
 URL canónica: `https://luzdeorion.vercel.app` (sin barra final en las prácticas: `/practicas/<slug>`).
 
 - **Prerender estático.** Después de `vite build`, `scripts/prerender.mjs` lee `src/data.ts` (sin modificarlo) y escribe un HTML por ruta: `dist/index.html` y `dist/practicas/<slug>/index.html` (más una copia `dist/practicas/<slug>.html`). Cada página trae su `<title>`, descripción, canonical, Open Graph, Twitter y JSON-LD, y un bloque de contenido legible dentro de `#root` (título, introducción, qué es, cómo es un encuentro, preguntas frecuentes y enlace a WhatsApp). React reemplaza ese bloque al montar; los buscadores y asistentes de IA que no ejecutan JavaScript ven el texto real.
-- **Textos de la home** (sobre Marina y preguntas frecuentes) están copiados en `scripts/prerender.mjs` (constante `HOME`). Si cambian en `src/App.tsx`, actualizarlos también allí.
+- **Textos de la home** (intro, sobre Marina, preguntas frecuentes, pasos y datos de la sesión) viven en `src/data.ts` y los usan tanto la app como `scripts/prerender.mjs`.
 - **JSON-LD.** Home: `WebSite`, `WebPage`, `HealthAndBeautyBusiness` (Luz de Orión), `Person` (Marina) y `FAQPage`. Prácticas: `WebPage`, `Service` (con `provider` hacia el negocio), `BreadcrumbList` y `FAQPage`. FAQPage ya no genera resultados enriquecidos en Google; se mantiene porque describe contenido visible y ayuda a los asistentes de IA.
 - **Archivos generados en el build:** `sitemap.xml` (home + 20 prácticas, `lastmod` = último commit de `src/data.ts`), `llms-full.txt` y `404.html` (estática, `noindex`; Vercel la sirve con estado 404 para rutas inexistentes).
 - **Archivos estáticos en `public/`:** `robots.txt` (permite todo, con permiso explícito a crawlers de IA), `llms.txt` (resumen en español para IA; el build falla si falta el enlace a alguna práctica), `og-image.png` (1200×630), íconos y `site.webmanifest`.
@@ -43,18 +43,20 @@ URL canónica: `https://luzdeorion.vercel.app` (sin barra final en las práctica
 
 Nada de esto se inventó; se agrega al sitio, al JSON-LD (`homeLd()` en `scripts/prerender.mjs`, ver el `TODO`) y a `public/llms.txt` cuando esté confirmado:
 
-- [ ] Ciudad o zona donde atiende (y si viaja a domicilio: zonas cubiertas → `areaServed`).
-- [ ] ¿Dirección pública de atención, sí o no? Si atiende en su casa, no publicarla; usar zona de servicio.
-- [ ] Días y horarios de atención (`openingHoursSpecification`).
-- [ ] Valores o rango de precios (`priceRange` / `offers`).
-- [ ] Duración de cada práctica.
-- [ ] Modalidad por práctica: presencial, online o ambas.
+- [x] Zona: Río Ceballos, Córdoba, zona Ñu Porá. Atiende en su casa, en un espacio propio con camilla.
+- [x] Dirección: no se publica (solo localidad en el JSON-LD; la dirección se pasa al coordinar el turno).
+- [x] Días: lunes a viernes con turno a coordinar (sin franja horaria fija, por eso no hay `openingHoursSpecification`).
+- [ ] Valores o rango de precios (`priceRange` / `offers`): Marina todavía los está definiendo.
+- [x] Duración: sesiones integrativas de 1 h 30 a 2 h.
+- [x] Modalidad: presencial. Pendiente confirmar si el tarot o una primera entrevista podrían ser online.
 - [ ] Formación, títulos o certificaciones que quiera mostrar (yoga, Reiki, masajes, etc.).
 - [ ] Apellido o nombre profesional, si quiere usarlo.
 - [ ] Instagram, Facebook, YouTube u otros perfiles (`sameAs`).
 - [ ] Perfil de Google Business (crear o reclamar; misma información de nombre, teléfono y zona).
 - [ ] Dominio propio (al cambiarlo, actualizar `SITE` en `scripts/prerender.mjs`, `index.html`, `public/robots.txt`, `public/llms.txt` y la URL canónica de `src/App.tsx`).
-- [ ] Fotos propias del espacio para la imagen Open Graph y las páginas de prácticas.
+- [x] Testimonios: Marina prefiere no publicarlos.
+- [ ] Fotos: por ahora solo ilustraciones; más adelante, fotos profesionales del espacio.
+- [ ] Confirmar qué prácticas del índice siguen apareciendo (las sesiones son integrativas; no se ofrecen técnicas sueltas).
 
 ## Contenido
 

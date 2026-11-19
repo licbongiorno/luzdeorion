@@ -1,27 +1,32 @@
 # Luz de Orión
 
-> Luz de Orión es el espacio de bienestar de Marina, profesora de yoga y facilitadora de prácticas de bienestar integral, en Argentina. Ofrece cuencos sonoros, distintas modalidades de masaje, yoga consciente, respiración, arte y expresión, Reiki, aromaterapia y prácticas simbólicas de exploración interior. Hay opciones presenciales y online. Las consultas y reservas se hacen por WhatsApp.
+> Luz de Orión es el espacio de bienestar holístico de Marina, profesora de yoga y facilitadora de bienestar holístico, en Río Ceballos, Córdoba, Argentina (zona Ñu Porá). Ofrece sesiones integrativas y presenciales: primero se conversa y después se combinan, según cada persona, masaje relajante y energético, terapia sonora con cuencos, arte y otras prácticas. Turnos de lunes a viernes por WhatsApp.
 
 Sitio en español rioplatense (Argentina). Sitio web: https://luzdeorion.vercel.app/
 
 ## Información clave
 
-- Quién atiende: Marina, profesora de yoga y facilitadora de prácticas de bienestar integral.
-- Contacto y reservas: WhatsApp +54 9 3546 52-5509 (https://wa.me/5493546525509). Consultar no compromete a reservar.
-- Modalidad: presencial y online; la disponibilidad depende de cada práctica y se confirma por WhatsApp.
-- Cómo funciona: primero se conversa sobre preferencias, comodidad y límites. Se puede pedir un ajuste o detener una experiencia en cualquier momento.
-- Valores, duración y horarios: no están publicados en el sitio; se informan por WhatsApp.
-- Ubicación: Argentina. La ciudad y la dirección no están publicadas en el sitio; consultar por WhatsApp.
+- Quién atiende: Marina, profesora de yoga y facilitadora de bienestar holístico.
+- Dónde: Río Ceballos, Córdoba, Argentina, zona Ñu Porá (Sierras Chicas). Espacio propio, tranquilo y con camilla. La dirección exacta no se publica: se informa al coordinar el turno.
+- Modalidad: presencial.
+- Cómo es una sesión: integrativa. Primero se conversa sobre cómo llega la persona, sus preferencias y límites; después Marina propone qué herramientas combinar ese día, siempre con acuerdo. No se reservan técnicas sueltas.
+- Herramientas principales: masaje relajante y energético, terapia sonora con cuencos y arte y expresión (arteterapia).
+- Duración: entre 1 h 30 y 2 h.
+- Días: de lunes a viernes, con turno a coordinar.
+- Valor: no está publicado; se informa por WhatsApp.
+- Contacto y turnos: WhatsApp +54 9 3546 52-5509 (https://wa.me/5493546525509). Consultar no compromete a reservar.
+- Se puede pedir un ajuste o detener la sesión en cualquier momento.
 
 ## Qué no ofrece
 
-- No ofrece diagnósticos, tratamientos ni atención médica o psicológica, y sus prácticas no los reemplazan.
+- No ofrece diagnósticos, tratamientos ni atención médica o psicológica, y sus sesiones no los reemplazan. Es un acompañamiento holístico complementario.
+- No ofrece sesiones online ni técnicas sueltas por separado (por ejemplo, solo Reiki o solo biodescodificación).
 - No promete resultados de salud ni curas. Las prácticas espirituales y simbólicas (Reiki, registros, regresiones, biodescodificación, chamanismo, tarot) se presentan como propuestas de bienestar y exploración personal, no como hechos verificables científicamente.
 
-## Prácticas
+## Herramientas que pueden integrarse en una sesión
 
-- [Cuencos sonoros](https://luzdeorion.vercel.app/practicas/cuencos-sonoros): experiencia de escucha y pausa con las resonancias de cuencos.
-- [Masajes integrales](https://luzdeorion.vercel.app/practicas/masajes-integrales): modalidades de masaje que se eligen después de conversar.
+- [Cuencos sonoros](https://luzdeorion.vercel.app/practicas/cuencos-sonoros): terapia sonora; escucha y pausa con las resonancias de cuencos.
+- [Masajes integrales](https://luzdeorion.vercel.app/practicas/masajes-integrales): masaje relajante y energético en camilla; la modalidad se elige después de conversar.
 - [Masaje oriental](https://luzdeorion.vercel.app/practicas/masaje-oriental): contacto y atención al cuerpo inspirados en tradiciones orientales.
 - [Masaje descontracturante](https://luzdeorion.vercel.app/practicas/masaje-descontracturante): masaje enfocado en zonas donde se percibe tensión.
 - [Masaje relajante](https://luzdeorion.vercel.app/practicas/masaje-relajante): maniobras suaves y ritmo tranquilo para descansar.
