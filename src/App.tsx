@@ -85,28 +85,7 @@ function useBowlPlayer() {
 }
 
 function PracticePage({ page }: { page: PracticePageData }) {
-  useEffect(() => {
-    document.title = `${page.title} | Luz de Orión`;
-    const description = document.querySelector('meta[name="description"]');
-    description?.setAttribute("content", `${page.title}: ${page.intro} Luz de Orión · Cuerpo, energía y emoción.`);
-    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
-    }
-    canonical.href = `https://luzdeorion.vercel.app${pageUrl(page.slug)}`;
-    const socialTitle = document.querySelector('meta[property="og:title"]');
-    socialTitle?.setAttribute("content", `${page.title} | Luz de Orión`);
-    const socialDescription = document.querySelector('meta[property="og:description"]');
-    socialDescription?.setAttribute("content", `${page.title}: ${page.intro}`);
-    const socialUrl = document.querySelector('meta[property="og:url"]');
-    socialUrl?.setAttribute("content", canonical.href);
-    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-    if (twitterTitle) twitterTitle.setAttribute("content", `${page.title} | Luz de Orión`);
-    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
-    if (twitterDescription) twitterDescription.setAttribute("content", `${page.title}: ${page.intro}`);
-  }, [page]);
+  // Título, descripción, canonical y JSON-LD llegan en el HTML prerenderizado (scripts/prerender.mjs).
   const rootRef = useRef<HTMLDivElement>(null);
   usePageMotion(rootRef, page.slug);
   const related = practicePages.filter((item) => item.group === page.group && item.slug !== page.slug);
