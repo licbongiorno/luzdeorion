@@ -63,10 +63,15 @@ function buildOrion(svg: SVGSVGElement, tl: gsap.core.Timeline, at: number) {
     // The belt lights slowly, one breath per star; the rest follow a little quicker.
     t += i < 2 ? 0.42 : i === 2 ? 0.6 : 0.27;
   });
-  const linesAt = t + 0.1;
+  // A short pause after the last star, then each line is drawn slowly and
+  // fades in as it goes, one after another with a gentle overlap.
+  const LINE_DURATION = 1.7;
+  const LINE_STAGGER = 0.8;
+  const linesAt = t + 0.6;
   tl.to(sword, { opacity: (i, el: Element) => Number(el.getAttribute("opacity") ?? 1), duration: 0.6, stagger: 0.12, ease: "sine.out" }, t - 0.6);
-  tl.to(lines, { ...DRAWN, duration: 0.6, stagger: 0.17, ease: "power1.inOut" }, linesAt);
-  return linesAt + 0.6 + 0.17 * Math.max(0, lines.length - 1);
+  tl.fromTo(lines, { opacity: 0 }, { opacity: 1, duration: LINE_DURATION * 0.7, stagger: LINE_STAGGER, ease: "sine.out" }, linesAt);
+  tl.to(lines, { ...DRAWN, duration: LINE_DURATION, stagger: LINE_STAGGER, ease: "sine.inOut" }, linesAt);
+  return linesAt + LINE_DURATION + LINE_STAGGER * Math.max(0, lines.length - 1);
 }
 
 /**
