@@ -537,3 +537,27 @@ details[open] > summary .acc-icon { transform: rotate(180deg); background: rgba(
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Crédito de diseño web: Lic. Nicolás Bongiorno */
+.nb-credit-wrap{display:flex;justify-content:center;width:100%;flex-basis:100%;grid-column:1/-1;margin:18px 0 6px;padding:0 12px;box-sizing:border-box}
+.nb-credit-strip{padding:14px 12px 18px;margin:0;background:transparent}
+.nb-credit{all:unset;box-sizing:border-box;position:relative;display:inline-flex;align-items:center;gap:12px;max-width:100%;padding:7px 18px 7px 7px;border-radius:999px;cursor:pointer;
+  font:500 14px/1.2 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#F8FAFC;text-align:left;
+  background:rgba(15,23,42,.92);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 6px 18px -10px rgba(0,0,0,.45);
+  transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,background .4s}
+.nb-credit:hover,.nb-credit:focus-visible{transform:translateY(-2px);background:rgba(15,23,42,.98);color:#F8FAFC;
+  box-shadow:inset 0 0 0 1.5px #6CF0D0,0 12px 28px -12px rgba(108,240,208,.6)}
+.nb-credit:focus-visible{outline:2px solid #22A6E8;outline-offset:3px}
+.nb-credit__badge{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;color:#0B2427;
+  background:linear-gradient(135deg,#6CF0D0,#9EEF1A);transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+.nb-credit:hover .nb-credit__badge{transform:rotate(-12deg) scale(1.08)}
+.nb-credit__badge svg,.nb-credit__cta svg{display:block;width:17px;height:17px}
+.nb-credit__text{display:grid;gap:1px;min-width:0}
+.nb-credit__small{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#94A3B8}
+.nb-credit__name{font-weight:700;font-size:14.5px;color:#F8FAFC}
+.nb-credit__cta{display:inline-flex;align-items:center;gap:6px;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;font-size:13px;
+  transition:max-width .6s cubic-bezier(.22,1,.36,1),opacity .4s,margin .6s}
+.nb-credit__cta svg{color:#25D366}.nb-credit__cta{color:#6CF0D0}.nb-credit__cta strong{color:#F8FAFC;font-weight:700}
+.nb-credit:hover .nb-credit__cta,.nb-credit:focus-visible .nb-credit__cta{max-width:260px;opacity:1;margin-left:4px}
+@media (hover:none){.nb-credit{flex-wrap:wrap;border-radius:20px;padding-right:14px}.nb-credit__cta{max-width:none;opacity:1;flex-basis:100%;padding:2px 0 2px 48px;white-space:normal}}
+@media (prefers-reduced-motion:reduce){.nb-credit,.nb-credit *{transition:none!important}}

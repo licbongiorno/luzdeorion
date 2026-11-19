@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { wa } from "../data";
 import { BeltMark } from "./Sky";
+import { DesignerCredit } from "./DesignerCredit";
 import { gsap, ScrollTrigger, useGSAP, useBeltIgnite, MOTION_OK } from "../hooks/useMotion";
 
 export type NavLink = { href: string; label: string };
@@ -95,6 +96,7 @@ export function SiteFooter({ homeHref, links }: { homeHref: string; links: NavLi
         </div>
         <p className="copyright">© {new Date().getFullYear()} Luz de Orión</p>
       </div>
+      <DesignerCredit site="Luz de Orión" />
     </footer>
   );
 }
