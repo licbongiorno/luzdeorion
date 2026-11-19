@@ -34,8 +34,10 @@ URL canónica: `https://luzdeorion.vercel.app` (sin barra final en las práctica
 
 - **Prerender estático.** Después de `vite build`, `scripts/prerender.mjs` lee `src/data.ts` (sin modificarlo) y escribe un HTML por ruta: `dist/index.html` y `dist/practicas/<slug>/index.html` (más una copia `dist/practicas/<slug>.html`). Cada página trae su `<title>`, descripción, canonical, Open Graph, Twitter y JSON-LD, y un bloque de contenido legible dentro de `#root` (título, introducción, qué es, cómo es un encuentro, preguntas frecuentes y enlace a WhatsApp). React reemplaza ese bloque al montar; los buscadores y asistentes de IA que no ejecutan JavaScript ven el texto real.
 - **Textos de la home** (intro, sobre Marina, preguntas frecuentes, pasos y datos de la sesión) viven en `src/data.ts` y los usan tanto la app como `scripts/prerender.mjs`.
-- **JSON-LD.** Home: `WebSite`, `WebPage`, `HealthAndBeautyBusiness` (Luz de Orión), `Person` (Marina) y `FAQPage`. Prácticas: `WebPage`, `Service` (con `provider` hacia el negocio), `BreadcrumbList` y `FAQPage`. FAQPage ya no genera resultados enriquecidos en Google; se mantiene porque describe contenido visible y ayuda a los asistentes de IA.
-- **Archivos generados en el build:** `sitemap.xml` (home + 20 prácticas, `lastmod` = último commit de `src/data.ts`), `llms-full.txt` y `404.html` (estática, `noindex`; Vercel la sirve con estado 404 para rutas inexistentes).
+- **Búsqueda local.** Títulos de práctica con el formato `<práctica> en Río Ceballos | Luz de Orión` (ver `SEO_NAME` y `seoTitle()` en `scripts/prerender.mjs`); descripciones, encabezado y pie con la misma entidad: Luz de Orión · Marina · Río Ceballos, Córdoba (zona Ñu Porá, Sierras Chicas) · WhatsApp +54 9 3546 52-5509. Mantener exactamente estos datos en todos los perfiles externos.
+- **Contenido citable para IA.** La home prerenderizada abre con una frase definitoria (`DEFINITION`), un bloque «Datos clave» (`KEY_FACTS`) y la definición de sesión integrativa; cada práctica tiene una frase local (`practiceDefinition()`). Las mismas frases están en `llms.txt` y `llms-full.txt`.
+- **JSON-LD.** Home: `WebSite`, `WebPage`, `HealthAndBeautyBusiness` (Luz de Orión, solo localidad en la dirección, sin `geo`), `Service` «Sesión integrativa de bienestar holístico», `Person` (Marina) y `FAQPage`. Prácticas: `WebPage`, `Service` (con `provider` hacia el negocio e `isRelatedTo` hacia la sesión integrativa), `BreadcrumbList` de 3 niveles (Inicio › Herramientas › práctica, igual que la ruta visible) y `FAQPage`. Sin reseñas ni `aggregateRating` (no hay reseñas publicadas) y sin `openingHoursSpecification` (no hay franja horaria fija). FAQPage ya no genera resultados enriquecidos en Google; se mantiene porque describe contenido visible y ayuda a los asistentes de IA.
+- **Archivos generados en el build:** `sitemap.xml` (home + 20 prácticas, `lastmod` = último commit de `src/data.ts` o `scripts/prerender.mjs`; la home incluye la foto de Marina), `llms-full.txt` y `404.html` (estática, `noindex`; Vercel la sirve con estado 404 para rutas inexistentes).
 - **Archivos estáticos en `public/`:** `robots.txt` (permite todo, con permiso explícito a crawlers de IA), `llms.txt` (resumen en español para IA; el build falla si falta el enlace a alguna práctica), `og-image.png` (1200×630), íconos y `site.webmanifest`.
 - **Vercel** (`vercel.json`): sirve los archivos prerenderizados con `cleanUrls` y `trailingSlash: false`; no hay reescritura general a `index.html`, así que una ruta inexistente devuelve 404 real. Si se agrega una ruta nueva en la app, hay que prerenderizarla en `scripts/prerender.mjs`.
 
@@ -57,6 +59,19 @@ Nada de esto se inventó; se agrega al sitio, al JSON-LD (`homeLd()` en `scripts
 - [x] Testimonios: Marina prefiere no publicarlos.
 - [ ] Fotos: por ahora solo ilustraciones; más adelante, fotos profesionales del espacio.
 - [ ] Confirmar qué prácticas del índice siguen apareciendo (las sesiones son integrativas; no se ofrecen técnicas sueltas).
+
+### Próximos pasos SEO fuera del sitio
+
+Lo que más pesa en la búsqueda local y en las respuestas de IA está fuera de la web. Usar siempre el mismo nombre (Luz de Orión), la misma zona (Río Ceballos, Córdoba · Sierras Chicas) y el mismo WhatsApp.
+
+1. **Perfil de Empresa de Google (Google Business Profile).** Crearlo con la categoría más cercana (por ejemplo «Centro de bienestar» o «Terapeuta holístico») y el WhatsApp. Como la dirección no se publica, configurarlo como empresa de área de servicio con la dirección oculta y Río Ceballos como zona. Nota: Google pide mostrar la dirección cuando la gente va al lugar; ocultarla protege la privacidad pero reduce la visibilidad en Maps. Es una decisión de Marina. Agregar descripción, servicios (sesión integrativa, masaje relajante y energético, terapia sonora con cuencos, arte y expresión), fotos del espacio y el enlace al sitio.
+2. **Google Search Console.** Verificar `https://luzdeorion.vercel.app` (o el dominio propio), enviar `sitemap.xml` y pedir indexación de la home y de las prácticas principales.
+3. **Bing Webmaster Tools.** Importar desde Search Console y enviar el sitemap. La búsqueda de ChatGPT y Copilot se apoya en el índice de Bing. Opcional: Bing Places con los mismos datos.
+4. **Instagram (y otras redes).** Bio con «Bienestar holístico en Río Ceballos, Córdoba», enlace al sitio y el WhatsApp. Cuando existan perfiles, agregarlos a `sameAs` en `homeLd()` (`scripts/prerender.mjs`).
+5. **Listados consistentes.** Directorios locales de Sierras Chicas o de bienestar en Córdoba, con exactamente los mismos datos. Menciones en medios o blogs locales ayudan a que la IA reconozca la entidad.
+6. **Reseñas.** Si en algún momento Marina decide pedirlas, que sean en el Perfil de Google. No se marcan en el sitio con datos estructurados mientras no haya reseñas reales visibles.
+7. **Dominio propio.** Conviene para la marca y para la confianza; al cambiarlo, seguir la lista de «Datos pendientes» y redirigir el dominio de Vercel.
+8. **Medición.** Probar cada tanto en ChatGPT, Perplexity, Gemini y Google consultas como «masajes en Río Ceballos», «terapia con cuencos en Sierras Chicas» o «bienestar holístico en Río Ceballos» y anotar si aparece Luz de Orión y qué fuente citan.
 
 ## Contenido
 

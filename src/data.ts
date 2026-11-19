@@ -81,7 +81,7 @@ export const place = {
 };
 
 export const sessionFacts = [
-  { label: "Dónde", value: "Presencial en Río Ceballos, zona Ñu Porá. Un espacio propio, tranquilo y con camilla." },
+  { label: "Dónde", value: "Presencial en Río Ceballos, zona Ñu Porá (Sierras Chicas, Córdoba). Un espacio propio, tranquilo y con camilla." },
   { label: "Duración", value: "Entre 1 h 30 y 2 h, con tiempo para conversar antes y cerrar sin apuro." },
   { label: "Días", value: "De lunes a viernes, con turno a coordinar." },
   { label: "Valor", value: "Lo conversamos por WhatsApp." },
@@ -101,14 +101,17 @@ export const homeIntro = [
 export const homeAbout = [
   "Soy Marina, profesora de yoga y facilitadora de bienestar holístico. Me gusta recibir a cada persona como llega, escuchar primero y construir juntas un espacio cuidado, sin apuro y con respeto por sus tiempos.",
   "En cada sesión combino lo que tiene sentido para esa persona: masaje relajante y energético, terapia sonora con cuencos y arte, que para mí es una de las herramientas más completas, junto con otras prácticas que van surgiendo en el encuentro. Me interesa acompañar lo que se siente en el cuerpo y en lo emocional: el cansancio, las tensiones, el dolor y las historias que pesan.",
-  "Atiendo de forma presencial en Río Ceballos, en la zona de Ñu Porá, en un espacio propio y cálido preparado para las sesiones.",
+  "Atiendo de forma presencial en Río Ceballos, en la zona de Ñu Porá (Sierras Chicas, Córdoba), en un espacio propio y cálido preparado para las sesiones.",
 ];
 
 export const homeFaqs = [
+  { question: "¿Qué es una sesión integrativa?", answer: "Es una sesión de bienestar holístico que no se arma con una sola técnica. Primero conversamos sobre cómo llegás y qué te gustaría; después combino, con tu acuerdo, herramientas como masaje relajante y energético, terapia sonora con cuencos, arte y expresión o respiración. Dura entre 1 h 30 y 2 h y es presencial en Río Ceballos, Córdoba." },
   { question: "¿Dónde atendés?", answer: "En Río Ceballos, Córdoba, en la zona de Ñu Porá. Es un espacio propio, tranquilo y con camilla. La dirección exacta te la paso por WhatsApp cuando coordinamos el turno." },
+  { question: "¿Atendés gente de Unquillo, Salsipuedes u otras localidades de Sierras Chicas?", answer: "Atiendo solo en mi espacio de Río Ceballos (zona Ñu Porá). Si vivís en otra localidad de Sierras Chicas o en la ciudad de Córdoba, podés venir con turno: escribime por WhatsApp y coordinamos el día." },
   { question: "¿Cuánto dura una sesión?", answer: "Entre 1 h 30 y 2 h. Incluye la conversación inicial, el trabajo de la sesión y un momento para cerrar sin apuro." },
   { question: "¿Puedo pedir solo un masaje, Reiki u otra técnica?", answer: "Las sesiones son integrativas: primero conversamos y después elegimos juntas las herramientas que pueden acompañarte mejor ese día. Si hay algo que te interesa especialmente o que preferís evitar, lo tenemos en cuenta." },
   { question: "¿Qué días atendés y cómo saco turno?", answer: "De lunes a viernes, con turno a coordinar por WhatsApp. El valor también lo conversamos por ahí. Consultar no te compromete a reservar." },
+  { question: "¿Necesito experiencia previa en yoga, meditación o arte?", answer: "No. No hace falta experiencia, saber dibujar ni tener una idea clara de lo que buscás. Empezamos conversando y la sesión se adapta a vos." },
   { question: "¿Puedo pedir ajustes o detener la sesión?", answer: "Sí. Tus preferencias y límites se conversan antes, y podés pedir un cambio o detener la sesión en cualquier momento." },
   { question: "¿Las sesiones reemplazan la atención médica o psicológica?", answer: "No. Son un acompañamiento holístico de bienestar, complementario. No reemplazan diagnósticos, tratamientos ni el acompañamiento de profesionales de la salud." },
 ];
