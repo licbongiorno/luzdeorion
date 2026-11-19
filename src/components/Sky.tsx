@@ -18,6 +18,7 @@ type Star = { x: number; y: number; r: number; o: number; twinkle: boolean; warm
  * lower part of a night section stays calm behind text.
  */
 export function Starfield({ seed = 7, count = 150, className = "" }: { seed?: number; count?: number; className?: string }) {
+  const uid = useId().replace(/:/g, "");
   const stars = useMemo<Star[]>(() => {
     const rand = mulberry32(seed);
     return Array.from({ length: count }, () => {
@@ -38,6 +39,17 @@ export function Starfield({ seed = 7, count = 150, className = "" }: { seed?: nu
       {stars.map((s, i) => (
         <circle key={i} className={s.twinkle ? "sky-star twinkle" : "sky-star"} cx={s.x.toFixed(1)} cy={s.y.toFixed(1)} r={s.r.toFixed(2)} fill={s.warm ? "#F3D9A6" : "#E4E6F5"} opacity={s.o.toFixed(2)} />
       ))}
+      {/* A rare shooting star; hidden unless motion is allowed (see useMotion.ts). */}
+      <defs>
+        <linearGradient id={`meteor-${uid}`} gradientUnits="userSpaceOnUse" x1="-120" y1="-44" x2="0" y2="0">
+          <stop offset="0" stopColor="#F3DDB0" stopOpacity="0" />
+          <stop offset="1" stopColor="#FFF6E2" stopOpacity=".95" />
+        </linearGradient>
+      </defs>
+      <g className="shooting-star" opacity="0">
+        <line x1="-120" y1="-44" x2="0" y2="0" stroke={`url(#meteor-${uid})`} strokeWidth="1.4" strokeLinecap="round" />
+        <circle r="1.6" fill="#FFF6E2" />
+      </g>
     </svg>
   );
 }
@@ -55,13 +67,21 @@ const ORION = {
   rigel: [318, 404],
 } as const;
 type StarName = keyof typeof ORION;
+
+/* The order in which the sky "builds" Orion: the belt lights first
+   (Alnitak → Alnilam → Mintaka), then the shoulders, the head and the feet. */
+const IGNITION: StarName[] = ["alnitak", "alnilam", "mintaka", "betelgeuse", "bellatrix", "meissa", "saiph", "rigel"];
+
+/* Lines are written from the star that lit first towards the next one, and
+   listed in the order they are traced: belt, up to the shoulders and head,
+   then down to the feet. */
 const LINES: [StarName, StarName][] = [
-  ["meissa", "betelgeuse"],
-  ["meissa", "bellatrix"],
-  ["betelgeuse", "alnitak"],
-  ["bellatrix", "mintaka"],
   ["alnitak", "alnilam"],
   ["alnilam", "mintaka"],
+  ["alnitak", "betelgeuse"],
+  ["mintaka", "bellatrix"],
+  ["betelgeuse", "meissa"],
+  ["bellatrix", "meissa"],
   ["alnitak", "saiph"],
   ["mintaka", "rigel"],
 ];
@@ -76,10 +96,15 @@ const STAR_STYLE: Record<StarName, { r: number; color: string; glow: number }> =
   meissa: { r: 3.4, color: "#E9ECFF", glow: 14 },
 };
 
+/**
+ * Orion in warm starlight. Markup is the finished, still constellation (what
+ * reduced-motion visitors see); src/hooks/useMotion.ts builds it star by star
+ * using data-ignite (star order) and data-trace (line order).
+ */
 export function OrionConstellation({ className = "" }: { className?: string }) {
   const uid = useId().replace(/:/g, "");
   return (
-    <svg className={`orion ${className}`} viewBox="0 0 420 520" aria-hidden="true" focusable="false">
+    <svg className={`orion ${className}`} viewBox="0 0 420 520" aria-hidden="true" focusable="false" data-orion>
       <defs>
         <radialGradient id={`glow-${uid}`}>
           <stop offset="0" stopColor="#F6DDA8" stopOpacity=".55" />
@@ -94,12 +119,12 @@ export function OrionConstellation({ className = "" }: { className?: string }) {
       {/* Guide rings: the golden-ratio circles that echo the mandala motif */}
       <g className="orion-rings" fill="none" stroke="#B9BCD6" strokeWidth=".8">
         <circle className="draw" pathLength={1} cx="214" cy="270" r="200" opacity=".22" />
-        <circle className="draw" pathLength={1} cx="214" cy="270" r="124" opacity=".18" strokeDasharray="2 7" />
+        <circle className="orion-ring-dots" cx="214" cy="270" r="124" opacity=".18" strokeDasharray="2 7" />
       </g>
       <ellipse className="orion-nebula" cx="204" cy="350" rx="26" ry="34" fill={`url(#nebula-${uid})`} />
       <g className="orion-lines" fill="none" stroke="#EAC57E" strokeWidth="1.1" strokeLinecap="round" opacity=".75">
-        {LINES.map(([a, b]) => (
-          <line key={`${a}-${b}`} className="draw" pathLength={1} x1={ORION[a][0]} y1={ORION[a][1]} x2={ORION[b][0]} y2={ORION[b][1]} />
+        {LINES.map(([a, b], i) => (
+          <line key={`${a}-${b}`} className="draw" data-trace={i} pathLength={1} x1={ORION[a][0]} y1={ORION[a][1]} x2={ORION[b][0]} y2={ORION[b][1]} />
         ))}
       </g>
       <g className="orion-sword" fill="#E9ECFF">
@@ -107,14 +132,18 @@ export function OrionConstellation({ className = "" }: { className?: string }) {
         <circle cx="204" cy="346" r="2.2" opacity=".9" />
         <circle cx="203" cy="368" r="1.5" opacity=".7" />
       </g>
-      {(Object.keys(ORION) as StarName[]).map((name) => {
+      {IGNITION.map((name, i) => {
         const [x, y] = ORION[name];
         const s = STAR_STYLE[name];
+        const big = s.r > 6;
+        const ray = big ? 22 : Math.round(s.r * 3.4);
         return (
-          <g key={name} className={`orion-star orion-${name}`} transform={`translate(${x} ${y})`}>
-            <circle r={s.glow} fill={`url(#glow-${uid})`} className="orion-glow" />
-            {s.r > 6 && <path d="M0 -22V22M-22 0H22" stroke={s.color} strokeWidth=".7" opacity=".55" />}
-            <circle r={s.r} fill={s.color} />
+          <g key={name} className={`orion-star orion-${name}`} data-ignite={i} transform={`translate(${x} ${y})`}>
+            <g className="orion-star-body">
+              <circle r={s.glow} fill={`url(#glow-${uid})`} className="orion-glow" />
+              <path className="orion-flare" d={`M0 -${ray}V${ray}M-${ray} 0H${ray}`} stroke={s.color} strokeWidth=".7" strokeLinecap="round" opacity={big ? 0.55 : 0} data-rest={big ? 0.55 : 0} />
+              <circle className="orion-core" r={s.r} fill={s.color} />
+            </g>
           </g>
         );
       })}
@@ -174,9 +203,9 @@ export function BeltMark({ className = "" }: { className?: string }) {
     <svg className={`belt-mark ${className}`} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
       <circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" strokeOpacity=".45" strokeWidth="1" />
       <g fill="#EAC57E">
-        <circle cx="9.2" cy="20.4" r="2.1" />
-        <circle cx="16" cy="16" r="2.5" />
-        <circle cx="22.8" cy="11.6" r="2.1" />
+        <circle className="belt-dot" cx="9.2" cy="20.4" r="2.1" />
+        <circle className="belt-dot" cx="16" cy="16" r="2.5" />
+        <circle className="belt-dot" cx="22.8" cy="11.6" r="2.1" />
       </g>
     </svg>
   );
